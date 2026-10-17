@@ -1,0 +1,853 @@
+/* ============================================================
+   САЙТ ПОСЛЕ ХИРО — «Погружение в океан»
+   Хиро живёт в index.html и этим файлом НЕ затрагивается.
+   Здесь только слой контента поверх общей подводной сцены.
+
+   Язык секций: подводный editorial. Не карточки на синем фоне,
+   а крупная типографика, волосяные линии и фото «в воде».
+   ============================================================ */
+
+/* НЕ ставить overflow-x на html. Пробовал clip ради 62px горизонтального
+   уезда — в Safari это ломает position:sticky, на котором держится хиро:
+   экран перестаёт залипать и страница просто улетает вниз.
+   Горизонталь держит body{overflow-x:hidden} из хиро. */
+
+:root{
+  --ch-gut: clamp(20px,4vw,64px);
+  --glass-bg: rgba(255,255,255,.055);
+  --glass-br: rgba(255,255,255,.16);
+  --hair: rgba(255,255,255,.11);
+  --ink-1: rgba(255,255,255,.92);
+  --ink-2: rgba(255,255,255,.68);
+  --ink-3: rgba(255,255,255,.46);
+  --sec-pad: clamp(96px,13vh,170px);
+  --ease-out: cubic-bezier(.16,1,.3,1);
+}
+
+/* ——— общее полотно океана ——————————————————————————————
+   Один canvas на весь сайт. Фиксирован, лежит под контентом.
+   Во время хиро не рендерится вообще (см. ocean.js). */
+#ocean{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block;
+  pointer-events:none}
+
+/* Фолбэк, когда WebGL недоступен: цвет воды ведём той же переменной,
+   что и сцена, — сайт остаётся читаемым и «глубина» сохраняется. */
+#ocean-fallback{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:linear-gradient(180deg,
+    var(--water-top,#0A3560) 0%,
+    var(--water-bot,#00060F) 100%)}
+html.has-webgl #ocean-fallback{display:none}
+
+/* Хиро должен перекрывать океан целиком, пока он на экране */
+.scroll-space{position:relative;z-index:2}
+.hero{background:var(--abyss)}
+
+/* ——— каркас глав ——————————————————————————————————————
+   Обычные DOM-секции. Прозрачные — сквозь них виден один и тот же
+   океан, поэтому «стыка секций» не видно. */
+.chapters{position:relative;z-index:2}
+.ch{position:relative;padding:0 var(--ch-gut);
+  display:flex;flex-direction:column;justify-content:center}
+.ch-in{width:100%;max-width:1440px;margin:0 auto}
+/* информационные секции: обычный поток, ритм задают отступы */
+.ch.sec{display:block;padding-top:var(--sec-pad);padding-bottom:var(--sec-pad)}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));
+  column-gap:clamp(16px,2vw,32px)}
+
+/* ——— светильник над аквариумом ——————————————————————————
+   Стоит ровно на стыке хиро и первой главы (top:0 блока = стык).
+   Хиро не трогаем: лампа лежит поверх его нижней кромки (z-index 3). */
+.lamp-seam{position:relative;z-index:3;height:38vh;pointer-events:none;
+  --lamp-h:clamp(14px,1.75vw,30px);
+  --lamp-in:var(--ch-gut);
+  --lamp-glow:219,245,255}          /* цвет света — как у светильника в ocean.js */
+.lamp-seam > *{position:absolute;display:block}
+.lamp-ref{left:var(--lamp-in);right:var(--lamp-in);top:calc(var(--lamp-h)*-.5);height:var(--lamp-h);visibility:hidden}
+#lamp-canvas{left:0;width:100%;height:calc(var(--lamp-h)*5);
+  top:calc(var(--lamp-h)*-2.5)}
+.lamp-halo{left:0;right:0;top:calc(var(--lamp-h)*.5 - 90px);height:180px;
+  opacity:var(--lamp-on,1);
+  background:linear-gradient(180deg,
+    rgba(var(--lamp-glow),0) 0%,
+    rgba(var(--lamp-glow),.05) 34%,
+    rgba(var(--lamp-glow),.20) 50%,
+    rgba(var(--lamp-glow),.08) 64%,
+    rgba(var(--lamp-glow),0) 100%);
+  -webkit-mask-image:linear-gradient(90deg,transparent calc(var(--lamp-in) - 10px),
+    #000 calc(var(--lamp-in) + 7%),#000 calc(100% - var(--lamp-in) - 7%),transparent calc(100% - var(--lamp-in) + 10px));
+          mask-image:linear-gradient(90deg,transparent calc(var(--lamp-in) - 10px),
+    #000 calc(var(--lamp-in) + 7%),#000 calc(100% - var(--lamp-in) - 7%),transparent calc(100% - var(--lamp-in) + 10px))}
+.lamp-cable{bottom:100%;width:1px;height:min(22vh,190px);
+  background:linear-gradient(0deg,rgba(190,214,230,.42),rgba(190,214,230,0))}
+.lamp-cable.l{left:calc(var(--lamp-in) + 11%)}
+.lamp-cable.r{right:calc(var(--lamp-in) + 11%)}
+.hero.fading{
+  -webkit-mask-image:linear-gradient(180deg,#000 calc(100% - var(--hero-fade,0px)),transparent 100%);
+          mask-image:linear-gradient(180deg,#000 calc(100% - var(--hero-fade,0px)),transparent 100%)}
+/* растворение кромки хиро рисует ocean.js полосой воды поверх хиро (#ocean-band) —
+   тогда CSS-маска не нужна; без WebGL остаётся прежняя маска */
+#ocean-band{position:fixed;left:0;top:0;width:100%;z-index:1;pointer-events:none;
+  visibility:hidden;will-change:transform}
+html.band-fade .hero.fading{-webkit-mask-image:none;mask-image:none}
+html:not(.has-lamp) .lamp-cable,html:not(.has-lamp) .lamp-halo{display:none}
+
+/* ============================================================
+   ТИПОГРАФИКА
+   Один набор на весь сайт: Unbounded (заголовки), Onest (текст),
+   JetBrains Mono (метки).
+   ============================================================ */
+.eyebrow{display:flex;align-items:center;gap:14px;
+  font-family:var(--font-mono);font-size:10px;font-weight:500;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--foam);opacity:.82}
+.eyebrow::before{content:'';width:clamp(28px,4vw,54px);height:1px;
+  background:currentColor;opacity:.55;flex:none}
+
+/* эхо заголовка хиро: верхний регистр, 800 — только «Океан в городе» и финал */
+.display{font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  font-size:clamp(40px,6vw,100px);line-height:.92;letter-spacing:-.035em;
+  margin-top:clamp(20px,2.4vw,32px)}
+.title{font-family:var(--font-display);font-weight:600;
+  font-size:clamp(32px,4.6vw,72px);line-height:1.0;letter-spacing:-.03em;
+  margin-top:clamp(18px,2vw,26px);color:#fff}
+.display > span,.title > span,.finale h2 > span{display:block;overflow:hidden;
+  padding-bottom:.08em;margin-bottom:-.08em}           /* маска строки, хвосты букв не режем */
+.li{display:block;will-change:transform}
+
+.lead{margin-top:clamp(22px,2.4vw,32px);max-width:32ch;
+  font-size:clamp(17px,1.5vw,23px);line-height:1.45;font-weight:300;color:var(--ink-1)}
+.lead b{font-weight:500;color:var(--foam)}
+.body{margin-top:clamp(16px,1.8vw,24px);max-width:46ch;
+  font-size:clamp(14px,1.05vw,17px);line-height:1.65;font-weight:300;color:var(--ink-2)}
+.body a,.note a,.acc-p a{color:var(--foam);text-decoration:none;
+  background:linear-gradient(currentColor,currentColor) 0 100%/100% 1px no-repeat;cursor:none}
+.label{font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--foam);opacity:.85}
+.note{margin-top:14px;font-size:13px;line-height:1.6;font-weight:300;color:var(--ink-3)}
+
+/* ——— заголовок главы акулы (разметка секции не меняется) ——— */
+h2.ch-t{font-family:var(--font-display);font-weight:600;
+  font-size:clamp(32px,5.4vw,78px);line-height:1.0;letter-spacing:-.03em;
+  margin-top:clamp(16px,2vw,26px);color:#fff}
+h2.ch-t em{font-style:normal;display:block}
+.ch-p{margin-top:clamp(16px,2vw,26px);max-width:44ch;
+  font-size:clamp(14px,1.05vw,17px);line-height:1.62;font-weight:300;color:var(--ink-2)}
+.ch-p b{font-weight:500;color:var(--foam)}
+
+/* маркер «В кадре»: подпись к ролику, а не карточка вида */
+.in-frame{margin-top:clamp(22px,2.6vw,32px);display:flex;align-items:center;gap:12px;
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase}
+.in-frame i{width:7px;height:7px;border-radius:50%;background:var(--signal);
+  box-shadow:0 0 0 4px rgba(199,34,106,.18)}
+.in-frame span{color:var(--ink-3)}
+.in-frame b{font-weight:500;color:var(--ink-1)}
+
+/* ——— второстепенные ссылки со стрелкой ———————————————————— */
+.more,.link-arrow{display:inline-flex;align-items:center;gap:14px;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink-1);text-decoration:none;cursor:none}
+.more{margin-top:clamp(22px,2.8vw,34px)}
+.more i,.link-arrow i{width:38px;height:38px;border-radius:50%;border:1px solid var(--glass-br);
+  display:grid;place-items:center;font-style:normal;color:var(--foam);flex:none;
+  transition:border-color .4s ease,background .4s ease,transform .5s var(--ease-out)}
+.more:hover i,.link-arrow:hover i{border-color:rgba(174,223,230,.6);background:rgba(174,223,230,.08);transform:translateX(5px)}
+.expo-copy .link-arrow{margin-top:clamp(24px,3vw,36px)}
+
+.btns{margin-top:clamp(28px,3.4vw,44px);display:flex;align-items:center;flex-wrap:wrap;gap:18px 30px}
+.btns .cta{margin:0}
+
+/* ============================================================
+   ФОТО «В ВОДЕ»
+   Кадр подкрашен текущим цветом глубины (--water-* ведёт ocean.js),
+   низ уходит в воду, сверху — слабый свет. Появление — маска + сдвиг
+   + волна (feDisplacementMap), дальше лёгкий параллакс внутри рамки.
+   ============================================================ */
+.aq{position:relative;margin:0}
+.aq-in{position:relative;overflow:hidden;border-radius:3px;aspect-ratio:var(--ar,4/5);
+  background:color-mix(in srgb,var(--water-bot,#041C33) 80%,#000);
+  box-shadow:0 40px 90px -30px rgba(0,4,12,.7)}
+.aq-in img{position:absolute;left:0;top:-9%;width:100%;height:118%;object-fit:cover;display:block;
+  will-change:transform}
+.aq-in::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(174,223,230,.10) 0%,rgba(174,223,230,0) 26%),
+    linear-gradient(0deg,color-mix(in srgb,var(--water-bot,#041C33) 62%,transparent) 0%,transparent 42%),
+    color-mix(in srgb,var(--water-top,#0A3560) 14%,transparent);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.07)}
+/* Подкраска цветом воды — отдельными сплошными слоями (site.js добавляет
+   .aq-w0/1/2 и класс .w). Смена цвета воды при прокрутке перекрашивает
+   только их; маскированный блок с фото больше не перерисовывается целиком
+   (Safari: вдвое меньше медленных кадров). Смешивание то же, что у ::after:
+   ровные 14% water-top, снизу water-bot 62% → 0 к 42% высоты, сверху блик. */
+.aq-in.w{background:none}
+.aq-in.w i[class^="aq-w"]{position:absolute;inset:0;display:block;pointer-events:none;will-change:transform}
+.aq-in.w .aq-w0{background:color-mix(in srgb,var(--water-bot,#041C33) 80%,#000)}
+.aq-in.w .aq-w1{background:color-mix(in srgb,var(--water-top,#0A3560) 14%,transparent)}
+.aq-in.w .aq-w2{background:var(--water-bot,#041C33);
+  -webkit-mask-image:linear-gradient(0deg,rgba(0,0,0,.62) 0%,transparent 42%);
+          mask-image:linear-gradient(0deg,rgba(0,0,0,.62) 0%,transparent 42%)}
+.aq-in.w::after{background:linear-gradient(180deg,rgba(174,223,230,.10) 0%,rgba(174,223,230,0) 26%)}
+/* шторка раскрытия (site.js, makeWipe): обёртка едет, содержимое — навстречу;
+   блик и кант бывшего ::after переезжают внутрь (.aq-w3), чтобы тоже раскрываться */
+.aq-wipe,.aq-wipe-in{position:absolute;inset:0;will-change:transform}
+.aq-wipe{overflow:hidden}
+.aq-in.wiped::after{display:none}
+.aq-in.wiped .aq-w3{background:linear-gradient(180deg,rgba(174,223,230,.10) 0%,rgba(174,223,230,0) 26%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.07)}
+.aq figcaption{margin-top:14px;display:flex;align-items:center;gap:10px;
+  font-family:var(--font-mono);font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-3)}
+.aq figcaption::before{content:'';width:18px;height:1px;background:currentColor}
+/* ——— окна аквариума: у каждого кадра своя форма, края растворяются в воде ——— */
+.aq-in{border-radius:var(--rad,26px)}
+.aq.arch .aq-in{border-radius:50% 50% var(--rad,26px) var(--rad,26px) / var(--archv) var(--archv) var(--rad,26px) var(--rad,26px)}
+.aq[class*="fade-"] .aq-in{box-shadow:none;-webkit-mask-size:100% 100%;mask-size:100% 100%;
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+/* сами маски (.aq.fade-b|l|r|bl|bs) ставит site.js прямым url() в <style> —
+   не через var(): значение custom property перечитывается при каждом
+   пересчёте стиля и маска декодируется заново */
+.about-img{--archv:33.4%}
+.expo-b{--archv:37.5%}
+.feed-img{--archv:33.4%}
+.expo-a{--rad:42px}
+.expo-c{--rad:30px}
+.tours-img{--rad:46px}
+.aq.mini{--rad:14px}
+/* до появления кадр закрыт маской (site.js снимает её) — без JS всё видно */
+html.js [data-r="aq"] .aq-in{clip-path:inset(0 0 100% 0)}
+
+/* ============================================================
+   01 · ОКЕАН В ГОРОДЕ
+   ============================================================ */
+.about .grid{row-gap:clamp(48px,7vw,96px);align-items:start}
+.about-copy{grid-column:1 / 7;padding-top:clamp(0px,4vw,60px)}
+.about-img{grid-column:8 / 13;grid-row:1 / 3;--ar:2/3}
+.facts{grid-column:1 / 8;grid-row:2;align-self:end;
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2vw,28px)}
+.facts div{border-top:1px solid var(--hair);padding-top:16px}
+.facts dt{font-family:var(--font-display);font-weight:600;white-space:nowrap;
+  font-size:clamp(22px,2.1vw,32px);line-height:1;letter-spacing:-.03em;color:var(--foam)}
+.facts dd{margin-top:10px;font-family:var(--font-mono);font-size:9px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);line-height:1.6}
+
+/* ============================================================
+   02 · ЭКСПОЗИЦИЯ — масштаб: огромная цифра + наложенные кадры
+   ============================================================ */
+.expo{padding-bottom:calc(var(--sec-pad) + 22vh)}    /* пустая вода перед акулой */
+.expo-head{display:flex;flex-direction:column;gap:clamp(10px,2vw,24px)}
+.giant{font-family:var(--font-display);font-weight:800;line-height:.78;letter-spacing:-.055em;
+  font-size:clamp(92px,21vw,330px);display:flex;align-items:flex-start;gap:.06em;
+  margin-left:-.04em;user-select:none}
+.giant span{background:linear-gradient(180deg,rgba(214,240,245,.95) 0%,rgba(174,223,230,.55) 48%,rgba(174,223,230,.06) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:.04em}
+.giant small{font-size:.2em;font-weight:600;letter-spacing:-.02em;color:var(--foam);
+  margin-top:.35em;opacity:.8}
+.expo-stage{position:relative;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));
+  column-gap:clamp(16px,2vw,32px);margin-top:clamp(-120px,-7vw,-40px)}
+.expo-a{grid-column:1 / 9;grid-row:1;--ar:3/2;z-index:1}
+.expo-b{grid-column:9 / 12;grid-row:1;--ar:3/4;z-index:2;align-self:end;
+  margin-bottom:-22%;margin-left:-18%}
+.expo-c{grid-column:2 / 6;grid-row:2;--ar:4/3;margin-top:clamp(40px,6vw,90px)}
+.expo-copy{grid-column:7 / 12;grid-row:2;padding-top:clamp(90px,11vw,170px)}
+/* заголовки в половинной колонке — ступенью ниже, иначе длинные русские слова не влезают */
+.expo-copy .title,.tours-copy .title{font-size:clamp(28px,3.4vw,52px)}
+
+/* ============================================================
+   03 · АКУЛА — раскладку не трогать (к ней привязан ролик)
+   ============================================================ */
+.encounter{min-height:100svh}
+.enc-copy{max-width:min(46ch,44vw)}
+
+/* ============================================================
+   06 · КОГО ВЫ УВИДИТЕ — главные виды карточками + лента всех видов
+   ============================================================ */
+.species{padding-top:calc(var(--sec-pad) + 24vh)}   /* после акулы — пауза, вода */
+.species-head{max-width:560px}
+.stars{margin-top:clamp(40px,5vw,72px);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:clamp(14px,2vw,32px);align-items:start}
+.star:nth-child(even){margin-top:clamp(36px,5.5vw,90px)}
+.star .aq-in{--ar:3/4;--rad:20px}
+.star .aq-in img{top:0;height:100%;transition:transform 1.2s var(--ease-out)}
+.star h3{margin-top:18px;font-family:var(--font-display);font-weight:600;letter-spacing:-.02em;
+  font-size:clamp(18px,1.55vw,25px);line-height:1.15;color:#fff}
+.star-m{margin-top:10px;font-family:var(--font-mono);font-size:9.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-2);line-height:1.7}
+.star-m span{display:block;color:var(--ink-3)}
+@media (hover:hover){.star:hover .aq-in img{transform:scale(1.05)}}
+.star-new{aspect-ratio:3/4;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:clamp(20px,2.2vw,32px);border-radius:20px;
+  background:linear-gradient(180deg,rgba(190,232,246,.06),rgba(190,232,246,.02));
+  border:1px solid rgba(255,255,255,.12)}
+html.lg-svg .star-new,html.lg-soft .star-new{border-radius:20px}
+.star-new .label{display:flex;align-items:center;gap:10px;color:var(--foam);margin-bottom:auto}
+.star-new .label i{width:6px;height:6px;border-radius:50%;background:var(--foam);
+  box-shadow:0 0 12px rgba(174,223,230,.9)}
+.star-new h3{margin-top:0;font-size:clamp(19px,1.7vw,27px)}
+.star-t{margin-top:12px;font-size:13.5px;line-height:1.55;font-weight:300;color:var(--ink-2)}
+
+/* лента: во всю ширину окна, бесконечная; скорость и направление — от прокрутки (site.js) */
+.marquee{margin-top:clamp(70px,9vw,130px);width:100vw;margin-left:calc(50% - 50vw);overflow:hidden;
+  padding:clamp(14px,1.8vw,26px) 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.mq-track{display:flex;width:max-content;will-change:transform}
+.mq-list{display:flex;align-items:center;list-style:none;flex:none}
+.mq-list li{display:flex;align-items:center;white-space:nowrap;
+  font-family:var(--font-display);font-weight:700;letter-spacing:-.03em;line-height:1.1;
+  font-size:clamp(32px,5vw,80px);color:var(--ink-1)}
+.mq-list li:nth-child(even){color:rgba(174,223,230,.34)}
+.mq-list li::after{content:'';flex:none;width:.14em;height:.14em;margin:0 .55em;border-radius:50%;
+  background:var(--foam);box-shadow:0 0 16px rgba(174,223,230,.8)}
+.mq-list sup{align-self:flex-start;margin:.35em 0 0 .4em;font-family:var(--font-mono);font-weight:500;
+  font-size:max(9px,.14em);letter-spacing:.2em;text-transform:uppercase;color:var(--foam)}
+
+/* ============================================================
+   05 · КОРМЛЕНИЯ — ритм через крупное время
+   ============================================================ */
+.feed .grid{align-items:start;row-gap:clamp(40px,5vw,72px)}
+.feed-copy{grid-column:1 / 8}
+.feed-img{grid-column:9 / 13;grid-row:1 / 3;--ar:2/3;margin-top:clamp(40px,8vw,120px)}
+.feed-more{grid-column:1 / 8;grid-row:2}
+.days{margin-top:clamp(26px,3vw,40px);font-family:var(--font-mono);font-size:11px;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--foam)}
+/* табло: время строками, у каждой — статус (прошло / ближайшее).
+   Классы is-* — не .next/.past: .next занят старой заглушкой в CSS хиро. */
+.times{list-style:none;margin-top:18px;max-width:640px}
+.times li{position:relative;display:flex;align-items:baseline;justify-content:space-between;gap:20px;
+  padding:clamp(8px,1vw,14px) 0;border-top:1px solid var(--hair);overflow:hidden}
+.times li:last-child{border-bottom:1px solid var(--hair)}
+.times li span{display:block;font-family:var(--font-display);font-weight:800;letter-spacing:-.04em;line-height:1;
+  font-size:clamp(46px,6.2vw,104px);color:var(--ink-1);font-variant-numeric:tabular-nums;
+  transition:color .6s ease,opacity .6s ease}
+.times li em{font-style:normal;font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink-3);text-align:right}
+.times li.is-past span{color:var(--ink-3);opacity:.5}
+.times li.is-next span{color:var(--foam)}
+.times li.is-next em{color:var(--foam);display:flex;align-items:center;gap:10px}
+.times li.is-next em::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;
+  box-shadow:0 0 0 4px rgba(174,223,230,.16)}
+.feed-copy .body{margin-top:clamp(26px,3vw,38px)}
+.feed-row{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.6vw,22px);
+  margin-top:16px;max-width:560px}
+.feed-row span{display:block;margin-top:10px;font-family:var(--font-mono);font-size:9px;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--ink-2)}
+.feed-row small{display:block;margin-top:4px;font-family:var(--font-mono);font-size:9px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.aq.mini .aq-in{--ar:4/3;box-shadow:none}
+
+/* ============================================================
+   06 · ЭКСКУРСИИ И ГРУППЫ
+   ============================================================ */
+.tours .grid{align-items:start}
+.tours-img{grid-column:1 / 6;--ar:8/9;position:sticky;top:14vh}
+.tours-copy{grid-column:7 / 13}
+.meta{list-style:none;margin-top:clamp(26px,3vw,38px);display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.meta li{border-top:1px solid var(--hair);padding-top:14px}
+.meta span{display:block;font-family:var(--font-mono);font-size:9px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink-3)}
+.meta b{display:block;margin-top:8px;font-weight:400;font-size:14px;line-height:1.35;color:var(--ink-1)}
+.price-lines{margin-top:clamp(34px,4vw,54px)}
+.price-lines .label{margin-bottom:10px}
+.pl{display:flex;align-items:baseline;gap:14px;padding:14px 0}
+.pl span{font-size:clamp(14px,1.1vw,17px);font-weight:300;color:var(--ink-2);white-space:nowrap}
+.pl i{flex:1;height:1px;background:var(--hair);transform-origin:left center;align-self:center}
+.pl b{font-family:var(--font-display);font-weight:600;letter-spacing:-.02em;
+  font-size:clamp(18px,1.7vw,26px);color:#fff;white-space:nowrap;font-variant-numeric:tabular-nums}
+
+/* группы: единственная стеклянная панель на странице */
+.groups{margin-top:clamp(70px,9vw,130px);display:grid;align-items:center;
+  grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) auto;gap:clamp(24px,3vw,48px);
+  padding:clamp(24px,3vw,44px);border-radius:6px;
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025));
+  border:1px solid rgba(255,255,255,.1);
+  -webkit-backdrop-filter:blur(20px) saturate(125%);backdrop-filter:blur(20px) saturate(125%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+/* ——— жидкое стекло ————————————————————————————————————
+   Преломление (линза по кромке, аберрация) — SVG-фильтр в
+   backdrop-filter, ставит site.js (html.lg-svg, только Chromium).
+   Safari/Firefox — html.lg-soft: остаётся собственный blur элемента,
+   добавляется тот же кант. Материал по типу:
+   .lg-panel — плашки, .lg-btn — кнопки, .lg-chip — метки. */
+html.lg-svg [data-glass],html.lg-soft [data-glass]{border-color:transparent;isolation:isolate}
+html.lg-svg [data-glass]::before,html.lg-soft [data-glass]::before{content:'';position:absolute;inset:0;
+  border-radius:inherit;padding:1px;pointer-events:none;z-index:1;
+  background:linear-gradient(162deg,rgba(255,255,255,.46),rgba(255,255,255,.1) 26%,
+    rgba(255,255,255,.035) 58%,rgba(174,223,230,.2) 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude}
+
+html.lg-svg .lg-panel,html.lg-soft .lg-panel{position:relative;border-radius:22px;
+  background:linear-gradient(180deg,rgba(190,232,246,.075),rgba(190,232,246,.02) 42%,rgba(160,215,235,.035));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),inset 0 0 22px rgba(174,223,230,.05),
+    0 40px 80px -46px rgba(0,6,16,.7),0 10px 30px -18px rgba(0,6,16,.45)}
+html.lg-svg .lg-panel::after,html.lg-soft .lg-panel::after{content:'';position:absolute;inset:0;
+  border-radius:inherit;z-index:-1;pointer-events:none;opacity:0;transition:opacity .6s ease;
+  background:radial-gradient(320px circle at var(--mx,50%) var(--my,0),rgba(190,235,245,.075),transparent 62%)}
+@media (hover:hover){html.lg-svg .lg-panel:hover::after,html.lg-soft .lg-panel:hover::after{opacity:1}}
+
+html.lg-svg .lg-btn{position:relative;
+  background:linear-gradient(180deg,rgba(200,236,248,.13),rgba(200,236,248,.035) 55%,rgba(200,236,248,.07));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.28),inset 0 -8px 16px -10px rgba(174,223,230,.18),
+    0 12px 34px -8px rgba(0,6,16,.45)}
+html.lg-svg .lg-btn:hover{
+  background:linear-gradient(180deg,rgba(200,236,248,.2),rgba(200,236,248,.06) 55%,rgba(200,236,248,.11));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.38),inset 0 -8px 16px -10px rgba(174,223,230,.3),
+    0 0 46px rgba(174,223,230,.2),0 12px 34px -8px rgba(0,6,16,.45)}
+
+.in-frame.lg-chip{position:relative;display:inline-flex;padding:10px 16px 10px 14px;border-radius:999px}
+html.lg-svg .lg-chip{background:linear-gradient(180deg,rgba(200,236,248,.1),rgba(200,236,248,.03));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 10px 28px -10px rgba(0,6,16,.5)}
+html.lg-soft .lg-chip{background:rgba(255,255,255,.06);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+
+/* помощник: окно плотнее (под ним текст сайта), но вода сквозь край видна */
+html.lg-svg .asst{background:rgba(3,16,30,.7)}
+html.lg-svg .asst-btn{background:rgba(4,20,36,.38)}
+.groups h3{margin-top:12px;font-family:var(--font-display);font-weight:600;letter-spacing:-.02em;
+  font-size:clamp(18px,1.7vw,26px);line-height:1.2;max-width:24ch}
+.groups .body{max-width:52ch}
+.groups-p{display:grid;gap:16px}
+.groups-p div{display:grid;grid-template-columns:6.5em 1fr 1fr;align-items:baseline;gap:12px;
+  border-top:1px solid var(--hair);padding-top:12px}
+.groups-p dt{font-family:var(--font-mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3)}
+.groups-p b{font-family:var(--font-display);font-weight:600;font-size:clamp(16px,1.4vw,21px);color:#fff;white-space:nowrap}
+.groups-p small{display:block;font-family:var(--font-mono);font-size:8px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ink-3);margin-top:4px}
+
+/* ============================================================
+   07 · ЦЕНЫ — строки с крупными цифрами, без сетки карточек
+   ============================================================ */
+.tk-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.seg{position:relative;display:inline-flex;padding:5px;border-radius:999px;
+  background:var(--glass-bg);border:1px solid var(--glass-br);
+  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+.seg button{position:relative;z-index:1;appearance:none;border:0;background:none;cursor:none;
+  padding:12px 20px;border-radius:999px;color:var(--ink-2);
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  transition:color .4s ease}
+.seg button small{font-size:inherit;opacity:.6;letter-spacing:.1em;text-transform:none}
+.seg button[aria-selected="true"]{color:var(--abyss)}
+.seg-thumb{position:absolute;z-index:0;top:5px;bottom:5px;left:0;width:0;border-radius:999px;
+  background:var(--foam);box-shadow:0 0 30px rgba(174,223,230,.25);
+  transition:transform .55s var(--ease-out),width .55s var(--ease-out)}
+.tk-lead{margin-top:18px;max-width:40ch}
+.tk-head .seg{align-self:flex-end}
+
+/* билет: слева кто идёт, справа корешок с суммой; между ними линия
+   отрыва с настоящими вырезами (маска режет и само стекло) */
+.tix{--stub:clamp(290px,27vw,380px);--notch:15px;
+  margin-top:clamp(36px,4.4vw,60px);display:grid;
+  grid-template-columns:minmax(0,1fr) 0 var(--stub);border-radius:28px}
+html.lg-svg .tix,html.lg-soft .tix{border-radius:28px;
+  -webkit-mask:radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 0,#0000 97%,#000) top/100% 51% no-repeat,
+    radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 100%,#0000 97%,#000) bottom/100% 51% no-repeat;
+  mask:radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 0,#0000 97%,#000) top/100% 51% no-repeat,
+    radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 100%,#0000 97%,#000) bottom/100% 51% no-repeat}
+.tix-main{padding:clamp(20px,2.6vw,38px) clamp(22px,3vw,48px)}
+.tix-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;
+  gap:clamp(14px,2.4vw,40px);padding:clamp(14px,1.6vw,22px) 0;border-top:1px solid var(--hair)}
+.tix-row:first-child{border-top:0}
+.tix-n h3{font-family:var(--font-display);font-weight:600;letter-spacing:-.02em;
+  font-size:clamp(17px,1.5vw,23px);line-height:1.1;color:var(--ink-2);transition:color .4s ease}
+.tix-row.on .tix-n h3{color:#fff}
+.tix-n p{margin-top:6px;font-family:var(--font-mono);font-size:9.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-3)}
+.tix-each{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--ink-3);
+  white-space:nowrap;font-variant-numeric:tabular-nums}
+.tix-each b{font-weight:500;color:var(--ink-2)}
+.tix-free{color:var(--foam);text-transform:uppercase;font-size:10px;letter-spacing:.18em}
+.step{display:inline-flex;align-items:center;gap:4px;padding:4px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.035)}
+.step button{appearance:none;width:38px;height:38px;border-radius:50%;border:0;cursor:none;
+  background:rgba(255,255,255,.06);color:#fff;font:400 18px/1 var(--font-body,inherit);
+  transition:background .3s ease,color .3s ease,opacity .3s ease}
+.step button:hover:not(:disabled){background:rgba(174,223,230,.2)}
+.step button:disabled{opacity:.28;cursor:default}
+.step output{min-width:2.2ch;text-align:center;font-family:var(--font-display);font-weight:600;
+  font-size:19px;font-variant-numeric:tabular-nums;display:inline-block}
+
+.tix-cut{position:relative;margin:calc(var(--notch) + 10px) 0;
+  border-left:1px dashed rgba(255,255,255,.2)}
+.tix-stub{padding:clamp(24px,3vw,44px) clamp(22px,2.6vw,40px);display:flex;flex-direction:column;
+  justify-content:center;align-items:flex-start;gap:0}
+.tix-sum{margin-top:12px;font-family:var(--font-display);font-weight:800;letter-spacing:-.04em;line-height:1;
+  font-size:clamp(38px,3.8vw,58px);color:#fff;white-space:nowrap;font-variant-numeric:tabular-nums;
+  display:flex;align-items:baseline;gap:.16em}
+.tix-sum small{font-size:.42em;font-weight:600;color:var(--foam);letter-spacing:0}
+.tix-who{margin-top:10px;font-size:14px;line-height:1.5;color:var(--ink-2);min-height:1.5em}
+.tix-tip{margin-top:16px;display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:14px;
+  font-size:13px;line-height:1.5;color:var(--ink-1);background:rgba(174,223,230,.08);
+  border:1px solid rgba(174,223,230,.16)}
+.tix-tip[hidden]{display:none}
+.tix-tip i{flex:none;margin-top:.5em;width:6px;height:6px;border-radius:50%;background:var(--foam);
+  box-shadow:0 0 0 4px rgba(174,223,230,.16)}
+.tix-tip b{font-weight:600;color:#fff;white-space:nowrap}
+.tix-tip.warn{background:rgba(199,34,106,.1);border-color:rgba(199,34,106,.28)}
+.tix-tip.warn i{background:var(--signal);box-shadow:0 0 0 4px rgba(199,34,106,.18)}
+.tix-stub .cta{margin-top:22px}
+
+/* льготы — одной строкой, подробности по клику */
+.perks{margin-top:clamp(22px,2.6vw,34px);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:clamp(12px,1.6vw,24px)}
+.perk{font-size:13px;line-height:1.5;font-weight:300;color:var(--ink-3)}
+.perk b{display:block;margin-bottom:4px;font-family:var(--font-mono);font-size:10px;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--foam)}
+.tk-more{margin-top:clamp(18px,2vw,26px);border-top:1px solid var(--hair)}
+.tk-more summary{list-style:none;display:flex;align-items:center;gap:12px;padding:16px 0;cursor:none;
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2)}
+.tk-more summary::-webkit-details-marker{display:none}
+.tk-more summary i{position:relative;width:10px;height:10px}
+.tk-more summary i::before,.tk-more summary i::after{content:'';position:absolute;left:0;right:0;top:50%;
+  height:1px;background:currentColor;transition:transform .4s var(--ease-out)}
+.tk-more summary i::after{transform:rotate(90deg)}
+.tk-more[open] summary i::after{transform:rotate(0)}
+.tk-more summary:hover{color:var(--foam)}
+.tk-more-in{padding:0 0 10px;max-width:78ch;display:grid;gap:8px;
+  font-size:13px;line-height:1.65;font-weight:300;color:var(--ink-3)}
+
+/* ============================================================
+   08 · ВОПРОСЫ — аккордеон без эффектов ради эффектов
+   ============================================================ */
+.faq .grid{align-items:start}
+.faq-head{grid-column:1 / 5;position:sticky;top:22vh}
+.faq-head .body a{font-family:var(--font-display);font-weight:600;font-size:clamp(17px,1.5vw,22px);
+  background:none;color:#fff}
+.acc{grid-column:6 / 13}
+.acc-i{position:relative;border-top:1px solid var(--hair)}
+.acc-i:last-child{border-bottom:1px solid var(--hair)}
+.acc-i h3{font:inherit}
+.acc-i button{width:100%;display:flex;align-items:center;justify-content:space-between;gap:24px;
+  padding:clamp(18px,2vw,26px) 0;appearance:none;background:none;border:0;cursor:none;text-align:left;
+  color:var(--ink-1);font-family:var(--font-text);font-weight:400;font-size:clamp(16px,1.3vw,20px);line-height:1.35;
+  transition:color .35s ease}
+.acc-i button:hover{color:var(--foam)}
+.acc-i button i{position:relative;flex:none;width:34px;height:34px;border-radius:50%;
+  border:1px solid var(--glass-br);transition:transform .5s var(--ease-out),border-color .4s ease,background .4s ease}
+.acc-i button i::before,.acc-i button i::after{content:'';position:absolute;left:50%;top:50%;
+  width:11px;height:1px;background:var(--foam);transform:translate(-50%,-50%)}
+.acc-i button i::after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .5s var(--ease-out)}
+.acc-i.open button i{transform:rotate(180deg);background:rgba(174,223,230,.08);border-color:rgba(174,223,230,.45)}
+.acc-i.open button i::after{transform:translate(-50%,-50%) rotate(0deg)}
+.acc-p{height:0;overflow:hidden}
+.acc-p > div{padding:0 64px clamp(20px,2.2vw,28px) 0}
+.acc-p p{max-width:62ch;font-size:15px;line-height:1.7;font-weight:300;color:var(--ink-2)}
+html:not(.js) .acc-p{height:auto}
+
+/* ============================================================
+   10 · КОНТАКТЫ
+   ============================================================ */
+.contacts .grid{align-items:end}
+.ct-main{grid-column:1 / 8}
+.addr{font-size:clamp(34px,5vw,80px)}
+.ct-list{grid-column:8 / 13}
+.ct-list div{display:grid;grid-template-columns:8.5em minmax(0,1fr);gap:16px;padding:16px 0;border-top:1px solid var(--hair)}
+.ct-list div:last-child{border-bottom:1px solid var(--hair)}
+.ct-list dt{font-family:var(--font-mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--ink-3);padding-top:4px}
+.ct-list dd{font-size:15px;line-height:1.5;color:var(--ink-1)}
+.ct-list dd small{display:block;font-size:12.5px;color:var(--ink-3);margin-top:2px}
+.ct-list a{color:var(--ink-1);text-decoration:none;cursor:none;transition:color .3s ease}
+.ct-list a:hover{color:var(--foam)}
+.ct-list .soc{display:flex;flex-wrap:wrap;gap:6px 18px}
+.open-now{display:inline-flex;align-items:center;gap:8px;margin-top:10px;
+  font-family:var(--font-mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--foam)}
+.open-now[hidden]{display:none}
+.open-now::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
+.open-now.closed{color:var(--ink-3)}
+
+/* ============================================================
+   ФИНАЛ
+   ============================================================ */
+.finale{min-height:100svh;display:grid;place-items:center;text-align:center;padding-bottom:10vh}
+.finale h2{font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  font-size:clamp(34px,6.6vw,104px);line-height:.95;letter-spacing:-.035em}
+.finale .ch-p{margin-left:auto;margin-right:auto;text-align:center;max-width:none;
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-2)}
+.finale .cta-wrap{margin-top:clamp(30px,3.6vw,46px)}
+
+/* ============================================================
+   НАВИГАЦИЯ — появляется только после хиро
+   ============================================================ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:20;
+  padding:16px var(--ch-gut);display:flex;align-items:center;justify-content:space-between;gap:20px;
+  background:linear-gradient(180deg,rgba(0,6,15,.5),rgba(0,6,15,0) 88%);
+  opacity:0;pointer-events:none;transition:opacity .5s ease}
+.nav.on{opacity:1;pointer-events:auto}
+/* дети скрыты (не в фокусе/для скринридера), пока nav неактивен, но сам .nav
+   и его ::before остаются в композиции с самой загрузки — иначе Safari
+   строит слой backdrop-filter с нуля ровно на стыке хиро→контент (фриз) */
+.nav:not(.on) .nav-logo,.nav:not(.on) .nav-links,.nav:not(.on) .nav-r{visibility:hidden}
+/* под панелью текст не проезжает резко: мягкое размытие, гаснущее книзу */
+.nav::before{content:'';position:absolute;inset:0 0 -24px;z-index:-1;pointer-events:none;
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  -webkit-mask-image:linear-gradient(180deg,#000 55%,transparent);mask-image:linear-gradient(180deg,#000 55%,transparent)}
+.nav-logo{font-family:var(--font-display);font-weight:800;font-size:12px;letter-spacing:.34em;color:#fff;
+  text-decoration:none;cursor:none;position:relative;z-index:2}
+.nav-links{display:flex;gap:clamp(14px,1.8vw,30px)}
+.nav-links a{position:relative;font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-2);text-decoration:none;cursor:none;transition:color .35s ease;padding:6px 0}
+.nav-links a::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--foam);
+  transform:scaleX(0);transform-origin:right center;transition:transform .5s var(--ease-out)}
+.nav-links a:hover,.nav-links a.cur{color:var(--foam)}
+.nav-links a:hover::after,.nav-links a.cur::after{transform:scaleX(1);transform-origin:left center}
+.nav-r{display:flex;align-items:center;gap:12px;position:relative;z-index:2}
+.nav-cta{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:#fff;text-decoration:none;cursor:none;padding:11px 20px;border-radius:999px;
+  background:rgba(255,255,255,.07);border:1px solid var(--glass-br);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  transition:background .4s ease,border-color .4s ease}
+.nav-cta:hover{background:rgba(255,255,255,.13);border-color:rgba(174,223,230,.45)}
+.nav-cta{white-space:nowrap}
+@media (max-width:420px){.nav-cta{padding:10px 14px;letter-spacing:.12em}.nav-logo{font-size:11px;letter-spacing:.26em}}
+.nav-burger{display:none;appearance:none;background:none;border:0;width:40px;height:40px;
+  position:relative;cursor:pointer}
+.nav-burger i{position:absolute;left:9px;right:9px;height:1.5px;background:#fff;
+  transition:transform .45s var(--ease-out),top .45s var(--ease-out)}
+.nav-burger i:first-child{top:15px}.nav-burger i:last-child{top:23px}
+.nav.open .nav-burger i:first-child{top:19px;transform:rotate(45deg)}
+.nav.open .nav-burger i:last-child{top:19px;transform:rotate(-45deg)}
+@media (max-width:1100px){.nav-links{gap:14px}.nav-links a{letter-spacing:.12em}}
+@media (max-width:980px){
+  .nav-burger{display:block}
+  .nav-links{position:fixed;inset:0;z-index:1;flex-direction:column;justify-content:center;gap:6px;
+    padding:0 var(--ch-gut);background:rgba(0,8,18,.9);
+    -webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);
+    opacity:0;visibility:hidden;transition:opacity .45s ease,visibility .45s ease}
+  .nav.open .nav-links{opacity:1;visibility:visible}
+  .nav-links a{font-family:var(--font-display);font-weight:600;font-size:clamp(26px,7vw,40px);
+    letter-spacing:-.02em;text-transform:none;color:var(--ink-1);padding:8px 0}
+  .nav-links a::after{display:none}
+}
+@media (pointer:coarse){.nav-links a,.nav-cta,.nav-logo{cursor:pointer}}
+
+/* ——— индикатор глубины ————————————————————————————————
+   Шкала глав: маркер опускается вместе с глубиной, подсвечена текущая. */
+.rail-d{position:fixed;right:clamp(12px,1.4vw,22px);top:50%;transform:translateY(-50%);z-index:20;
+  display:flex;gap:14px;opacity:0;visibility:hidden;transition:opacity .5s ease,visibility .5s ease}
+/* Подписи глав прячутся: справа теперь стоят фото. Видны только при
+   наведении на шкалу — поверх тёмной подложки. */
+.rail-d ol{padding:14px 16px;border-radius:10px;transition:background .4s ease}
+.rail-d:hover ol{background:rgba(0,8,18,.72);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.rail-d.on{opacity:1;visibility:visible}
+.rail-d ol{list-style:none;display:flex;flex-direction:column;gap:clamp(12px,1.8vh,22px);text-align:right}
+.rail-d li{font-family:var(--font-mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink-3);transition:color .4s ease,opacity .4s ease,transform .5s var(--ease-out);
+  opacity:0;transform:translateX(8px);white-space:nowrap;cursor:none}
+.rail-d:hover li{opacity:.6;transform:none}
+.rail-d:hover li:hover{opacity:1;color:#fff}
+.rail-d:hover li.on{color:var(--foam);opacity:1}
+.rail-track{position:relative;width:1px;background:rgba(174,223,230,.18);flex:none}
+.rail-mark{position:absolute;left:50%;width:5px;height:5px;border-radius:50%;background:var(--foam);
+  transform:translate(-50%,-50%);box-shadow:0 0 12px rgba(174,223,230,.9);top:0}
+/* шкала прячется там, где ей не хватает поля справа */
+@media (max-width:980px){.rail-d{display:none}}
+
+/* ============================================================
+   ФУТЕР · РИФ
+   Мягкое затемнение начинается задолго до футера (::before), внизу
+   из темноты поднимаются силуэты кораллов, водоросли, несколько
+   светящихся рыбок и тихий свет. Не аттракцион — финальный кадр.
+   ============================================================ */
+.foot{position:relative;z-index:2;padding:clamp(60px,9vw,130px) var(--ch-gut) 36px;
+  --foot-ink:1,9,20;
+  --foot-rise:min(65vh,620px);
+  background:linear-gradient(180deg,
+    rgba(var(--foot-ink),.78) 0%, rgba(var(--foot-ink),.86) 30%,
+    rgba(var(--foot-ink),.94) 70%, rgb(var(--foot-ink)) 100%)}
+.foot::before{content:'';position:absolute;left:0;right:0;bottom:100%;
+  height:var(--foot-rise);pointer-events:none;z-index:-1;
+  background:linear-gradient(180deg,
+    rgba(var(--foot-ink),0)    0%,  rgba(var(--foot-ink),.022) 10%,
+    rgba(var(--foot-ink),.083) 20%, rgba(var(--foot-ink),.173) 30%,
+    rgba(var(--foot-ink),.282) 40%, rgba(var(--foot-ink),.40)  50%,
+    rgba(var(--foot-ink),.518) 60%, rgba(var(--foot-ink),.627) 70%,
+    rgba(var(--foot-ink),.717) 80%, rgba(var(--foot-ink),.758) 90%,
+    rgba(var(--foot-ink),.78)  100%)}
+.foot::after{content:'';position:absolute;left:0;right:0;bottom:0;
+  top:calc(var(--foot-rise) * -1);pointer-events:none;z-index:3;opacity:.035;
+  /* site.js подменяет плитку растровой копией (шум не считается при перерисовке) */
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:160px 160px;
+  -webkit-mask-image:linear-gradient(180deg,transparent,#000 40%);
+          mask-image:linear-gradient(180deg,transparent,#000 40%)}
+
+/* риф лежит под текстом футера и поднимается над ним */
+.reef{position:absolute;left:0;right:0;bottom:0;top:calc(min(70vh,640px) * -1);
+  pointer-events:none;overflow:hidden;z-index:0}
+.reef-l,.reef-fish,.reef-glow{position:absolute;left:0;right:0;bottom:0;width:100%;height:100%}
+.reef-l > svg,.sw-box{position:absolute;left:0;bottom:0;width:100%;height:100%;display:block}
+/* каждый SVG — свой слой: качание водорослей не перерисовывает неподвижные кораллы (.st) */
+.reef-l > svg{will-change:transform}
+/* качающиеся элементы — каждый свой маленький svg (reef.js, split): поворачивает GPU */
+.sw-box > svg{position:absolute;display:block;overflow:visible;will-change:transform}
+.reef .sw-box > svg.kelp{transform-box:border-box}
+.reef-l.far{filter:blur(1.5px)}
+.reef-glow{will-change:opacity;       /* прозрачность крутит скролл — меняем её на GPU, без перерисовки градиентов */
+  background:
+    radial-gradient(34% 34% at 14% 86%,rgba(90,190,210,.20),transparent 70%),
+    radial-gradient(28% 26% at 84% 90%,rgba(199,34,106,.11),transparent 70%),
+    radial-gradient(70% 42% at 50% 100%,rgba(40,120,170,.18),transparent 75%)}
+/* водоросли: медленное покачивание, только пока футер на экране */
+.reef .kelp{transform-box:fill-box;transform-origin:50% 100%;
+  animation:kelp var(--kd,9s) ease-in-out infinite alternate;animation-delay:var(--kdl,0s);
+  animation-play-state:paused}
+.reef.live .kelp{animation-play-state:running}
+@keyframes kelp{from{transform:rotate(calc(var(--ka,2deg) * -1))}to{transform:rotate(var(--ka,2deg))}}
+
+.foot-in{position:relative;z-index:4;max-width:1440px;margin:0 auto;display:grid;gap:clamp(28px,4vw,56px);
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.foot h4{font-family:var(--font-mono);font-size:9px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:16px}
+.foot a,.foot p{font-size:14px;line-height:1.85;font-weight:300;color:var(--ink-2);
+  text-decoration:none;display:block;cursor:none}
+.foot p + p{margin-top:10px}
+.foot a:hover{color:var(--foam)}
+.foot-bot{position:relative;z-index:4;max-width:1440px;margin:clamp(34px,5vw,64px) auto 0;padding-top:24px;
+  border-top:1px solid rgba(255,255,255,.08);display:flex;flex-wrap:wrap;gap:12px 28px;
+  justify-content:space-between;font-family:var(--font-mono);font-size:9px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)}
+.foot .foot-bot a{display:inline;font:inherit;letter-spacing:inherit;color:var(--ink-3)}
+.foot .foot-bot a:hover{color:var(--foam)}
+@media (pointer:coarse){.foot a,.body a,.note a,.acc-p a,.ct-list a,.acc-i button,
+  .seg button,.step button,.tk-more summary,.more,.link-arrow,.rail-d li{cursor:pointer}}
+
+/* ============================================================
+   АССИСТЕНТ (экспериментальный)
+   Вторичное действие: маленькая кнопка внизу справа, не спорит
+   с хиро (появляется после него), акулой и навигацией.
+   ============================================================ */
+.asst-btn{position:fixed;right:var(--ch-gut);bottom:max(22px,env(safe-area-inset-bottom));z-index:30;
+  display:inline-flex;align-items:center;gap:10px;padding:11px 16px 11px 12px;border-radius:999px;
+  background:rgba(4,20,36,.55);border:1px solid rgba(255,255,255,.14);color:var(--ink-1);
+  -webkit-backdrop-filter:blur(18px) saturate(130%);backdrop-filter:blur(18px) saturate(130%);
+  box-shadow:0 12px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.12);
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;cursor:none;
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .5s ease,visibility .5s ease,transform .6s var(--ease-out),background .35s ease,border-color .35s ease}
+html.past-hero .asst-btn{opacity:1;visibility:visible;transform:none}
+html.past-hero .asst-btn.hide{opacity:0;visibility:hidden;transform:translateY(10px)}
+.asst-btn:hover{background:rgba(8,32,54,.7);border-color:rgba(174,223,230,.4)}
+.asst-btn svg{width:20px;height:20px;flex:none;color:var(--foam)}
+
+.asst{position:fixed;right:var(--ch-gut);bottom:max(22px,env(safe-area-inset-bottom));z-index:31;
+  width:min(380px,calc(100vw - 32px));height:min(560px,calc(100svh - 110px));
+  display:flex;flex-direction:column;border-radius:18px;overflow:hidden;
+  background:rgba(3,16,30,.8);border:1px solid rgba(255,255,255,.13);
+  -webkit-backdrop-filter:blur(26px) saturate(140%);backdrop-filter:blur(26px) saturate(140%);
+  box-shadow:0 30px 90px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.12);
+  opacity:0;visibility:hidden;transform:translateY(16px) scale(.98);transform-origin:100% 100%;
+  transition:opacity .4s ease,visibility .4s ease,transform .55s var(--ease-out)}
+.asst.open{opacity:1;visibility:visible;transform:none}
+.asst-h{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:16px 16px 14px 20px;border-bottom:1px solid rgba(255,255,255,.08)}
+.asst-h b{display:block;font-family:var(--font-display);font-weight:600;font-size:14px;letter-spacing:-.01em}
+.asst-h small{display:block;margin-top:5px;font-family:var(--font-mono);font-size:8.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ink-3)}
+.asst-x{appearance:none;border:1px solid rgba(255,255,255,.14);background:none;border-radius:50%;
+  width:32px;height:32px;color:var(--ink-2);cursor:none;display:grid;place-items:center;font-size:14px;
+  transition:border-color .3s ease,color .3s ease}
+.asst-x:hover{border-color:rgba(174,223,230,.45);color:#fff}
+.asst-log{flex:1;overflow-y:auto;padding:18px 20px 8px;overscroll-behavior:contain;scrollbar-width:thin}
+.asst-hi{font-family:var(--font-display);font-weight:600;font-size:20px;letter-spacing:-.02em}
+.asst-sub{margin-top:6px;font-size:13px;line-height:1.5;color:var(--ink-3);font-weight:300}
+.asst-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.asst-chips button{appearance:none;cursor:none;padding:8px 12px;border-radius:999px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:var(--ink-1);
+  font-family:var(--font-text);font-size:12.5px;transition:background .3s ease,border-color .3s ease}
+.asst-chips button:hover{background:rgba(174,223,230,.1);border-color:rgba(174,223,230,.4)}
+.msg{margin-top:14px;max-width:92%;font-size:13.5px;line-height:1.55;font-weight:300;
+  animation:msgIn .45s var(--ease-out) both}
+.msg.me{margin-left:auto;padding:9px 13px;border-radius:14px 14px 4px 14px;background:rgba(174,223,230,.12);
+  color:#fff;width:fit-content}
+.msg.bot{color:var(--ink-1)}
+.msg.bot p + p,.msg.bot p + ul,.msg.bot ul + p{margin-top:8px}
+.msg.bot ul{padding-left:16px}
+.msg.bot b{font-weight:500;color:#fff}
+.msg.bot a{color:var(--foam);text-decoration:none;border-bottom:1px solid rgba(174,223,230,.35);cursor:none}
+.msg.bot .src{display:block;margin-top:8px;font-family:var(--font-mono);font-size:8.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink-3)}
+@keyframes msgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.asst-f{display:flex;gap:8px;padding:12px 12px 10px;border-top:1px solid rgba(255,255,255,.08)}
+.asst-f input{flex:1;min-width:0;appearance:none;padding:12px 14px;border-radius:12px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#fff;
+  font-family:var(--font-text);font-size:16px;outline:none;transition:border-color .3s ease}
+.asst-f input::placeholder{color:var(--ink-3)}
+.asst-f input:focus{border-color:rgba(174,223,230,.5)}
+.asst-f button{appearance:none;border:0;border-radius:12px;width:44px;flex:none;cursor:none;
+  background:var(--foam);color:var(--abyss);font-size:16px;display:grid;place-items:center}
+.asst-note{padding:0 16px 12px;font-size:10.5px;line-height:1.45;color:var(--ink-3)}
+.asst-note a{color:var(--ink-2);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2);white-space:nowrap}
+@media (pointer:coarse){.asst-btn,.asst-x,.asst-chips button,.asst-f button,.msg.bot a{cursor:pointer}}
+@media (max-width:600px){
+  .asst-btn{padding:12px}
+  .asst-btn span{display:none}
+  .asst{right:12px;left:12px;width:auto;bottom:max(12px,env(safe-area-inset-bottom))}
+}
+
+/* фокус с клавиатуры — видимый, в тон сайта */
+:focus-visible{outline:1px solid var(--foam);outline-offset:4px;border-radius:4px}
+
+/* ============================================================
+   МОБИЛЬНЫЕ
+   ============================================================ */
+@media (max-width:860px){
+  :root{--sec-pad:clamp(84px,14vh,130px)}
+  .grid,.expo-stage{grid-template-columns:minmax(0,1fr)}
+  .grid > *,.expo-stage > *{grid-column:1 / -1 !important;grid-row:auto !important}
+
+  .about-copy{padding-top:0}
+  .about-img{margin-left:18%;max-width:520px}
+  .facts{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:22px}
+
+  .expo-stage{margin-top:22px;row-gap:28px}
+  .expo-b{width:58%;margin:-22% 0 0 auto;align-self:auto}
+  .expo-c{width:72%;margin-top:0}
+  .expo-copy{padding-top:10px}
+
+  .species{padding-top:calc(var(--sec-pad) + 16vh)}
+  .stars{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+  .feed-img{margin:0 0 0 22%;max-width:460px}
+
+  .tours-img{position:static;max-width:520px}
+  .tours-copy{margin-top:40px}
+  .meta{grid-template-columns:minmax(0,1fr)}
+  .groups{grid-template-columns:minmax(0,1fr)}
+
+  .tix{grid-template-columns:minmax(0,1fr)}
+  html.lg-svg .tix,html.lg-soft .tix{-webkit-mask:none;mask:none}
+  .tix-cut{margin:0 clamp(22px,3vw,48px);border-left:0;border-top:1px dashed rgba(255,255,255,.2)}
+  .tix-row{grid-template-columns:minmax(0,1fr) auto}
+  .tix-each{grid-column:1;grid-row:2;margin-top:-6px}
+  .step{grid-column:2;grid-row:1 / 3}
+  .perks{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .seg{width:100%}
+  .seg button{flex:1;padding:12px 10px}
+  .seg button small{display:none}
+
+  .faq-head{position:static;margin-bottom:28px}
+  .acc-p > div{padding-right:0}
+
+  .ct-list{margin-top:44px}
+  .ct-list div{grid-template-columns:minmax(0,1fr);gap:6px}
+
+  .enc-copy{max-width:none}
+  /* Встреча-фильм (акула): кадр ролика выбирает прокрутка секции.
+     На телефоне кроп центра не вмещает «текст слева — акула справа»,
+     поэтому текст проходит по пустой воде (прогресс ≈0.4, акула за кадром),
+     а морда входит справа, когда он уже поднимается. 72vh подобрано
+     замером под раскладку FILM.keys в ocean.js. */
+  .encounter{justify-content:flex-end;padding-bottom:clamp(40px,10vh,90px)}
+  .encounter.film{justify-content:flex-start;padding-top:72vh;padding-bottom:0}
+  .encounter.film .enc-copy{text-shadow:0 2px 22px rgba(0,8,16,.85)}
+}
+@media (max-width:480px){
+  .perks{grid-template-columns:minmax(0,1fr)}
+  .times li span{font-size:clamp(44px,15vw,64px)}
+}
+
+/* ——— уважение к настройке «меньше движения» ————————————— */
+@media (prefers-reduced-motion:reduce){
+  .more i,.link-arrow i,.nav-cta,.star .aq-in img,.seg-thumb{transition:none}
+  .reef .kelp{animation:none}
+  html.js [data-r="aq"] .aq-in{clip-path:none}
+}

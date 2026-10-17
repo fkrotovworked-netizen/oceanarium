@@ -1,0 +1,833 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Оренбургский океанариум — Океан в степи</title>
+<link href="vendor/fonts.css" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<style>
+:root{
+  --abyss:#00060F; --deep:#041C33; --brand:#1B3F77; --foam:#AEDFE6; --signal:#C7226A;
+  --font-display:'Unbounded',system-ui,sans-serif;
+  --font-text:'Onest',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+  --gut:clamp(20px,4vw,64px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:auto}
+body{background:var(--abyss);color:#fff;font-family:var(--font-text);overflow-x:hidden;cursor:none}
+@media (pointer:coarse){body{cursor:auto}}
+
+/* ——— каркас прокрутки ——— */
+.scroll-space{height:270vh;position:relative}
+.hero{position:sticky;top:0;height:100svh;overflow:hidden;background:var(--abyss)}
+
+/* ——— видео ——— */
+#stage-canvas,#poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  display:block;transform:scale(1.02)}
+#poster{z-index:1;transition:opacity .6s ease}
+#stage-canvas{z-index:2}
+.scrim-l{position:absolute;inset:0;pointer-events:none;z-index:3;
+  background:linear-gradient(95deg,rgba(0,6,15,.90) 0%,rgba(0,6,15,.62) 26%,rgba(0,6,15,.12) 54%,rgba(0,6,15,0) 70%)}
+.scrim-b{position:absolute;inset:0;pointer-events:none;z-index:3;
+  background:linear-gradient(0deg,rgba(0,6,15,.75) 0%,rgba(0,6,15,0) 34%)}
+.vignette{position:absolute;inset:0;pointer-events:none;z-index:3;
+  background:radial-gradient(125% 95% at 50% 45%,transparent 42%,rgba(0,6,15,.62) 100%)}
+.grain{position:absolute;inset:-50%;pointer-events:none;z-index:4;opacity:.045;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain 900ms steps(3) infinite}
+@keyframes grain{0%{transform:translate(0,0)}33%{transform:translate(-2%,1%)}66%{transform:translate(1%,-2%)}100%{transform:translate(0,0)}}
+
+/* ——— верхняя полоса ——— */
+.topbar{position:absolute;top:0;left:0;right:0;z-index:6;padding:26px var(--gut) 0;
+  display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--font-display);font-weight:800;font-size:12px;letter-spacing:.34em;opacity:.92}
+.burger{width:26px;display:grid;gap:6px}
+.burger i{height:1.5px;background:#fff;display:block;opacity:.85}
+.hair{position:absolute;left:var(--gut);right:var(--gut);top:72px;height:1px;z-index:6;
+  background:rgba(174,223,230,.18);transform-origin:left center}
+
+/* ——— типографика ——— */
+.stage{position:absolute;inset:0;z-index:5;padding:0 var(--gut);
+  display:flex;flex-direction:column;justify-content:center;
+  padding-bottom:env(safe-area-inset-bottom)}
+.rule{width:0;height:1px;background:var(--foam);opacity:.55;margin-bottom:30px}
+.line{overflow:hidden;display:block}
+.line span{display:block;will-change:transform,filter}
+h1{font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  font-size:clamp(40px,8.2vw,124px);line-height:.92;letter-spacing:-.035em}
+.sub{margin-top:clamp(18px,2.4vw,30px);max-width:34ch;
+  font-size:clamp(14px,1.15vw,18px);line-height:1.55;font-weight:300;color:rgba(255,255,255,.72)}
+.sub b{font-weight:500;color:var(--foam)}
+
+/* ——— стеклянная кнопка ——— */
+.cta-wrap{margin-top:clamp(26px,3.4vw,46px)}
+.cta{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:18px;
+  padding:19px 34px;border-radius:999px;cursor:none;text-decoration:none;color:#fff;
+  font-family:var(--font-mono);font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);
+  -webkit-backdrop-filter:blur(16px) saturate(130%);backdrop-filter:blur(16px) saturate(130%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.26), inset 0 -1px 0 rgba(0,0,0,.18), 0 10px 40px rgba(0,0,0,.35);
+  transition:background .45s ease, box-shadow .45s ease, border-color .45s ease}
+.cta .arw{color:var(--signal);font-size:15px;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.cta::after{content:'';position:absolute;top:-20%;left:-70%;width:45%;height:140%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.38),transparent);
+  transform:skewX(-18deg);animation:sheen 5s cubic-bezier(.3,0,.2,1) infinite}
+/* тот же путь left −70% → 150% (220% ширины кнопки = 488.889% ширины блика),
+   но transform'ом: анимация на GPU, без раскладки и перерисовки в каждом кадре */
+@keyframes sheen{0%,62%{transform:translateX(0) skewX(-18deg)}100%{transform:translateX(488.889%) skewX(-18deg)}}
+.cta:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.36), 0 0 52px rgba(174,223,230,.22), 0 10px 40px rgba(0,0,0,.35)}
+.cta:hover .arw{transform:translateX(6px)}
+
+/* ——— служебное ——— */
+.hint{position:absolute;left:var(--gut);bottom:34px;z-index:6;
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.3em;color:rgba(255,255,255,.5)}
+.hint i{display:inline-block;animation:bob 2.2s ease-in-out infinite;font-style:normal}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+.rail{position:absolute;right:var(--gut);top:50%;transform:translateY(-50%);z-index:6;
+  display:flex;flex-direction:column;gap:30px;text-align:right}
+.rail div{font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;line-height:1.7;
+  color:var(--foam);opacity:.8;padding-right:14px;border-right:1px solid rgba(174,223,230,.28)}
+@media (max-width:860px){.rail{display:none}.sub{max-width:26ch}}
+
+/* ——— курсор ——— */
+.cur-dot,.cur-ring{position:fixed;top:0;left:0;z-index:99;pointer-events:none;border-radius:50%;
+  transform:translate(-50%,-50%)}
+.cur-dot{width:5px;height:5px;background:#fff}
+.cur-ring{width:34px;height:34px;border:1px solid rgba(255,255,255,.45);
+  transition:width .3s ease,height .3s ease,border-color .3s ease,background .3s ease}
+.cur-ring.on{width:64px;height:64px;border-color:rgba(174,223,230,.75);background:rgba(174,223,230,.07)}
+@media (pointer:coarse){.cur-dot,.cur-ring{display:none}}
+
+/* ——— следующая секция ——— */
+.next{min-height:100vh;background:linear-gradient(180deg,var(--abyss),var(--deep));
+  display:grid;place-items:center;padding:0 var(--gut)}
+.next p{font-family:var(--font-mono);font-size:11px;letter-spacing:.28em;color:rgba(174,223,230,.45)}
+
+@media (prefers-reduced-motion:reduce){
+  .grain,.cta::after,.hint i{animation:none}
+}
+</style>
+</head>
+<body>
+
+<!-- Единая подводная сцена на весь сайт. Лежит под всем контентом,
+     во время хиро не рендерится. -->
+<canvas id="ocean"></canvas>
+<div id="ocean-fallback"></div>
+
+
+<nav class="nav" id="nav">
+  <a class="nav-logo" href="#hero">ОКЕАНАРИУМ</a>
+  <div class="nav-links" id="navLinks">
+    <a href="#ch-about">Об океанариуме</a>
+    <a href="#ch-expo">Экспозиция</a>
+    <a href="#ch-feed">Кормления</a>
+    <a href="#ch-tours">Экскурсии</a>
+    <a href="#ch-tickets">Цены</a>
+    <a href="#ch-contacts">Контакты</a>
+  </div>
+  <div class="nav-r">
+    <a class="nav-cta lg-btn" data-buy data-glass="12" data-frost="3">Купить билет</a>
+    <button class="nav-burger" id="navBurger" aria-label="Меню" aria-expanded="false" aria-controls="navLinks"><i></i><i></i></button>
+  </div>
+</nav>
+
+<div class="rail-d" id="railD">
+  <!-- пункты строит site.js по data-rail секций -->
+  <ol id="railList"></ol>
+  <div class="rail-track" id="railTrack"><i class="rail-mark" id="railMark"></i></div>
+</div>
+
+<div class="scroll-space">
+  <section class="hero" id="hero">
+    <canvas id="stage-canvas"></canvas>
+    <img id="poster" src="public/media/oceanarium/hero/poster.jpg" alt="">
+
+    <div class="scrim-l"></div>
+    <div class="scrim-b"></div>
+    <div class="vignette"></div>
+    <div class="grain"></div>
+
+    <div class="topbar"><div class="logo">ОКЕАНАРИУМ</div><div class="burger"><i></i><i></i></div></div>
+    <div class="hair" id="hair"></div>
+
+    <div class="rail" id="rail">
+      <div>ПОДВОДНЫЙ<br>МИР</div><div>3000+<br>ОБИТАТЕЛЕЙ</div><div>2500 М²</div>
+    </div>
+
+    <div class="stage">
+      <div class="rule" id="rule"></div>
+      <h1>
+        <span class="line"><span data-l>Океан</span></span>
+        <span class="line"><span data-l>в степи</span></span>
+      </h1>
+      <p class="sub" id="sub">Первый на Южном Урале и крупнейший в ПФО.<br><b>3000 обитателей</b> на 2500 м² — от рифа до глубины.</p>
+      <div class="cta-wrap" id="ctaWrap">
+        <a class="cta" id="cta" href="#"><span>Купить билет</span><span class="arw">→</span></a>
+      </div>
+    </div>
+
+    <div class="hint" id="hint">ПРОКРУТИТЕ <i>↓</i></div>
+  </section>
+</div>
+
+<!-- Светильник над аквариумом: ровно на стыке хиро и первой главы.
+     3D-модель рисует lamp.js, свечение — CSS и шейдер воды в ocean.js -->
+<div class="lamp-seam" id="lamp" aria-hidden="true">
+  <i class="lamp-ref"></i>
+  <i class="lamp-cable l"></i><i class="lamp-cable r"></i>
+  <div class="lamp-halo"></div>
+  <canvas id="lamp-canvas"></canvas>
+</div>
+
+<main class="chapters" id="chapters">
+
+  <!-- Все тексты, цифры и цены — с oceanorenburg.ru (сверено 2026-09-22).
+       Фото — с того же сайта, ссылками (см. IMG в site.js). -->
+
+  <!-- ——— 01 ОКЕАН В ГОРОДЕ ———————————————————————————— -->
+  <section class="ch sec about" id="ch-about" data-ch data-rail="Океан в городе">
+    <div class="ch-in grid">
+      <div class="about-copy">
+        <p class="eyebrow" data-r>01 · Океан в городе</p>
+        <h2 class="display" data-r="lines"><span>Первый</span><span>на Южном</span><span>Урале</span></h2>
+        <p class="lead" data-r="fade">Крупнейший океанариум Приволжского федерального округа:
+          более <b>3000 морских и пресноводных обитателей</b> из разных уголков планеты.</p>
+        <p class="body" data-r="fade">В аквариумах воссоздана естественная среда обитания,
+          а экскурсоводы рассказывают о каждом виде — об образе жизни, питании и повадках.</p>
+      </div>
+      <figure class="aq about-img arch fade-b" data-r="aq" data-dir="up">
+        <div class="aq-in"><img data-img="expo" alt="Экспозиция Оренбургского океанариума: рифовая акула у каменной кладки"></div>
+        <figcaption>Экспозиция · фото океанариума</figcaption>
+      </figure>
+      <dl class="facts" data-r="facts">
+        <div><dt><span data-count="3000">3000</span>+</dt><dd>обитателей</dd></div>
+        <div><dt><span data-count="2500">2500</span> м²</dt><dd>пространства</dd></div>
+        <div><dt>10–22</dt><dd>ежедневно</dd></div>
+        <div><dt>№1</dt><dd>на Южном Урале</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ——— 02 ЭКСПОЗИЦИЯ ————————————————————————————————— -->
+  <section class="ch sec expo" id="ch-expo" data-ch data-rail="Экспозиция">
+    <div class="ch-in">
+      <div class="expo-head">
+        <p class="eyebrow" data-r>02 · Экспозиция</p>
+        <p class="giant" data-r="giant" aria-label="2500 квадратных метров"><span>2500</span><small>м²</small></p>
+      </div>
+      <div class="expo-stage">
+        <figure class="aq expo-a fade-l" data-r="aq" data-dir="left" data-speed="-6">
+          <div class="aq-in"><img data-img="sharks" alt="Рифовые акулы в аквариуме океанариума"></div>
+          <figcaption>Рифовые акулы</figcaption>
+        </figure>
+        <figure class="aq expo-b arch fade-b" data-r="aq" data-dir="up" data-speed="10">
+          <div class="aq-in"><img data-img="penguin" alt="Пингвин Гумбольдта на камнях"></div>
+          <figcaption>Пингвины Гумбольдта</figcaption>
+        </figure>
+        <figure class="aq expo-c fade-r" data-r="aq" data-dir="right" data-speed="4">
+          <div class="aq-in"><img data-img="croc" alt="Кубинский крокодил"></div>
+          <figcaption>Кубинские крокодилы</figcaption>
+        </figure>
+        <div class="expo-copy">
+          <h2 class="title" data-r="lines"><span>Жители морей</span><span>и рек</span><span>со всего мира</span></h2>
+          <p class="body" data-r="fade">Более 2500 м² пространства с обитателями из разных стран и
+            континентов: рыбы, рептилии, птицы, млекопитающие. Среди них — редкие
+            и краснокнижные виды.</p>
+          <a class="link-arrow" data-buy data-r="fade"><span>Купить билет</span><i>→</i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ——— 03 УСЛУГИ · КОРМЛЕНИЯ ————————————————————————— -->
+  <section class="ch sec feed" id="ch-feed" data-ch data-rail="Кормления">
+    <div class="ch-in grid">
+      <div class="feed-copy">
+        <p class="eyebrow" data-r>03 · Кормления</p>
+        <h2 class="title" data-r="lines"><span>Кормление</span><span>пингвинов</span></h2>
+        <p class="days" data-r="fade">Понедельник — воскресенье</p>
+        <ol class="times" data-r="times" aria-label="Время кормления">
+          <li data-t="11:00"><span>11:00</span><em></em></li>
+          <li data-t="15:00"><span>15:00</span><em></em></li>
+          <li data-t="19:00"><span>19:00</span><em></em></li>
+        </ol>
+        <p class="body" data-r="fade">Четыре пингвина Гумбольдта — два самца и две самки —
+          приехали из Приморского океанариума во Владивостоке. Вид занесён в Красную книгу.
+          Во время кормления сотрудники рассказывают о рационе и повадках птиц.</p>
+      </div>
+      <figure class="aq feed-img arch fade-b" data-r="aq" data-dir="down" data-speed="8">
+        <div class="aq-in"><img data-img="penguins" alt="Пингвин Гумбольдта"></div>
+        <figcaption>Пингвины Гумбольдта</figcaption>
+      </figure>
+      <div class="feed-more" data-r="fade">
+        <p class="label">Также по расписанию</p>
+        <ul class="feed-row">
+          <li><div class="aq mini"><div class="aq-in"><img data-img="fishfeed" alt="Кормление рыб"></div></div><span>Рыбы</span><small>кроме пн · 16:00</small></li>
+          <li><div class="aq mini"><div class="aq-in"><img data-img="sharks" alt="Акулы"></div></div><span>Акулы</span><small>кроме пн · 16:00</small></li>
+          <li><div class="aq mini"><div class="aq-in"><img data-img="croc" alt="Крокодилы"></div></div><span>Крокодилы</span><small>вс · 14:00</small></li>
+        </ul>
+        <p class="note">Расписание может меняться — уточняйте в кассе или по телефону
+          <a href="tel:+73532323642">+7 (3532) 32-36-42</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ——— 04 УСЛУГИ · ЭКСКУРСИИ И ГРУППЫ ——————————————————— -->
+  <section class="ch sec tours" id="ch-tours" data-ch data-rail="Экскурсии">
+    <div class="ch-in grid">
+      <figure class="aq tours-img fade-bl" data-r="aq" data-dir="iris" data-speed="-6">
+        <div class="aq-in"><img data-img="family" alt="Семья у аквариума"></div>
+        <figcaption>Экскурсия · 30–40 минут</figcaption>
+      </figure>
+      <div class="tours-copy">
+        <p class="eyebrow" data-r>04 · Экскурсии</p>
+        <h2 class="title" data-r="lines"><span>С экскурсоводом</span><span>по главным</span><span>экспозициям</span></h2>
+        <p class="body" data-r="fade">Пингвины Гумбольдта, кубинские крокодилы, акулы, скаты,
+          тропические рыбы. Экскурсовод рассказывает о каждом виде, вопросы можно задавать
+          по ходу маршрута. Для семьи, компании или организованной группы.</p>
+        <ul class="meta" data-r="fade">
+          <li><span>Длительность</span><b>30–40 минут</b></li>
+          <li><span>Формат</span><b>индивидуальные и групповые</b></li>
+          <li><span>Запись</span><b>предварительная</b></li>
+        </ul>
+        <div class="price-lines" data-r="rows">
+          <p class="label">Стоимость за группу</p>
+          <div class="pl"><span>1–5 человек</span><i></i><b>2000 ₽</b></div>
+          <div class="pl"><span>6–10 человек</span><i></i><b>3000 ₽</b></div>
+          <div class="pl"><span>11–20 человек</span><i></i><b>4000 ₽</b></div>
+          <div class="pl"><span>от 21 человека</span><i></i><b>5000 ₽</b></div>
+          <p class="note">Входные билеты оплачиваются отдельно.</p>
+        </div>
+        <div class="btns" data-r="fade">
+          <a class="cta lg-btn" data-glass="16" href="tel:+79871991600" data-magnet><span>Записаться</span><span class="arw">→</span></a>
+          <a class="link-arrow" href="https://oceanorenburg.ru/ekskursii/" target="_blank" rel="noopener"><span>Заявка на сайте</span><i>↗</i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="ch-in groups lg-panel" data-r="fade" data-glass="30">
+      <div class="groups-t">
+        <p class="label">Групповые посещения</p>
+        <h3>Школы, детские сады, семейные и туристические группы</h3>
+        <p class="body">Дату и время согласуем заранее, в будни и выходные.
+          На каждые 10 детей один сопровождающий взрослый проходит бесплатно.
+          Экскурсию для группы можно заказать дополнительно.</p>
+      </div>
+      <dl class="groups-p">
+        <div><dt>Детский</dt><dd><b>750 ₽</b><small>будни</small></dd><dd><b>950 ₽</b><small>выходные</small></dd></div>
+        <div><dt>Взрослый</dt><dd><b>950 ₽</b><small>будни</small></dd><dd><b>1150 ₽</b><small>выходные</small></dd></div>
+      </dl>
+      <a class="link-arrow" href="https://oceanorenburg.ru/gruppovye-poseshheniya/" target="_blank" rel="noopener"><span>Оставить заявку</span><i>↗</i></a>
+    </div>
+  </section>
+
+  <!-- ——— 05 НАШИ ОБИТАТЕЛИ · АКУЛА ——————————————————————
+       Раскладка, высота и классы секции НЕ МЕНЯЮТСЯ: к ним привязан
+       ролик акулы (FILM.keys в ocean.js) и мобильный отступ 72vh.
+       Меняется только текст. -->
+  <section class="ch encounter film" id="ch-deep" data-ch data-enc="shark" data-rail="Обитатели" style="min-height:280vh">
+    <div class="ch-in">
+      <div class="enc-copy">
+        <p class="eyebrow" data-r>05 · Наши обитатели</p>
+        <h2 class="ch-t" data-r><em>3000+</em><em>обитателей</em></h2>
+        <p class="ch-p" data-r>Морские и пресноводные жители из разных уголков планеты:
+          <b>рифовые акулы, пингвины Гумбольдта, кубинские крокодилы</b>, скаты,
+          арапаймы и редкие рыбы.</p>
+        <p class="in-frame lg-chip" data-r data-glass="14"><i></i><span>В кадре</span><b>Рифовая акула</b></p>
+        <a class="more" href="#ch-species" data-r><span>Кто живёт в океанариуме</span><i>→</i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ——— 06 КТО ЖИВЁТ ——————————————————————————————————— -->
+  <section class="ch sec species" id="ch-species" data-ch data-rail="Виды">
+    <div class="ch-in">
+      <div class="species-head">
+        <p class="eyebrow" data-r>06 · В экспозиции</p>
+        <h2 class="title" data-r="lines"><span>Кого вы</span><span>увидите</span></h2>
+        <p class="body" data-r="fade">Больше трёх тысяч обитателей — вот с кем стоит познакомиться в первую очередь.</p>
+      </div>
+      <!-- Фото — только реальные, с oceanorenburg.ru. Для остальных видов
+           реальных фото у заказчика на сайте нет (галерея — сток). -->
+      <div class="stars" data-r="list">
+        <article class="star">
+          <figure class="aq star-img fade-bs"><div class="aq-in"><img data-img="sharks" alt="Рифовая акула в аквариуме Оренбургского океанариума"></div></figure>
+          <h3>Рифовые акулы</h3>
+          <p class="star-m"><span>Кормление</span>ежедневно, кроме пн · 16:00</p>
+        </article>
+        <article class="star">
+          <figure class="aq star-img fade-bs"><div class="aq-in"><img data-img="penguins" alt="Пингвин Гумбольдта"></div></figure>
+          <h3>Пингвины Гумбольдта</h3>
+          <p class="star-m"><span>Кормление</span>ежедневно · 11:00 · 15:00 · 19:00</p>
+        </article>
+        <article class="star">
+          <figure class="aq star-img fade-bs"><div class="aq-in"><img data-img="croc" alt="Кубинский крокодил"></div></figure>
+          <h3>Кубинские крокодилы</h3>
+          <p class="star-m"><span>Кормление</span>воскресенье · 14:00</p>
+        </article>
+        <article class="star star-new lg-panel" data-glass="24">
+          <p class="label"><i></i>Новые жители</p>
+          <h3>Хищные астронотусы и&nbsp;загадочные амбистомы</h3>
+          <p class="star-t">Астронотусы Чили Ред и мексиканские амбистомы — аксолотли.</p>
+        </article>
+      </div>
+    </div>
+
+    <!-- все 12 видов со страницы «О нас» и новости 04.08.2026 -->
+    <div class="marquee" aria-label="Виды в экспозиции">
+      <div class="mq-track">
+        <ul class="mq-list">
+          <li>Рифовые акулы</li><li>Пингвины Гумбольдта</li><li>Кубинские крокодилы</li>
+          <li>Платиновые скаты-альбиносы</li><li>Вараны Сальватора</li><li>Капибара</li>
+          <li>Арапаймы</li><li>Арованы</li><li>Цихлиды</li><li>Фловер хорны</li>
+          <li>Астронотусы Чили Ред<sup>новые</sup></li><li>Мексиканские амбистомы<sup>новые</sup></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ——— 07 ЦЕНЫ ———————————————————————————————————————— -->
+  <section class="ch sec tickets" id="ch-tickets" data-ch data-rail="Цены">
+    <div class="ch-in">
+      <div class="tk-head">
+        <div>
+          <p class="eyebrow" data-r>07 · Цены</p>
+          <h2 class="title" data-r="lines"><span>Соберите</span><span>поход</span></h2>
+          <p class="body tk-lead" data-r="fade">Отметьте, кто идёт, — посчитаем стоимость и подскажем, как выгоднее.</p>
+        </div>
+        <div class="seg" role="tablist" aria-label="День посещения" data-r="fade">
+          <button role="tab" aria-selected="true" data-day="wd">Будни <small>пн–пт</small></button>
+          <button role="tab" aria-selected="false" data-day="we">Выходные <small>и праздники</small></button>
+          <i class="seg-thumb"></i>
+        </div>
+      </div>
+
+      <!-- Калькулятор: цены — data-wd/data-we (будни/выходные), с oceanorenburg.ru.
+           Семейный 2+2 продаётся только в кассе — считаем его подсказкой. -->
+      <div class="tix lg-panel" id="tix" data-glass="28" data-r="fade">
+        <div class="tix-main">
+          <div class="tix-row" data-k="a" data-wd="1000" data-we="1300">
+            <div class="tix-n"><h3>Взрослые</h3><p>от 12 лет</p></div>
+            <p class="tix-each"><b>1000</b> ₽</p>
+            <div class="step" role="group" aria-label="Взрослые билеты">
+              <button type="button" data-d="-1" aria-label="Убрать взрослый билет">−</button>
+              <output aria-live="polite">2</output>
+              <button type="button" data-d="1" aria-label="Добавить взрослый билет">+</button>
+            </div>
+          </div>
+          <div class="tix-row" data-k="k" data-wd="800" data-we="1100">
+            <div class="tix-n"><h3>Дети</h3><p>до 11 лет включительно</p></div>
+            <p class="tix-each"><b>800</b> ₽</p>
+            <div class="step" role="group" aria-label="Детские билеты">
+              <button type="button" data-d="-1" aria-label="Убрать детский билет">−</button>
+              <output aria-live="polite">2</output>
+              <button type="button" data-d="1" aria-label="Добавить детский билет">+</button>
+            </div>
+          </div>
+          <div class="tix-row" data-k="t" data-wd="0" data-we="0">
+            <div class="tix-n"><h3>До 3 лет</h3><p>по свидетельству о рождении</p></div>
+            <p class="tix-each tix-free">бесплатно</p>
+            <div class="step" role="group" aria-label="Дети до 3 лет">
+              <button type="button" data-d="-1" aria-label="Меньше детей до 3 лет">−</button>
+              <output aria-live="polite">0</output>
+              <button type="button" data-d="1" aria-label="Больше детей до 3 лет">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="tix-cut" aria-hidden="true"></div>
+        <div class="tix-stub">
+          <p class="label">Итого · <span class="tix-day">будни</span></p>
+          <p class="tix-sum"><span id="tixSum">3600</span><small>₽</small></p>
+          <p class="tix-who" id="tixWho">2 взрослых, 2 детей</p>
+          <p class="tix-tip" id="tixTip" hidden><i></i><span></span></p>
+          <a class="cta lg-btn" data-glass="16" data-buy data-magnet><span>Купить билет</span><span class="arw">→</span></a>
+        </div>
+      </div>
+
+      <div class="perks" data-r="list">
+        <p class="perk"><b>Бесплатно</b>дети до 3 лет и посетители на инвалидной коляске</p>
+        <p class="perk"><b>400 ₽</b>дети с ограниченными возможностями здоровья</p>
+        <p class="perk"><b>Льготные цены</b>многодетным, пенсионерам, инвалидам, участникам СВО — в кассе</p>
+        <p class="perk"><b>−30%</b>именинникам: в день рождения и ±3 дня</p>
+      </div>
+      <details class="tk-more" data-r="fade">
+        <summary><span>Условия льгот и правила</span><i></i></summary>
+        <div class="tk-more-in">
+          <p>Бесплатно — дети до 3 лет (не включительно) по свидетельству о рождении; посетители, использующие инвалидную коляску.</p>
+          <p>Дети с ограниченными возможностями здоровья (ОВЗ) — 400 ₽.</p>
+          <p>Многодетным семьям, пенсионерам, инвалидам, участникам СВО и их семьям: детский 700 / 1000 ₽, взрослый 900 / 1200 ₽ (будни / выходные) — в кассе.</p>
+          <p>Именинникам −30% — в день рождения, за 3 дня до и 3 дня после, при предъявлении документа.</p>
+          <p>Семейный 2+2 (2 взрослых + 2 ребёнка до 11 лет) — 3000 / 4000 ₽, только в кассе.</p>
+          <p>Билет на будний день не действует в выходные и праздники. Срок действия билета — полгода со дня покупки. Льготы оформляются по подтверждающим документам. Скидки не суммируются. Дети младше 14 лет — только в сопровождении взрослого.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ——— 08 ВОПРОСЫ ————————————————————————————————————— -->
+  <section class="ch sec faq" id="ch-faq" data-ch data-rail="Вопросы">
+    <div class="ch-in grid">
+      <div class="faq-head">
+        <p class="eyebrow" data-r>08 · Вопросы</p>
+        <h2 class="title" data-r="lines"><span>Частые</span><span>вопросы</span></h2>
+        <p class="body" data-r="fade">Не нашли ответ — позвоните:<br>
+          <a href="tel:+73532323642">+7 (3532) 32-36-42</a></p>
+      </div>
+      <div class="acc" data-r="list">
+        <div class="acc-i">
+          <h3><button aria-expanded="false">Есть ли льготы на посещение?<i></i></button></h3>
+          <div class="acc-p"><div>
+            <p>Да. Бесплатно — дети до 3 лет и посетители на инвалидной коляске. Дети с ОВЗ — 400 ₽.
+              Многодетным семьям, пенсионерам, инвалидам, участникам СВО и их семьям — льготные цены
+              в кассе. Именинникам — скидка 30%. <a href="#ch-tickets">Все условия</a></p>
+          </div></div>
+        </div>
+        <div class="acc-i">
+          <h3><button aria-expanded="false">Можно ли фотографировать внутри?<i></i></button></h3>
+          <div class="acc-p"><div><p>Да, любительская фото- и видеосъёмка разрешена без вспышки.</p></div></div>
+        </div>
+        <div class="acc-i">
+          <h3><button aria-expanded="false">Можно ли оплатить билеты онлайн?<i></i></button></h3>
+          <div class="acc-p"><div><p>Да. После оплаты на сайте на вашу почту придут QR-коды по числу и типу
+            билетов. Их сканируют на турникете — с экрана телефона или распечатанными.</p></div></div>
+        </div>
+        <div class="acc-i">
+          <h3><button aria-expanded="false">Оплатил билеты, но они не пришли на почту<i></i></button></h3>
+          <div class="acc-p"><div><p>Напишите в сообщения официальной группы ВКонтакте, на
+            <a href="mailto:info@oceanorenburg.ru">info@oceanorenburg.ru</a> или позвоните
+            <a href="tel:+73532323642">+7 (3532) 32-36-42</a>.</p></div></div>
+        </div>
+        <div class="acc-i">
+          <h3><button aria-expanded="false">Указал неправильную почту при покупке<i></i></button></h3>
+          <div class="acc-p"><div><p>Свяжитесь с нами любым способом — ВКонтакте, почта или телефон —
+            и пришлите банковский чек по операции и правильный адрес почты.</p></div></div>
+        </div>
+        <div class="acc-i">
+          <h3><button aria-expanded="false">Как вернуть билеты, купленные онлайн?<i></i></button></h3>
+          <div class="acc-p"><div><p>Через <a href="https://oceanorenburg.ru/vozvrat-biletov/" target="_blank" rel="noopener">форму возврата</a>:
+            введите код из электронного билета и почту или телефон, указанные при покупке, выберите
+            неиспользованные билеты и причину. Можно вернуть весь заказ или отдельные билеты.
+            Деньги вернутся на карту, с которой была оплата.</p></div></div>
+        </div>
+        <div class="acc-i">
+          <h3><button aria-expanded="false">Как заказать экскурсию?<i></i></button></h3>
+          <div class="acc-p"><div><p>Позвоните по номеру <a href="tel:+79871991600">+7 (987) 199-16-00</a> —
+            подберём удобное время для индивидуальной или групповой экскурсии.</p></div></div>
+        </div>
+        <div class="acc-i">
+          <h3><button aria-expanded="false">Можно ли детям прийти без взрослых?<i></i></button></h3>
+          <div class="acc-p"><div><p>Дети младше 14 лет допускаются только в сопровождении совершеннолетнего.
+            <a href="https://oceanorenburg.ru/pravila-poseshheniya-orenburgskogo-okeanariuma/" target="_blank" rel="noopener">Правила посещения</a></p></div></div>
+        </div>
+        <div class="acc-i">
+          <h3><button aria-expanded="false">Сколько действует билет?<i></i></button></h3>
+          <div class="acc-p"><div><p>Полгода со дня покупки. Билет на будний день в выходные
+            и праздники не действует.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ——— 09 КОНТАКТЫ ———————————————————————————————————— -->
+  <section class="ch sec contacts" id="ch-contacts" data-ch data-rail="Контакты">
+    <div class="ch-in grid">
+      <div class="ct-main">
+        <p class="eyebrow" data-r>09 · Как добраться</p>
+        <h2 class="title addr" data-r="lines"><span>Оренбург,</span><span>Шарлыкское</span><span>шоссе, 1/2</span></h2>
+        <p class="lead" data-r="fade">Мегамолл «Мармелад», вход №5</p>
+        <div class="btns" data-r="fade">
+          <a class="cta lg-btn" data-glass="16" href="https://yandex.ru/maps/?text=%D0%9E%D1%80%D0%B5%D0%BD%D0%B1%D1%83%D1%80%D0%B3%2C%20%D0%A8%D0%B0%D1%80%D0%BB%D1%8B%D0%BA%D1%81%D0%BA%D0%BE%D0%B5%20%D1%88%D0%BE%D1%81%D1%81%D0%B5%2C%201%2F2" target="_blank" rel="noopener" data-magnet><span>Построить маршрут</span><span class="arw">↗</span></a>
+          <a class="link-arrow" href="tel:+73532323642"><span>Позвонить</span><i>→</i></a>
+        </div>
+      </div>
+      <dl class="ct-list" data-r="rows">
+        <div><dt>Режим работы</dt><dd>Ежедневно 10:00–22:00<small>Вход и касса — до 21:30</small><span class="open-now" id="openNow" hidden></span></dd></div>
+        <div><dt>Телефон</dt><dd><a href="tel:+73532323642">+7 (3532) 32-36-42</a></dd></div>
+        <div><dt>Экскурсии</dt><dd><a href="tel:+79871991600">+7 (987) 199-16-00</a></dd></div>
+        <div><dt>Почта</dt><dd><a href="mailto:info@oceanorenburg.ru">info@oceanorenburg.ru</a></dd></div>
+        <div><dt>Мы в сети</dt><dd class="soc">
+          <a href="https://t.me/oceanorenburg" target="_blank" rel="noopener">Telegram</a>
+          <a href="https://vk.ru/club237518294" target="_blank" rel="noopener">ВКонтакте</a>
+          <a href="https://max.ru/id233800621046_biz" target="_blank" rel="noopener">MAX</a>
+          <a href="https://ok.ru/group/70000048523290" target="_blank" rel="noopener">Одноклассники</a>
+        </dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ——— ФИНАЛ ——————————————————————————————————————————— -->
+  <section class="ch finale" id="ch-finale" data-ch>
+    <div class="ch-in">
+      <h2><span>Увидеть океан</span><span>в степи</span></h2>
+      <p class="ch-p" data-r="fade">Ежедневно с 10:00 до 22:00 · вход и касса до 21:30</p>
+      <div class="cta-wrap" data-r="fade">
+        <a class="cta lg-btn" data-glass="16" data-buy data-magnet><span>Купить билет</span><span class="arw">→</span></a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ——— ФУТЕР · РИФ ——————————————————————————————————————
+     Спокойный финал: тёмные силуэты кораллов, водоросли, несколько
+     светящихся рыбок. Силуэты — SVG (строятся один раз в reef.js),
+     рыбки — маленький 2D-canvas, крутится только когда футер на экране. -->
+<footer class="foot" id="foot">
+  <div class="reef" id="reef" aria-hidden="true">
+    <div class="reef-glow"></div>
+    <div class="reef-l far"></div>
+    <canvas class="reef-fish" id="reefFish"></canvas>
+    <div class="reef-l mid"></div>
+    <div class="reef-l near"></div>
+  </div>
+  <div class="foot-in">
+    <div>
+      <h4>Океанариум</h4>
+      <p>Оренбург, Шарлыкское шоссе, 1/2<br>Мегамолл «Мармелад», вход №5</p>
+      <p>Ежедневно 10:00–22:00<br>Вход и касса — до 21:30</p>
+    </div>
+    <div>
+      <h4>Связь</h4>
+      <a href="tel:+73532323642">+7 (3532) 32-36-42</a>
+      <a href="tel:+79871991600">Экскурсии: +7 (987) 199-16-00</a>
+      <a href="mailto:info@oceanorenburg.ru">info@oceanorenburg.ru</a>
+    </div>
+    <div>
+      <h4>Разделы</h4>
+      <a href="#ch-about">Об океанариуме</a>
+      <a href="#ch-feed">Кормления</a>
+      <a href="#ch-tours">Экскурсии и группы</a>
+      <a href="#ch-tickets">Цены</a>
+      <a href="#ch-faq">Вопросы</a>
+    </div>
+    <div>
+      <h4>Мы в сети</h4>
+      <a href="https://t.me/oceanorenburg" target="_blank" rel="noopener">Telegram</a>
+      <a href="https://vk.ru/club237518294" target="_blank" rel="noopener">ВКонтакте</a>
+      <a href="https://max.ru/id233800621046_biz" target="_blank" rel="noopener">MAX</a>
+      <a href="https://ok.ru/group/70000048523290" target="_blank" rel="noopener">Одноклассники</a>
+    </div>
+  </div>
+  <div class="foot-bot">
+    <span>© 2026 Оренбургский океанариум</span>
+    <a href="https://oceanorenburg.ru/pravila-poseshheniya-orenburgskogo-okeanariuma/" target="_blank" rel="noopener">Правила посещения</a>
+    <a href="https://oceanorenburg.ru/vozvrat-biletov/" target="_blank" rel="noopener">Возврат билетов</a>
+    <a href="https://oceanorenburg.ru/privacy-policy/" target="_blank" rel="noopener">Политика конфиденциальности</a>
+    <span>Океан в степи</span>
+  </div>
+</footer>
+
+<div class="cur-ring" id="ring"></div>
+<div class="cur-dot" id="dot"></div>
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+const cv     = document.getElementById('stage-canvas');
+const ctx    = cv.getContext('2d', {alpha:false});
+const poster = document.getElementById('poster');
+const lines  = document.querySelectorAll('[data-l]');
+const rule   = document.getElementById('rule');
+const sub    = document.getElementById('sub');
+const ctaW   = document.getElementById('ctaWrap');
+const hint   = document.getElementById('hint');
+const rail   = document.getElementById('rail');
+const hair   = document.getElementById('hair');
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+/* Секвенция кадров вместо <video>.
+   Причина: в исходном mp4 ровно ОДИН опорный кадр на 193, поэтому каждая
+   перемотка декодирует ролик с начала — скраб по currentTime непригоден.
+   Кадры на canvas перематываются мгновенно и одинаково во всех браузерах. */
+const MOBILE = matchMedia('(max-width: 820px)').matches;
+const SRC_W = MOBILE ? 607 : 1920;      // родные размеры кадра секвенции
+const SRC_H = 1080;
+const SEQ = MOBILE
+  ? {dir:'public/media/oceanarium/frames/mobile/',  count:97}
+  : {dir:'public/media/oceanarium/frames/desktop/', count:97};
+const PRIME = 10;                       // столько кадров ждём перед показом
+
+const imgs = new Array(SEQ.count);
+let loaded = 0, ready = false;
+
+const pad = n => String(n).padStart(3,'0');
+
+function loadFrame(i){
+  return new Promise(res => {
+    const im = new Image();
+    im.decoding = 'async';
+    let settled = false;
+    const done = () => { if (settled) return; settled = true; imgs[i] = im; loaded++; res(); };
+    im.onload = () => {
+      done();                       // готовность не ждёт декодирования
+      /* decode() прогревает кадр в фоне, чтобы первый проход по секвенции
+         не дёргался. В критический путь его ставить нельзя: промис может
+         не разрешиться, и загрузка встанет навсегда. */
+      if (im.decode) im.decode().catch(() => {});
+    };
+    im.onerror = () => { if (!settled) { settled = true; loaded++; res(); } };
+    setTimeout(() => { if (!settled) { settled = true; loaded++; res(); } }, 8000);
+    im.src = SEQ.dir + 'f_' + pad(i) + '.webp';
+  });
+}
+
+/* Холст держим ровно в размер исходного кадра и рисуем один в один.
+   Пересэмплировать 1920→2880 силами canvas каждый кадр оказалось дорого:
+   медиана кадра проваливалась до 396 мс. Растяжение до размера экрана
+   отдаём GPU через object-fit:cover — ровно так же это делает <img>. */
+function fit(){
+  if (cv.width !== SRC_W || cv.height !== SRC_H){
+    cv.width = SRC_W; cv.height = SRC_H;
+  }
+  draw(lastIdx, true);
+}
+
+let lastIdx = -1;
+/* Safari держит в кеше мало декодированных кадров и декодирует WebP 1080p
+   прямо в drawImage (замер: 10.5 мс на кадр). Просим декодировать кадры
+   впереди по ходу прокрутки заранее — decode() работает в фоне. */
+let warmDir = 1;
+function warmAhead(i){
+  for (let d = 1; d <= 6; d++){
+    const im = imgs[i + d * warmDir];
+    if (im && im.decode) im.decode().catch(() => {});
+  }
+}
+function draw(i, force){
+  if (i < 0) return;
+  if (i === lastIdx && !force) return;        // тот же кадр — не жжём GPU впустую
+  let im = imgs[i];
+  if (!im){                                   // ближайший загруженный
+    for (let d = 1; d < SEQ.count; d++){
+      if (imgs[i-d]) { im = imgs[i-d]; break; }
+      if (imgs[i+d]) { im = imgs[i+d]; break; }
+    }
+  }
+  if (!im) return;
+  if (lastIdx >= 0 && i !== lastIdx) warmDir = i > lastIdx ? 1 : -1;
+  lastIdx = i;
+  warmAhead(i);
+  if (cv.width !== im.naturalWidth || cv.height !== im.naturalHeight){
+    cv.width = im.naturalWidth; cv.height = im.naturalHeight;
+  }
+  ctx.drawImage(im, 0, 0);          // один в один, без пересэмплирования
+}
+
+function build(){
+  const tl = gsap.timeline({paused:true, defaults:{ease:'none'}});
+  tl.to({}, {duration:10}, 0);
+  tl.to(hint, {autoAlpha:0, y:10, duration:.6}, 0.2);
+  /* Начальные состояния живут внутри fromTo, а не в отдельном gsap.set:
+     иначе при прокрутке назад элемент не возвращается к исходному виду
+     и заголовок висит раскрытым с самого верха страницы. */
+  tl.fromTo(rail, {autoAlpha:0, x:14}, {autoAlpha:1, x:0, duration:1}, 1.2);
+  tl.to(rail, {autoAlpha:0, x:14, duration:.8}, 6.2);
+
+  /* заголовок приходит на кадре с медузой */
+  tl.fromTo(rule,  {width:0},
+                   {width:'clamp(64px,9vw,150px)', duration:1.1, ease:'power2.out'}, 6.6);
+  tl.fromTo(lines, {yPercent:115, filter:'blur(9px)', letterSpacing:'0.05em'},
+                   {yPercent:0, filter:'blur(0px)', letterSpacing:'-0.035em',
+                    duration:1.9, stagger:.42, ease:'power3.out'}, 6.8);
+  tl.fromTo(sub,   {y:26, autoAlpha:0},
+                   {y:0, autoAlpha:1, duration:1.3, ease:'power2.out'}, 7.9);
+  tl.fromTo(ctaW,  {y:26, autoAlpha:0, scale:.96},
+                   {y:0, autoAlpha:1, scale:1, duration:1.2, ease:'back.out(1.5)'}, 8.4);
+  tl.fromTo('.stage', {y:22}, {y:-22, duration:10}, 0);
+
+  let targetP = 0, smoothP = 0;
+
+  ScrollTrigger.create({
+    trigger:'.scroll-space', start:'top top', end:'bottom bottom',
+    onUpdate:  self => { targetP = self.progress; },
+    onRefresh: self => { targetP = self.progress; }
+  });
+
+  const EASE = reduce ? 1 : 0.18;
+  (function tick(){
+    smoothP += (targetP - smoothP) * EASE;
+    if (Math.abs(targetP - smoothP) < 0.0004) smoothP = targetP;
+    tl.progress(smoothP);
+    draw(Math.min(SEQ.count - 1, Math.round(smoothP * (SEQ.count - 1))));
+    requestAnimationFrame(tick);
+  })();
+
+  window.__hero = {
+    get p(){ return smoothP; },
+    get target(){ return targetP; },
+    get frame(){ return lastIdx; },
+    get loaded(){ return loaded; },
+    total: SEQ.count
+  };
+}
+
+async function boot(){
+  fit();
+  /* первые кадры блокируют показ, остальные догружаются пачками */
+  await Promise.all(Array.from({length:PRIME}, (_,i) => loadFrame(i)));
+  ready = true;
+  draw(0);
+  poster.style.opacity = '0';
+  build();
+  ScrollTrigger.refresh();
+
+  const rest = [];
+  for (let i = PRIME; i < SEQ.count; i++) rest.push(i);
+  const BATCH = 6;
+  for (let i = 0; i < rest.length; i += BATCH){
+    await Promise.all(rest.slice(i, i + BATCH).map(loadFrame));
+  }
+  ScrollTrigger.refresh();
+}
+boot();
+
+addEventListener('resize', () => {
+  fit();
+  ScrollTrigger.refresh();
+  /* Набор кадров выбирается один раз при загрузке. Если ширина перешла
+     границу мобильной вёрстки, нужен другой набор — перезагружаем. */
+  const nowMobile = matchMedia('(max-width: 820px)').matches;
+  if (nowMobile !== MOBILE) location.reload();
+});
+
+/* ——— курсор ——— */
+const dot = document.getElementById('dot'), ring = document.getElementById('ring');
+const pt = {x:innerWidth/2, y:innerHeight/2}, rg = {x:pt.x, y:pt.y};
+addEventListener('pointermove', e => {
+  pt.x = e.clientX; pt.y = e.clientY;
+  dot.style.transform = 'translate(' + pt.x + 'px,' + pt.y + 'px) translate(-50%,-50%)';
+});
+(function loop(){
+  rg.x += (pt.x - rg.x) * .16; rg.y += (pt.y - rg.y) * .16;
+  ring.style.transform = 'translate(' + rg.x + 'px,' + rg.y + 'px) translate(-50%,-50%)';
+  requestAnimationFrame(loop);
+})();
+
+/* магнит на кнопке */
+const cta = document.getElementById('cta');
+cta.addEventListener('pointerenter', () => ring.classList.add('on'));
+cta.addEventListener('pointerleave', () => {
+  ring.classList.remove('on');
+  gsap.to(cta, {x:0, y:0, duration:.6, ease:'elastic.out(1,.4)'});
+});
+cta.addEventListener('pointermove', e => {
+  const b = cta.getBoundingClientRect();
+  gsap.to(cta, {x:(e.clientX-b.left-b.width/2)*.22, y:(e.clientY-b.top-b.height/2)*.35,
+                duration:.5, ease:'power3.out'});
+});
+</script>
+<script type="module" src="ocean.js"></script>
+<script type="module" src="lamp.js"></script>
+<script src="site.js"></script>
+<script src="reef.js"></script>
+<script src="assistant.js" defer></script>
+</body>
+</html>
