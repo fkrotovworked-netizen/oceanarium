@@ -1,0 +1,1634 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b0d0c" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <meta name="robots" content="noindex" />
+    <title>Lime Fitness — фитнес-клуб в Оренбурге, открыт 24/7</title>
+    <meta
+      name="description"
+      content="Lime Fitness — круглосуточный фитнес-клуб в Оренбурге: тренажёрный зал, бассейн 25 метров, групповые программы, единоборства и детский клуб."
+    />
+
+    <!-- Marks the document for the reveal CSS before first paint. If the bundle
+         never arrives, the failsafe class shows everything after 3 seconds. -->
+    <script>
+      (function (c) {
+        c.add('js');
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches) c.add('motion');
+        setTimeout(function () {
+          if (!c.contains('ready')) c.add('failsafe');
+        }, 3000);
+      })(document.documentElement.classList);
+    </script>
+
+    <link rel="preload" href="./assets/geologica-cyrillic-wght-normal-DbeVG3Ps.woff2" as="font" type="font/woff2" crossorigin />
+    <link
+      rel="preload"
+      as="image"
+      type="image/avif"
+      fetchpriority="high"
+      imagesrcset="img/hero/gym-750.avif 750w, img/hero/gym-1280.avif 1280w, img/hero/gym-1920.avif 1920w"
+      imagesizes="(min-width: 1024px) 62vw, 100vw"
+    />
+    <script type="module" crossorigin src="./assets/index-CpTIODfx.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/specular-uMxUeZnM.js">
+    <link rel="modulepreload" crossorigin href="./assets/lane-oJjY4rTS.js">
+    <link rel="stylesheet" crossorigin href="./assets/specular-CPPY016W.css">
+  </head>
+
+  <body>
+    <a class="skip" href="#main">К содержанию</a>
+
+    <!-- ── Header ─────────────────────────────────────────────────────────── -->
+    <header class="site-header" data-header>
+      <div class="site-header__bar glass" data-header-bar>
+        <a class="brand" href="./" aria-label="Lime Fitness — на главную">
+          <img src="img/brand/logo.webp" width="480" height="157" alt="Lime Fitness" decoding="async" />
+        </a>
+
+        <nav class="site-nav" aria-label="Основная навигация">
+          <ul>
+            <li><a href="#club">Клуб</a></li>
+            <li><a href="#directions">Направления</a></li>
+            <li><a href="./raspisanie-zanyatij/">Расписание</a></li>
+            <li><a href="#cards">Карты</a></li>
+            <li><a href="#contacts">Контакты</a></li>
+          </ul>
+        </nav>
+
+        <div class="site-header__side">
+          <a class="site-header__call" href="./zakazat-zvonok-info/">Заказать звонок</a>
+          <a class="site-header__tel t-num" href="tel:+73532900999" data-header-tel>+7 (3532) 900-999</a>
+          <a class="btn btn--sm btn--acrylic btn--lit" href="#cards" data-header-cta data-lit="false"><span class="btn__lime" aria-hidden="true"></span>Выбрать карту</a>
+          <button class="menu-toggle btn btn--sm btn--acrylic" type="button" aria-haspopup="dialog" aria-controls="menu" data-menu-open>
+            <span class="menu-toggle__icon" aria-hidden="true"></span>
+            Меню
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <dialog class="menu" id="menu" aria-label="Меню" data-menu>
+      <div class="menu__top">
+        <span class="t-label">Меню</span>
+        <button class="btn btn--sm btn--acrylic" type="button" data-menu-close>Закрыть</button>
+      </div>
+      <nav aria-label="Навигация по сайту">
+        <ul class="menu__list">
+          <li><a href="#club">Клуб</a></li>
+          <li><a href="#directions">Направления</a></li>
+          <li><a href="./raspisanie-zanyatij/">Расписание</a></li>
+          <li><a href="#cards">Клубные карты</a></li>
+          <li><a href="#contacts">Контакты</a></li>
+        </ul>
+      </nav>
+      <div class="menu__foot">
+        <a class="t-num menu__tel" href="tel:+73532900999">+7 (3532) 900-999</a>
+        <a class="menu__call" href="./zakazat-zvonok-info/">Заказать звонок</a>
+        <p class="t-label">Оренбург, ул. Лесозащитная, 13 · 24/7</p>
+      </div>
+    </dialog>
+
+    <main id="main">
+      <!-- ── Hero ─────────────────────────────────────────────────────────── -->
+      <section class="hero" aria-labelledby="hero-title" data-hero>
+        <div class="hero__inner wrap">
+          <div class="hero__copy">
+            <h1 class="hero__title" id="hero-title">
+              <span class="hero__eyebrow t-label" data-reveal>Lime Fitness · фитнес-клуб в Оренбурге</span>
+              <span class="hero__display t-display">
+                <span class="line-mask"><span class="line" data-line>Открыто</span></span>
+                <span class="line-mask"><span class="line" data-line>Всегда</span></span>
+              </span>
+            </h1>
+
+            <p class="hero__lead t-lead" data-reveal>
+              Больше 5000&nbsp;м²: тренажёрный зал, бассейн 25&nbsp;метров, ринг и 150&nbsp;групповых программ.
+            </p>
+
+            <div class="hero__actions" data-reveal>
+              <a class="btn btn--lime" href="#cards" data-hero-cta>
+                Выбрать карту
+                <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </a>
+              <a class="btn btn--acrylic" href="./raspisanie-zanyatij/" data-specular>Расписание</a>
+            </div>
+          </div>
+
+          <div class="hero__window" id="hero-panel" role="tabpanel" aria-labelledby="tab-gym" data-window>
+            <div class="hero__aperture" data-aperture>
+              <picture>
+                <source
+                  type="image/avif"
+                  srcset="img/hero/gym-750.avif 750w, img/hero/gym-1280.avif 1280w, img/hero/gym-1920.avif 1920w"
+                  sizes="(min-width: 1024px) 62vw, 100vw"
+                />
+                <source
+                  type="image/webp"
+                  srcset="img/hero/gym-750.webp 750w, img/hero/gym-1280.webp 1280w, img/hero/gym-1920.webp 1920w"
+                  sizes="(min-width: 1024px) 62vw, 100vw"
+                />
+                <img
+                  class="hero__img"
+                  src="img/hero/gym-1280.jpg"
+                  width="1920"
+                  height="1280"
+                  alt="Тренажёрный зал Lime Fitness: ряды гантелей и тренажёры"
+                  fetchpriority="high"
+                  decoding="async"
+                  data-img="a"
+                />
+              </picture>
+              <img class="hero__img hero__img--next" alt="" aria-hidden="true" decoding="async" data-img="b" />
+              <canvas class="hero__gl" aria-hidden="true" data-gl></canvas>
+              <div class="hero__scrim" aria-hidden="true"></div>
+              <span class="hero__pass" aria-hidden="true" data-pass></span>
+
+              <p class="hero__live acrylic t-label" data-status>
+                <span class="dot" aria-hidden="true"></span>
+                <!-- The script replaces this with the current time in Orenburg. -->
+                <span data-clock>Клуб открыт 24/7</span>
+              </p>
+
+              <div class="hero__caption acrylic" data-caption>
+                <p class="hero__cap-index t-label"><span class="t-num" data-cap="index">01</span> / <span class="t-num">06</span></p>
+                <p class="hero__cap-fact t-num"><span class="line-mask"><span class="line" data-cap="fact">&gt; 1000 м²</span></span></p>
+                <p class="hero__cap-title"><span class="line-mask"><span class="line" data-cap="title">Тренажёрный зал</span></span></p>
+                <p class="hero__cap-text" data-cap="text">Оборудование премиум-класса: Precor, Hoist. Зонирование по группам мышц и персональные тренеры.</p>
+                <a class="hero__cap-link btn btn--ghost" href="./trenazhyornyj-zal-orenburg/" data-cap="link" aria-label="Подробнее: Тренажёрный зал">
+                  <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <span class="hero__slit" aria-hidden="true" data-slit="l"></span>
+            <span class="hero__slit" aria-hidden="true" data-slit="r"></span>
+          </div>
+
+          <!-- Directions. Every scene is described here, in markup: the script
+               reads titles, facts, links and images from these attributes, so
+               WordPress prints them from fields and no copy lives in the bundle. -->
+          <div class="hero__dock" data-reveal>
+            <div class="dock acrylic" role="tablist" aria-label="Направления клуба" data-tabs>
+              <button
+                class="dock__tab" type="button" role="tab" id="tab-gym" aria-selected="true" aria-controls="hero-panel"
+                data-avif="img/hero/gym-750.avif 750w, img/hero/gym-1280.avif 1280w, img/hero/gym-1920.avif 1920w"
+                data-webp="img/hero/gym-750.webp 750w, img/hero/gym-1280.webp 1280w, img/hero/gym-1920.webp 1920w"
+                data-jpg="img/hero/gym-1280.jpg"
+                data-title="Тренажёрный зал" data-fact="&gt; 1000 м²"
+                data-text="Оборудование премиум-класса: Precor, Hoist. Зонирование по группам мышц и персональные тренеры."
+                data-href="/trenazhyornyj-zal-orenburg/"
+                data-alt="Тренажёрный зал Lime Fitness: ряды гантелей и тренажёры"
+              >Тренажёрный зал</button>
+              <button
+                class="dock__tab" type="button" role="tab" id="tab-pool" aria-selected="false" aria-controls="hero-panel" tabindex="-1"
+                data-avif="img/hero/pool-750.avif 750w, img/hero/pool-1280.avif 1280w, img/hero/pool-1920.avif 1920w"
+                data-webp="img/hero/pool-750.webp 750w, img/hero/pool-1280.webp 1280w, img/hero/pool-1920.webp 1920w"
+                data-jpg="img/hero/pool-1280.jpg"
+                data-title="Бассейн" data-fact="25 м"
+                data-text="Плавание и аквааэробика, отдельный детский бассейн. Хамам, сауны и джакузи — после тренировки."
+                data-href="/bassejn-orenburg/"
+                data-alt="Бассейн Lime Fitness: дорожки 25 метров и шезлонги"
+              >Бассейн</button>
+              <button
+                class="dock__tab" type="button" role="tab" id="tab-group" aria-selected="false" aria-controls="hero-panel" tabindex="-1"
+                data-avif="img/hero/group-750.avif 750w, img/hero/group-1280.avif 1280w, img/hero/group-1920.avif 1920w"
+                data-webp="img/hero/group-750.webp 750w, img/hero/group-1280.webp 1280w, img/hero/group-1920.webp 1920w"
+                data-jpg="img/hero/group-1280.jpg"
+                data-title="Групповые программы" data-fact="150 программ"
+                data-text="Сайкл, йога, пилатес, степ, танцы. Занятия ведут инструкторы клуба — для любого уровня подготовки."
+                data-href="/gruppovye-programmy/"
+                data-alt="Сайкл-студия Lime Fitness: ряды велотренажёров"
+              >Групповые</button>
+              <button
+                class="dock__tab" type="button" role="tab" id="tab-fight" aria-selected="false" aria-controls="hero-panel" tabindex="-1"
+                data-avif="img/hero/fight-750.avif 750w, img/hero/fight-1280.avif 1280w, img/hero/fight-1920.avif 1920w"
+                data-webp="img/hero/fight-750.webp 750w, img/hero/fight-1280.webp 1280w, img/hero/fight-1920.webp 1920w"
+                data-jpg="img/hero/fight-1280.jpg"
+                data-title="Единоборства" data-fact="Ринг"
+                data-text="Профессиональный боксёрский ринг и зал единоборств. Бокс, кикбоксинг, каратэ, MMA."
+                data-href="/edinoborstva/"
+                data-alt="Боксёрский ринг Lime Fitness"
+              >Единоборства</button>
+              <button
+                class="dock__tab" type="button" role="tab" id="tab-kids" aria-selected="false" aria-controls="hero-panel" tabindex="-1"
+                data-avif="img/hero/kids-750.avif 750w, img/hero/kids-1280.avif 1280w, img/hero/kids-1600.avif 1600w"
+                data-webp="img/hero/kids-750.webp 750w, img/hero/kids-1280.webp 1280w, img/hero/kids-1600.webp 1600w"
+                data-jpg="img/hero/kids-1280.jpg"
+                data-title="Молодетский клуб" data-fact="с 6 месяцев"
+                data-text="Плавание, единоборства, танцы, художественная студия и игровая комната с лабиринтом."
+                data-href="/molodetskij-klub/"
+                data-alt="Занятие в детском клубе Lime Fitness"
+              >Детям</button>
+              <!-- VERIFY: the recovery image is a stock photo taken from the current site, not the club. -->
+              <button
+                class="dock__tab" type="button" role="tab" id="tab-recovery" aria-selected="false" aria-controls="hero-panel" tabindex="-1"
+                data-avif="img/hero/recovery-750.avif 750w, img/hero/recovery-1280.avif 1280w, img/hero/recovery-1920.avif 1920w"
+                data-webp="img/hero/recovery-750.webp 750w, img/hero/recovery-1280.webp 1280w, img/hero/recovery-1920.webp 1920w"
+                data-jpg="img/hero/recovery-1280.jpg"
+                data-title="Диагностика и восстановление" data-fact="Врачи"
+                data-text="Стартовое тестирование у врачей спортивной медицины и нагрузка, подобранная под ваше здоровье."
+                data-href="/tsentr-diagnostiki-i-vosstanovleniya/"
+                data-alt="Врач центра диагностики и восстановления"
+              >Восстановление</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Club ─────────────────────────────────────────────────────────── -->
+      <section class="space" id="club" aria-labelledby="space-title" data-space>
+        <div class="wrap">
+          <p class="eyebrow t-label" data-reveal>Клуб</p>
+          <h2 class="space__title t-h2" id="space-title" data-ink>
+            Больше 5000&nbsp;м² под одной крышей. Тренажёрный зал, бассейн 25&nbsp;метров, ринг, 150&nbsp;групповых программ и детский клуб
+          </h2>
+
+          <div class="space__gallery grid">
+            <figure class="plane plane--b" data-plane data-depth="0.05">
+              <div class="plane__clip">
+                <picture>
+                  <source type="image/avif" srcset="img/space/floor-640.avif 640w, img/space/floor-1100.avif 1100w, img/space/floor-1600.avif 1600w" sizes="(min-width: 1024px) 62vw, 92vw" />
+                  <source type="image/webp" srcset="img/space/floor-640.webp 640w, img/space/floor-1100.webp 1100w, img/space/floor-1600.webp 1600w" sizes="(min-width: 1024px) 62vw, 92vw" />
+                  <img src="img/space/floor-1100.jpg" width="1920" height="1280" loading="lazy" decoding="async" alt="Тренажёрный зал, вид от ресепшена на ринг" />
+                </picture>
+              </div>
+              <figcaption class="t-label">Тренажёрный зал</figcaption>
+            </figure>
+            <figure class="plane plane--a" data-plane data-depth="0.13">
+              <div class="plane__clip">
+                <picture>
+                  <source type="image/avif" srcset="img/space/corridor-640.avif 640w, img/space/corridor-1100.avif 1100w, img/space/corridor-1600.avif 1600w" sizes="(min-width: 1024px) 24vw, 62vw" />
+                  <source type="image/webp" srcset="img/space/corridor-640.webp 640w, img/space/corridor-1100.webp 1100w, img/space/corridor-1600.webp 1600w" sizes="(min-width: 1024px) 24vw, 62vw" />
+                  <img src="img/space/corridor-1100.jpg" width="1920" height="1280" loading="lazy" decoding="async" alt="Коридор клуба: стены в виде долек лайма" />
+                </picture>
+              </div>
+            </figure>
+            <figure class="plane plane--c" data-plane data-depth="0.2">
+              <div class="plane__clip">
+                <picture>
+                  <source type="image/avif" srcset="img/space/cardio-640.avif 640w, img/space/cardio-1100.avif 1100w" sizes="(min-width: 1024px) 24vw, 52vw" />
+                  <source type="image/webp" srcset="img/space/cardio-640.webp 640w, img/space/cardio-1100.webp 1100w" sizes="(min-width: 1024px) 24vw, 52vw" />
+                  <img src="img/space/cardio-1100.jpg" width="1920" height="1280" loading="lazy" decoding="async" alt="Ряд беговых дорожек в кардиозоне" />
+                </picture>
+              </div>
+              <figcaption class="t-label">Кардио-театр</figcaption>
+            </figure>
+            <!-- From the gym page of the current site. -->
+            <div class="space__notes" data-notes>
+              <p class="t-label">В клубе</p>
+              <ul>
+                <li>Фитнес-бар со спортивным питанием</li>
+                <li>Своя система фильтрации и кондиционирования воздуха</li>
+                <li>Артезианская вода в кулерах</li>
+                <li>Wi-Fi</li>
+              </ul>
+            </div>
+          </div>
+
+          <ul class="facts" data-facts>
+            <li class="fact">
+              <span class="fact__num t-num">24/7</span>
+              <span class="fact__label">365 дней в году, без выходных</span>
+            </li>
+            <li class="fact">
+              <span class="fact__num t-num">5000&nbsp;м²</span>
+              <span class="fact__label">общая площадь клуба</span>
+            </li>
+            <li class="fact">
+              <span class="fact__num t-num">25&nbsp;м</span>
+              <span class="fact__label">бассейн и отдельный детский</span>
+            </li>
+            <li class="fact">
+              <span class="fact__num t-num">150</span>
+              <span class="fact__label">видов групповых занятий</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ── Directions ───────────────────────────────────────────────────── -->
+      <!-- Six cards: a photograph, dim until the card is held (pointer, focus;
+           on touch, the middle of the screen); a glass plaque on it; black
+           acrylic below with the name and, standing on its own short line
+           beside the name, the figure of the direction — still until held. -->
+      <section class="directions" id="directions" aria-labelledby="directions-title" data-directions>
+        <div class="wrap">
+          <p class="eyebrow t-label" data-directions-label>Направления</p>
+          <h2 class="directions__title t-h2" id="directions-title">
+            <span class="line-mask"><span class="line" data-directions-line>Шесть направлений</span></span>
+            <span class="line-mask"><span class="line" data-directions-line>Один клуб</span></span>
+          </h2>
+
+          <ol class="directions__grid">
+            <li class="directions__cell">
+              <a class="direction" data-specular-zone href="./trenazhyornyj-zal-orenburg/" aria-labelledby="direction-gym" data-direction="gym">
+                <div class="direction__photo">
+                  <picture>
+                    <source type="image/avif" srcset="img/cards/gym-480.avif 480w, img/cards/gym-900.avif 900w, img/cards/gym-1280.avif 1280w" sizes="(min-width: 1024px) 31vw, (min-width: 700px) 46vw, 92vw" />
+                    <source type="image/webp" srcset="img/cards/gym-480.webp 480w, img/cards/gym-900.webp 900w, img/cards/gym-1280.webp 1280w" sizes="(min-width: 1024px) 31vw, (min-width: 700px) 46vw, 92vw" />
+                    <img src="img/cards/gym-900.jpg" width="1920" height="1280" loading="lazy" decoding="async" alt="" />
+                  </picture>
+                  <span class="direction__chip glass t-num"><span class="t-label">01</span>&gt; 1000 м²</span>
+                </div>
+                <span class="direction__seam" aria-hidden="true"></span>
+                <div class="direction__body acrylic" data-specular>
+                  <span class="direction__spot" aria-hidden="true" data-specular-spot></span>
+                  <div class="direction__head">
+                    <h3 class="direction__name" id="direction-gym">Тренажёрный зал</h3>
+                    <svg class="direction__glyph" aria-hidden="true" data-sign>
+                      <g data-figure>
+                        <!-- A barbell, seen from the front: it leaves the floor, the bar flexes, it comes back down. -->
+                        <path class="fig-line" data-part="bar" />
+                        <path class="fig" style="--w: 11" data-bore data-part="plate" data-x="-47" data-h="15" />
+                        <path class="fig" style="--w: 9" data-bore data-part="plate" data-x="-59" data-h="10" />
+                        <path class="fig" style="--w: 11" data-bore data-part="plate" data-x="47" data-h="15" />
+                        <path class="fig" style="--w: 9" data-bore data-part="plate" data-x="59" data-h="10" />
+                      </g>
+                    </svg>
+                  </div>
+                  <p class="direction__text">Оборудование премиум-класса: Precor, Hoist. Зонирование по группам мышц и персональные тренеры.</p>
+                  <span class="direction__more btn btn--sm btn--ghost">
+                    Подробнее
+                    <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </span>
+                </div>
+              </a>
+            </li>
+            <li class="directions__cell">
+              <a class="direction" data-specular-zone href="./bassejn-orenburg/" aria-labelledby="direction-pool" data-direction="pool">
+                <div class="direction__photo">
+                  <picture>
+                    <source type="image/avif" srcset="img/cards/pool-480.avif 480w, img/cards/pool-900.avif 900w, img/cards/pool-1280.avif 1280w" sizes="(min-width: 1024px) 31vw, (min-width: 700px) 46vw, 92vw" />
+                    <source type="image/webp" srcset="img/cards/pool-480.webp 480w, img/cards/pool-900.webp 900w, img/cards/pool-1280.webp 1280w" sizes="(min-width: 1024px) 31vw, (min-width: 700px) 46vw, 92vw" />
+                    <img src="img/cards/pool-900.jpg" width="1920" height="1280" loading="lazy" decoding="async" alt="" />
+                  </picture>
+                  <span class="direction__chip glass t-num"><span class="t-label">02</span>25 м</span>
+                </div>
+                <span class="direction__seam" aria-hidden="true"></span>
+                <div class="direction__body acrylic" data-specular>
+                  <span class="direction__spot" aria-hidden="true" data-specular-spot></span>
+                  <div class="direction__head">
+                    <h3 class="direction__name" id="direction-pool">Бассейн</h3>
+                    <div class="lane" aria-hidden="true" data-lane="line" data-lane-pace="still" data-lane-zoom="0.7">
+                      <p class="lane__head t-label t-num" aria-hidden="true"><span data-lane-meters>0,0</span> / 25 м</p>
+                      <div class="lane__stage" data-lane-stage>
+                        <svg class="lane__svg" viewBox="0 0 1600 176" data-lane-svg>
+                          <path class="lane__rope" data-lane-rope d="M0 166H4000" />
+                          <path class="lane__water" data-lane-water d="M0 81H1600" />
+                          <!-- Front crawl, seen from the side; the script redraws every part
+                               and shows what is under the surface in a dimmer tone. -->
+                          <g class="lane__swimmer" data-lane-swimmer>
+                            <path class="lane__limb lane__limb--far" data-fig="arm-far" />
+                            <path class="lane__limb lane__limb--far" data-fig="leg-far" />
+                            <path class="lane__limb lane__limb--torso" data-fig="torso" />
+                            <path class="lane__limb" data-fig="leg" />
+                            <circle class="lane__head-dot" data-fig="head" r="10" />
+                            <path class="lane__limb" data-fig="arm" />
+                          </g>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="direction__text">Плавание и аквааэробика, отдельный детский бассейн. Хамам, сауны и джакузи — после тренировки.</p>
+                  <span class="direction__more btn btn--sm btn--ghost">
+                    Подробнее
+                    <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </span>
+                </div>
+              </a>
+            </li>
+            <li class="directions__cell">
+              <a class="direction" data-specular-zone href="./gruppovye-programmy/" aria-labelledby="direction-group" data-direction="group">
+                <div class="direction__photo">
+                  <picture>
+                    <source type="image/avif" srcset="img/cards/group-480.avif 480w, img/cards/group-900.avif 900w, img/cards/group-1280.avif 1280w" sizes="(min-width: 1024px) 31vw, (min-width: 700px) 46vw, 92vw" />
+                    <source type="image/webp" srcset="img/cards/group-480.webp 480w, img/cards/group-900.webp 900w, img/cards/group-1280.webp 1280w" sizes="(min-width: 1024px) 31vw, (min-width: 700px) 46vw, 92vw" />
+                    <img src="img/cards/group-900.jpg" width="1920" height="1280" loading="lazy" decoding="async" alt="" />
+                  </picture>
+                  <span class="direction__chip glass t-num"><span class="t-label">03</span>150 программ</span>
+                </div>
+                <span class="direction__seam" aria-hidden="true"></span>
+                <div class="direction__body acrylic" data-specular>
+                  <span class="direction__spot" aria-hidden="true" data-specular-spot></span>
+                  <div class="direction__head">
+                    <h3 class="direction__name" id="direction-group">Групповые программы</h3>
+                    <svg class="direction__glyph" aria-hidden="true" data-sign>
+                      <g data-figure data-zoom="1.4">
+                        <!-- A bicycle for the cycle studio: the wheels and the crank turn. -->
+                        <path class="fig-line" d="M-30 -21 -4 -21 -13 -45 -30 -21M-4 -21 21 -45H-13M21 -45 30 -21M21 -45 19 -52 28 -54M-19 -50H-8" />
+                        <path class="fig" style="--w: 7" data-bore d="M-47.5 -21a17.5 17.5 0 1 0 35 0a17.5 17.5 0 1 0 -35 0" />
+                        <path class="fig" style="--w: 7" data-bore d="M12.5 -21a17.5 17.5 0 1 0 35 0a17.5 17.5 0 1 0 -35 0" />
+                        <g transform="translate(-30 -21)"><path class="fig-line fig-line--thin" data-part="wheel" d="M-13 0H13M0 -13V13" /></g>
+                        <g transform="translate(30 -21)"><path class="fig-line fig-line--thin" data-part="wheel" d="M-13 0H13M0 -13V13" /></g>
+                        <g transform="translate(-4 -21)"><path class="fig-line" data-part="crank" d="M0 0 0 9M-4 9H4" /></g>
+                      </g>
+                    </svg>
+                  </div>
+                  <p class="direction__text">Сайкл, йога, пилатес, степ, танцы. Занятия ведут инструкторы клуба — для любого уровня подготовки.</p>
+                  <span class="direction__more btn btn--sm btn--ghost">
+                    Подробнее
+                    <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </span>
+                </div>
+              </a>
+            </li>
+            <li class="directions__cell">
+              <a class="direction" data-specular-zone href="./edinoborstva/" aria-labelledby="direction-fight" data-direction="fight">
+                <div class="direction__photo">
+                  <picture>
+                    <source type="image/avif" srcset="img/cards/fight-480.avif 480w, img/cards/fight-900.avif 900w, img/cards/fight-1280.avif 1280w" sizes="(min-width: 1024px) 31vw, (min-width: 700px) 46vw, 92vw" />
+                    <source type="image/webp" srcset="img/cards/fight-480.webp 480w, img/cards/fight-900.webp 900w, img/cards/fight-1280.webp 1280w" sizes="(min-width: 1024px) 31vw, (min-width: 700px) 46vw, 92vw" />
+                    <img src="img/cards/fight-900.jpg" width="1920" height="1280" loading="lazy" decoding="async" alt="" />
+                  </picture>
+                  <span class="direction__chip glass t-num"><span class="t-label">04</span>Ринг</span>
+                </div>
+                <span class="direction__seam" aria-hidden="true"></span>
+                <div class="direction__body acrylic" data-specular>
+                  <span class="direction__spot" aria-hidden="true" data-specular-spot></span>
+                  <div class="direction__head">
+                    <h3 class="direction__name" id="direction-fight">Единоборства</h3>
+                    <svg class="direction__glyph" aria-hidden="true" data-sign>
+                      <g data-figure data-zoom="1.05" data-shift="24">
+                        <!-- A heavy bag on its stand takes a jab and a cross from a boxing glove: cuff, mitt, thumb. -->
+                        <path class="fig-line" d="M30 0V-78H0M21 0H39" />
+                        <g data-part="bag">
+                          <path class="fig-line fig-line--thin" d="M0 -78V-64" />
+                          <path class="fig" style="--w: 22" data-bore d="M0 -53V-25" />
+                          <path class="fig-line fig-line--thin" d="M-9 -47H9" />
+                        </g>
+                        <g data-part="glove">
+                          <path class="fig" style="--w: 9" data-bore d="M-86 -40H-63" />
+                          <path class="fig-shape" d="M-58 -49.5H-50V-30.5H-58Z" />
+                          <path class="fig-shape" d="M-50 -49C-46 -53 -36 -54 -31 -48C-27 -43 -27 -36 -31 -32C-35 -28 -44 -28 -50 -31Z" />
+                          <path class="fig-line fig-line--thin" d="M-47 -36C-43 -40.5 -36 -40.5 -34 -36C-33 -33 -36 -31.5 -39 -32" />
+                        </g>
+                        <path class="fig-line fig-line--thin" data-part="hit" d="M-14 -55 -18 -62M-7 -59V-67M-14 -25 -18 -18" />
+                      </g>
+                    </svg>
+                  </div>
+                  <p class="direction__text">Профессиональный боксёрский ринг и зал единоборств. Бокс, кикбоксинг, каратэ, MMA.</p>
+                  <span class="direction__more btn btn--sm btn--ghost">
+                    Подробнее
+                    <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </span>
+                </div>
+              </a>
+            </li>
+            <li class="directions__cell">
+              <a class="direction" data-specular-zone href="./molodetskij-klub/" aria-labelledby="direction-kids" data-direction="kids">
+                <div class="direction__photo">
+                  <picture>
+                    <source type="image/avif" srcset="img/cards/kids-480.avif 480w, img/cards/kids-900.avif 900w, img/cards/kids-1280.avif 1280w" sizes="(min-width: 1024px) 31vw, (min-width: 700px) 46vw, 92vw" />
+                    <source type="image/webp" srcset="img/cards/kids-480.webp 480w, img/cards/kids-900.webp 900w, img/cards/kids-1280.webp 1280w" sizes="(min-width: 1024px) 31vw, (min-width: 700px) 46vw, 92vw" />
+                    <img src="img/cards/kids-900.jpg" width="1920" height="1280" loading="lazy" decoding="async" alt="" />
+                  </picture>
+                  <span class="direction__chip glass t-num"><span class="t-label">05</span>с 6 месяцев</span>
+                </div>
+                <span class="direction__seam" aria-hidden="true"></span>
+                <div class="direction__body acrylic" data-specular>
+                  <span class="direction__spot" aria-hidden="true" data-specular-spot></span>
+                  <div class="direction__head">
+                    <h3 class="direction__name" id="direction-kids">Молодетский клуб</h3>
+                    <svg class="direction__glyph" aria-hidden="true" data-sign>
+                      <g data-figure data-zoom="1.4">
+                        <!-- A child skipping: the rope goes over the head and under the feet. -->
+                        <path class="fig-line fig-line--thin" data-part="rope" />
+                        <g data-part="kid">
+                          <path class="fig-line" d="M-3 -17 -4 -1M3 -17 4 -1" />
+                          <path class="fig" style="--w: 11" data-bore d="M0 -30V-21" />
+                          <path class="fig-line" d="M-5 -31 -15 -27M5 -31 15 -27" />
+                          <path class="fig-line" d="M-7.5 -43.5a7.5 7.5 0 1 0 15 0a7.5 7.5 0 1 0 -15 0" />
+                        </g>
+                      </g>
+                    </svg>
+                  </div>
+                  <p class="direction__text">Плавание, единоборства, танцы, художественная студия и игровая комната с лабиринтом.</p>
+                  <span class="direction__more btn btn--sm btn--ghost">
+                    Подробнее
+                    <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </span>
+                </div>
+              </a>
+            </li>
+            <li class="directions__cell">
+              <a class="direction" data-specular-zone href="./tsentr-diagnostiki-i-vosstanovleniya/" aria-labelledby="direction-recovery" data-direction="recovery">
+                <div class="direction__photo">
+                  <!-- VERIFY: stock image from the current site, not the club. -->
+                  <picture>
+                    <source type="image/avif" srcset="img/cards/recovery-480.avif 480w, img/cards/recovery-900.avif 900w, img/cards/recovery-1280.avif 1280w" sizes="(min-width: 1024px) 31vw, (min-width: 700px) 46vw, 92vw" />
+                    <source type="image/webp" srcset="img/cards/recovery-480.webp 480w, img/cards/recovery-900.webp 900w, img/cards/recovery-1280.webp 1280w" sizes="(min-width: 1024px) 31vw, (min-width: 700px) 46vw, 92vw" />
+                    <img src="img/cards/recovery-900.jpg" width="1920" height="1280" loading="lazy" decoding="async" alt="" />
+                  </picture>
+                  <span class="direction__chip glass t-num"><span class="t-label">06</span>Врачи</span>
+                </div>
+                <span class="direction__seam" aria-hidden="true"></span>
+                <div class="direction__body acrylic" data-specular>
+                  <span class="direction__spot" aria-hidden="true" data-specular-spot></span>
+                  <div class="direction__head">
+                    <h3 class="direction__name" id="direction-recovery">Диагностика и восстановление</h3>
+                    <svg class="direction__glyph" aria-hidden="true" data-sign>
+                      <g data-figure data-zoom="1.4" data-shift="16" data-reach="62" data-pen="30" data-base="12">
+                        <!-- A pulse: one heartbeat runs along the line. -->
+                        <path class="fig-line" data-part="pulse" d="M-34 0H-27L-21 -5 -15 0H-9L-5 6 1 -38 7 14 12 0H19Q26 -10 33 0H40" />
+                      </g>
+                    </svg>
+                  </div>
+                  <p class="direction__text">Стартовое тестирование у врачей спортивной медицины и нагрузка, подобранная под ваше здоровье.</p>
+                  <span class="direction__more btn btn--sm btn--ghost">
+                    Подробнее
+                    <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </span>
+                </div>
+              </a>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ── Club plan ────────────────────────────────────────────────────── -->
+      <!-- The club's own 3D plan, at night: the picture in graphite, the light
+           off. A room is lit — its piece of the plan in the club's colours —
+           when its area is chosen in the panel, and fully when it is held
+           (pointer, or its name in the list). Everything between the markers
+           is written by `npm run plan`; names follow the plan's legend. -->
+      <section class="plan" id="plan" aria-labelledby="plan-title" data-plan>
+        <div class="wrap">
+          <p class="eyebrow t-label" data-plan-label>Карта клуба</p>
+          <h2 class="plan__title t-h2" id="plan-title">
+            <span class="line-mask"><span class="line" data-plan-line>Весь клуб</span></span>
+            <span class="line-mask"><span class="line" data-plan-line>На одном плане</span></span>
+          </h2>
+
+          <div class="plan__layout">
+            <figure class="plan__stage" data-plan-stage>
+              <div class="plan__model" data-plan-model>
+                <!-- plan:rooms -->
+                <picture>
+                  <source type="image/avif" srcset="img/plan/night-1238.avif 1238w, img/plan/night-2476.avif 2476w" sizes="(min-width: 1024px) 64vw, 92vw" />
+                  <img class="plan__night" src="img/plan/night-1238.webp" srcset="img/plan/night-1238.webp 1238w, img/plan/night-2476.webp 2476w" sizes="(min-width: 1024px) 64vw, 92vw" width="2476" height="1432" loading="lazy" decoding="async" alt="План клуба Lime Fitness: бассейн и термы в дальней части, тренажёрный зал справа, залы групповых программ и единоборств у входа, детский клуб слева" />
+                </picture>
+                <div class="plan__lamps" aria-hidden="true">
+                  <i class="plan-lamp" data-room="11" data-group="kids" style="left:0.606%;top:27.304%;width:13.53%;height:13.547%;background-size:739.104% 738.144%;background-position:0.701% 31.583%;clip-path:polygon(0.341% 38.39%,89.698% 0.649%,99.539% 58.389%,6.733% 99.05%)"></i>
+                  <i class="plan-lamp" data-room="17" data-group="kids" style="left:1.575%;top:37.849%;width:7.391%;height:9.567%;background-size:1353.005% 1045.255%;background-position:1.701% 41.853%;clip-path:polygon(0.566% 30.646%,87.107% 1.304%,99.006% 67.741%,9.894% 98.821%)"></i>
+                  <i class="plan-lamp" data-room="14" data-group="kids" style="left:8.037%;top:35.196%;width:7.149%;height:9.218%;background-size:1398.87% 1084.848%;background-position:8.656% 38.769%;clip-path:polygon(0.893% 29.723%,84.658% 1.212%,99.421% 68.476%,13.23% 98.653%)"></i>
+                  <i class="plan-lamp" data-room="15" data-group="kids" style="left:2.181%;top:44.693%;width:6.987%;height:10.475%;background-size:1431.214% 954.667%;background-position:2.345% 49.922%;clip-path:polygon(0.626% 26.311%,84.595% 1.014%,98.893% 72.05%,12.102% 99.05%)"></i>
+                  <i class="plan-lamp" data-room="16" data-group="kids" style="left:8.118%;top:42.249%;width:7.876%;height:18.156%;background-size:1269.744% 550.769%;background-position:8.812% 51.621%;clip-path:polygon(0.817% 13.821%,68.058% 0.647%,99.231% 84.345%,27.39% 99.38%)"></i>
+                  <i class="plan-lamp" data-room="18" data-group="kids" style="left:2.989%;top:52.235%;width:7.27%;height:11.243%;background-size:1375.556% 889.441%;background-position:3.223% 58.851%;clip-path:polygon(0.682% 26.191%,84.137% 1.012%,98.895% 72.086%,12.537% 99.027%)"></i>
+                  <i class="plan-lamp" data-room="12" data-group="pool" style="left:12.763%;top:12.291%;width:40.024%;height:31.285%;background-size:249.849% 319.643%;background-position:21.279% 17.886%;clip-path:polygon(0.155% 48.16%,88.444% 0.392%,94.705% 21.37%,89.86% 24.087%,93.934% 38.182%,92.787% 38.84%,99.815% 63.343%,93.055% 67.38%,89.741% 55.305%,58.281% 73.737%,59.393% 78.838%,24.08% 99.687%,18.528% 64.715%,3.489% 73.156%)"></i>
+                  <i class="plan-lamp" data-room="8" data-group="pool" style="left:36.066%;top:29.609%;width:13.934%;height:9.846%;background-size:717.681% 1015.603%;background-position:41.905% 32.843%;clip-path:polygon(0.35% 59.344%,90.188% 1.097%,99.476% 38.579%,8.148% 98.91%)"></i>
+                  <i class="plan-lamp" data-room="9" data-group="pool" style="left:17.165%;top:32.542%;width:3.393%;height:3.422%;background-size:2947.619% 2922.449%;background-position:17.768% 33.695%;clip-path:polygon(2.374% 40.334%,86.897% 3.555%,98.333% 59.508%,13.058% 96.951%)"></i>
+                  <i class="plan-lamp" data-room="36" data-group="pool" style="left:17.569%;top:34.567%;width:4.806%;height:10.475%;background-size:2080.672% 954.667%;background-position:18.456% 38.612%;clip-path:polygon(1.177% 13.227%,61.396% 0.985%,98.701% 85.453%,36.039% 98.722%)"></i>
+                  <i class="plan-lamp" data-room="37" data-group="pool" style="left:48.183%;top:10.964%;width:7.229%;height:13.338%;background-size:1383.24% 749.738%;background-position:51.937% 12.651%;clip-path:polygon(0.703% 10.64%,43.27% 0.883%,79.29% 49.401%,75.231% 50.365%,99.137% 82.716%,31.158% 99.249%,8.993% 66.797%,35.818% 60.421%)"></i>
+                  <i class="plan-lamp" data-room="35" data-group="pool" style="left:53.796%;top:9.008%;width:4.887%;height:7.472%;background-size:2046.281% 1338.318%;background-position:56.561% 9.736%;clip-path:polygon(1.257% 13.327%,42.855% 1.821%,99.002% 86.663%,56.142% 98.95%)"></i>
+                  <i class="plan-lamp" data-room="10" data-group="pool" style="left:50.04%;top:22.486%;width:6.422%;height:6.075%;background-size:1557.233% 1645.977%;background-position:53.474% 23.941%;clip-path:polygon(0.924% 37.145%,76.54% 1.221%,98.835% 60.541%,21.992% 97.754%)"></i>
+                  <i class="plan-lamp" data-room="21" data-group="group" style="left:26.01%;top:55.656%;width:24.192%;height:25.349%;background-size:413.356% 394.49%;background-position:34.31% 74.556%;clip-path:polygon(0.263% 21.273%,6.12% 18.486%,9.857% 35.435%,82.18% 0.385%,99.766% 56.827%,16.966% 99.584%)"></i>
+                  <i class="plan-lamp" data-room="19" data-group="group" style="left:4.927%;top:66.69%;width:12.803%;height:26.676%;background-size:781.073% 374.869%;background-position:5.651% 90.952%;clip-path:polygon(0.404% 18.283%,75.17% 0.391%,99.47% 78.526%,18.385% 99.583%)"></i>
+                  <i class="plan-lamp" data-room="20" data-group="fight" style="left:14.701%;top:61.103%;width:15.186%;height:26.536%;background-size:658.511% 376.842%;background-position:17.333% 83.175%;clip-path:polygon(0.316% 21.074%,73.015% 0.329%,99.477% 75.228%,20.911% 99.556%)"></i>
+                  <i class="plan-lamp" data-room="32" data-group="recovery" style="left:37.359%;top:35.265%;width:5.897%;height:10.754%;background-size:1695.89% 929.87%;background-position:39.7% 39.515%;clip-path:polygon(1.036% 13.894%,52.889% 0.761%,99.072% 85.003%,45.175% 99.261%)"></i>
+                  <i class="plan-lamp" data-room="32" data-group="recovery" style="left:51.414%;top:26.117%;width:6.462%;height:6.075%;background-size:1547.5% 1645.977%;background-position:54.965% 27.807%;clip-path:polygon(1.101% 39.421%,77.492% 2.177%,98.891% 59.472%,21.329% 97.983%)"></i>
+                  <i class="plan-lamp" data-room="31" data-group="recovery" style="left:86.107%;top:31.355%;width:10.905%;height:11.453%;background-size:917.037% 873.171%;background-position:96.646% 35.41%;clip-path:polygon(0.462% 29.302%,59.078% 1.032%,99.519% 68.726%,39.173% 99.11%)"></i>
+                  <i class="plan-lamp" data-room="34" data-group="service" style="left:14.095%;top:33.869%;width:4.281%;height:7.682%;background-size:2335.849% 1301.818%;background-position:14.726% 36.687%;clip-path:polygon(1.857% 18.237%,71.599% 1.179%,98.289% 80.879%,26.566% 98.925%)"></i>
+                  <i class="plan-lamp" data-room="33" data-group="service" style="left:51.333%;top:9.916%;width:5.21%;height:7.682%;background-size:1919.38% 1301.818%;background-position:54.154% 10.741%;clip-path:polygon(0.941% 14.777%,47.115% 1.533%,98.555% 84.847%,50.964% 98.995%)"></i>
+                  <i class="plan-lamp" data-room="5" data-group="service" style="left:17.124%;top:38.617%;width:22.859%;height:17.807%;background-size:437.456% 561.569%;background-position:22.199% 46.984%;clip-path:polygon(0.298% 54.644%,90.781% 0.495%,99.791% 41.357%,6.352% 99.229%)"></i>
+                  <i class="plan-lamp" data-room="4" data-group="service" style="left:53.877%;top:15.433%;width:12.52%;height:20.391%;background-size:798.71% 490.411%;background-position:61.588% 19.386%;clip-path:polygon(0.55% 10.778%,38.262% 0.624%,99.416% 87.377%,58.663% 99.45%)"></i>
+                  <i class="plan-lamp" data-room="29" data-group="service" style="left:52.746%;top:29.749%;width:7.674%;height:9.008%;background-size:1303.158% 1110.078%;background-position:57.13% 32.694%;clip-path:polygon(1.027% 26.777%,66.367% 0.783%,99.057% 70.879%,31.945% 98.461%)"></i>
+                  <i class="plan-lamp" data-room="3" data-group="service" style="left:41.276%;top:32.891%;width:15.065%;height:19.972%;background-size:663.807% 500.699%;background-position:48.597% 41.099%;clip-path:polygon(0.312% 23.24%,65.063% 0.43%,99.688% 73.552%,30.843% 99.615%)"></i>
+                  <i class="plan-lamp" data-room="7" data-group="service" style="left:47.819%;top:42.528%;width:9.935%;height:18.575%;background-size:1006.504% 538.346%;background-position:53.094% 52.23%;clip-path:polygon(0.789% 11.753%,43.931% 0.5%,99.572% 86.511%,53.632% 99.435%)"></i>
+                  <i class="plan-lamp" data-room="1" data-group="service" style="left:51.939%;top:59.008%;width:6.704%;height:7.472%;background-size:1491.566% 1338.318%;background-position:55.671% 63.774%;clip-path:polygon(1.038% 36.513%,76.113% 1.064%,99.199% 61.581%,22.85% 98.383%)"></i>
+                  <i class="plan-lamp" data-room="2" data-group="service" style="left:57.633%;top:43.436%;width:6.624%;height:9.358%;background-size:1509.756% 1068.657%;background-position:61.721% 47.92%;clip-path:polygon(0.878% 21.05%,57.226% 1.153%,99.034% 77.35%,41.096% 98.534%)"></i>
+                  <i class="plan-lamp" data-room="13" data-group="service" style="left:60.339%;top:50.698%;width:5.331%;height:5.796%;background-size:1875.758% 1725.301%;background-position:63.737% 53.818%;clip-path:polygon(1.062% 35.682%,73.075% 1.448%,98.782% 62.329%,25.801% 97.616%)"></i>
+                  <i class="plan-lamp" data-room="6" data-group="service" style="left:61.712%;top:53.003%;width:8.926%;height:9.637%;background-size:1120.362% 1037.681%;background-position:67.761% 58.655%;clip-path:polygon(0.496% 35.982%,72.789% 0.764%,99.486% 62.213%,25.591% 99.245%)"></i>
+                  <i class="plan-lamp" data-room="26" data-group="service" style="left:26.817%;top:47.975%;width:19.426%;height:16.411%;background-size:514.761% 609.362%;background-position:33.283% 57.393%;clip-path:polygon(0.302% 51.649%,88.439% 0.471%,99.675% 44.924%,8.84% 99.472%)"></i>
+                  <i class="plan-lamp" data-room="30" data-group="gym" data-lit style="left:55.977%;top:0.978%;width:21.325%;height:12.5%;background-size:468.939% 800%;background-position:71.15% 1.117%;clip-path:polygon(0.248% 64.862%,89.245% 0.654%,99.726% 32.166%,8.99% 99.245%)"></i>
+                  <i class="plan-lamp" data-room="25" data-group="gym" data-lit style="left:57.754%;top:7.332%;width:34.814%;height:51.746%;background-size:287.239% 193.252%;background-position:88.6% 15.195%;clip-path:polygon(0.198% 11.753%,39.757% 0.22%,99.846% 76.922%,37.124% 99.755%,10.297% 54.952%,24.953% 50.192%)"></i>
+                  <i class="plan-lamp" data-room="27" data-group="gym" data-zone style="left:57.876%;top:11.243%;width:9.006%;height:11.313%;background-size:1110.314% 883.951%;background-position:63.604% 12.677%;clip-path:polygon(0.57% 19.579%,53.816% 1.201%,99.432% 79.183%,44.002% 99.293%)"></i>
+                  <i class="plan-lamp" data-room="24" data-group="gym" data-zone style="left:64.257%;top:11.453%;width:14.095%;height:17.528%;background-size:709.456% 570.518%;background-position:74.8% 13.887%;clip-path:polygon(0.439% 18.088%,49.496% 0.662%,99.573% 79.182%,47.464% 99.207%)"></i>
+                  <i class="plan-lamp" data-room="22" data-group="gym" data-zone style="left:63.651%;top:40.014%;width:26.696%;height:19.064%;background-size:374.584% 524.542%;background-position:86.832% 49.439%;clip-path:polygon(0.258% 8.726%,11.75% 0.722%,31.12% 65.208%,91.346% 20.611%,99.804% 43.66%,26.325% 99.334%)"></i>
+                  <i class="plan-lamp" data-room="28" data-group="fight" style="left:65.065%;top:12.57%;width:8.36%;height:8.38%;background-size:1196.135% 1193.333%;background-position:71% 13.72%;clip-path:polygon(0.841% 30.04%,65.442% 1.461%,99.294% 68.234%,33.055% 98.497%)"></i>
+                  <i class="plan-lamp" data-room="23" data-group="group" style="left:73.304%;top:33.031%;width:11.632%;height:14.106%;background-size:859.722% 708.911%;background-position:82.952% 38.455%;clip-path:polygon(99.432% 49.583%,91.947% 85.056%,58.735% 99.476%,20.323% 83.284%,0.535% 47.295%,9.847% 13.599%,41.578% 0.663%,78.162% 15.075%)"></i>
+                </div>
+                <svg class="plan__svg" viewBox="0 0 2476 1432" aria-hidden="true" focusable="false" data-plan-svg>
+                  <polygon class="plan-room" data-room="11" data-group="kids" data-name="Детский бассейн" data-x="0.0725" data-y="0.2739" points="16.1,465.5 315.5,392.3 348.5,504.3 37.6,583.2"/>
+                  <polygon class="plan-room" data-room="17" data-group="kids" data-name="Зал детских танцевальных программ" data-x="0.0521" data-y="0.3797" points="40,584 198.4,543.8 220.2,634.8 57.1,677.4"/>
+                  <polygon class="plan-room" data-room="14" data-group="kids" data-name="Детская раздевалка" data-x="0.1158" data-y="0.3531" points="200.6,543.2 348.8,505.6 375,594.4 222.4,634.2"/>
+                  <polygon class="plan-room" data-room="15" data-group="kids" data-name="Зал детских спортивных программ" data-x="0.0561" data-y="0.448" points="55.1,679.5 200.3,641.5 225.1,748.1 74.9,788.6"/>
+                  <polygon class="plan-room" data-room="16" data-group="kids" data-name="Детская игровая комната" data-x="0.1197" data-y="0.4237" points="202.6,640.9 333.7,606.7 394.5,824.3 254.4,863.4"/>
+                  <polygon class="plan-room" data-room="18" data-group="kids" data-name="Игровой лабиринт" data-x="0.0656" data-y="0.5235" points="75.2,790.2 225.4,749.6 252,864.1 96.6,907.4"/>
+                  <polygon class="plan-room" data-room="12" data-group="pool" data-name="Большой бассейн" data-x="0.3867" data-y="0.1241" points="317.5,391.8 1192.5,177.8 1254.5,271.7 1206.5,283.9 1246.9,347.1 1235.5,350 1305.2,459.8 1238.2,477.9 1205.3,423.8 893.6,506.3 904.6,529.2 554.6,622.6 499.6,465.9 350.6,503.7"/>
+                  <polygon class="plan-room" data-room="8" data-group="pool" data-name="Релакс-зона" data-x="0.4297" data-y="0.2972" points="894.2,507.7 1204.1,425.5 1236.2,478.4 921.1,563.5"/>
+                  <polygon class="plan-room" data-room="9" data-group="pool" data-name="Джакузи" data-x="0.1887" data-y="0.3266" points="427,485.8 498,467.7 507.6,495.2 436,513.5"/>
+                  <polygon class="plan-room" data-room="36" data-group="pool" data-name="Женская сауна" data-x="0.1994" data-y="0.3467" points="436.4,514.8 508.1,496.5 552.5,623.2 477.9,643.1"/>
+                  <polygon class="plan-room" data-room="37" data-group="pool" data-name="Общая сауна" data-x="0.5156" data-y="0.1108" points="1194.3,177.3 1270.5,158.7 1334.9,251.4 1327.7,253.2 1370.5,315 1248.8,346.6 1209.1,284.6 1257.1,272.4"/>
+                  <polygon class="plan-room" data-room="35" data-group="pool" data-name="Мужская сауна" data-x="0.5623" data-y="0.0914" points="1333.5,143.3 1383.9,130.9 1451.8,221.7 1399.9,234.9"/>
+                  <polygon class="plan-room" data-room="10" data-group="pool" data-name="Купель и хаммам" data-x="0.5322" data-y="0.2256" points="1240.5,354.3 1360.7,323.1 1396.1,374.7 1274,407"/>
+                  <polygon class="plan-room" data-room="21" data-group="group" data-name="Универсальный зал групповых программ" data-x="0.3468" data-y="0.5575" points="645.6,874.2 680.7,864.1 703,925.6 1136.3,798.4 1241.6,1003.3 745.6,1158.5"/>
+                  <polygon class="plan-room" data-room="19" data-group="group" data-name="Студия йоги и AntiGravity" data-x="0.1112" data-y="0.6679" points="123.3,1024.8 360.3,956.5 437.3,1255 180.3,1335.4"/>
+                  <polygon class="plan-room" data-room="20" data-group="fight" data-name="Зал единоборств" data-x="0.2206" data-y="0.6119" points="365.2,955.1 638.5,876.3 738,1160.9 442.6,1253.3"/>
+                  <polygon class="plan-room" data-room="32" data-group="recovery" data-name="Кабинеты массажа" data-x="0.4028" data-y="0.3535" points="926.5,526.4 1002.2,506.2 1069.6,635.9 991,657.9"/>
+                  <polygon class="plan-room" data-room="32" data-group="recovery" data-name="Кабинеты массажа" data-x="0.5463" data-y="0.2625" points="1274.8,408.3 1397,375.9 1431.2,425.7 1307.1,459.2"/>
+                  <polygon class="plan-room" data-room="31" data-group="recovery" data-name="Кабинет диагностики" data-x="0.9151" data-y="0.3147" points="2133.2,497.1 2291.5,450.7 2400.7,561.7 2237.8,611.5"/>
+                  <polygon class="plan-room" data-room="34" data-group="service" data-name="Женские душевые" data-x="0.1622" data-y="0.3396" points="351,505.1 424.9,486.3 453.2,574 377.2,593.8"/>
+                  <polygon class="plan-room" data-room="33" data-group="service" data-name="Мужские душевые" data-x="0.5391" data-y="0.1003" points="1272.2,158.3 1331.8,143.7 1398.1,235.3 1336.7,250.9"/>
+                  <polygon class="plan-room" data-room="5" data-group="service" data-name="Женская раздевалка" data-x="0.284" data-y="0.3871" points="425.7,692.3 937.8,554.3 988.8,658.5 460,806"/>
+                  <polygon class="plan-room" data-room="4" data-group="service" data-name="Мужская раздевалка" data-x="0.6004" data-y="0.1556" points="1335.7,252.5 1452.6,222.8 1642.2,476.1 1515.9,511.4"/>
+                  <polygon class="plan-room" data-room="29" data-group="service" data-name="Солярии" data-x="0.5655" data-y="0.2982" points="1308,460.5 1432.1,427 1494.2,517.4 1366.7,553"/>
+                  <polygon class="plan-room" data-room="3" data-group="service" data-name="Фитнес-кафе" data-x="0.4865" data-y="0.3298" points="1023.2,537.5 1264.7,472.2 1393.8,681.4 1137,755.9"/>
+                  <polygon class="plan-room" data-room="7" data-group="service" data-name="Выдача полотенец" data-x="0.5274" data-y="0.4262" points="1185.9,640.3 1292.1,610.3 1428.9,839.1 1315.9,873.5"/>
+                  <polygon class="plan-room" data-room="1" data-group="service" data-name="Рецепция" data-x="0.5528" data-y="0.5909" points="1287.7,884.1 1412.3,846.1 1450.7,910.9 1323.9,950.3"/>
+                  <polygon class="plan-room" data-room="2" data-group="service" data-name="Гардероб" data-x="0.6092" data-y="0.4354" points="1428.4,650.2 1520.8,623.5 1589.4,725.6 1494.4,754"/>
+                  <polygon class="plan-room" data-room="13" data-group="service" data-name="Переговорная" data-x="0.6299" data-y="0.5078" points="1495.4,755.6 1590.5,727.2 1624.4,777.7 1528.1,807"/>
+                  <polygon class="plan-room" data-room="6" data-group="service" data-name="Отдел продаж" data-x="0.6614" data-y="0.5308" points="1529.1,808.7 1688.9,760.1 1747.9,844.9 1584.6,896"/>
+                  <polygon class="plan-room" data-room="26" data-group="service" data-name="Салон красоты" data-x="0.364" data-y="0.4805" points="665.5,808.4 1089.4,688.1 1143.4,792.6 706.5,920.8"/>
+                  <polygon class="plan-room" data-room="30" data-group="gym" data-name="Залы для индивидуальных занятий" data-x="0.6654" data-y="0.0106" data-lit points="1387.3,130.1 1857.2,15.2 1912.6,71.6 1433.5,191.6"/>
+                  <polygon class="plan-room" data-room="25" data-group="gym" data-name="Тренажёрный зал" data-x="0.7007" data-y="0.0745" data-lit points="1431.7,192.1 1772.7,106.6 2290.7,675 1750,844.2 1518.8,512.2 1645.1,476.9"/>
+                  <polygon class="plan-room" data-room="27" data-group="gym" data-name="Зона свободных весов" data-x="0.6233" data-y="0.1138" data-zone points="1434.3,192.7 1553,162.9 1654.7,289.3 1531.1,321.9"/>
+                  <polygon class="plan-room" data-room="24" data-group="gym" data-name="Кросс-фит студия" data-x="0.712" data-y="0.1157" data-zone points="1592.5,209.4 1763.7,165.7 1938.5,362.7 1756.6,413"/>
+                  <polygon class="plan-room" data-room="22" data-group="gym" data-name="Кардио-театр" data-x="0.7525" data-y="0.4015" data-zone points="1577.7,596.8 1653.7,575 1781.7,751 2179.8,629.3 2235.7,692.2 1750,844.2"/>
+                  <polygon class="plan-room" data-room="28" data-group="fight" data-name="Боксёрский ринг" data-x="0.6922" data-y="0.1269" points="1612.7,216 1746.5,181.8 1816.5,261.9 1679.4,298.2"/>
+                  <polygon class="plan-room" data-room="23" data-group="group" data-name="Сайкл-студия" data-x="0.7913" data-y="0.3312" points="2101.4,573.2 2079.8,644.8 1984.2,673.9 1873.5,641.2 1816.5,568.5 1843.4,500.5 1934.7,474.3 2040.1,503.5"/>
+                </svg>
+                <!-- /plan:rooms -->
+                <span class="plan__tag acrylic" aria-hidden="true" data-plan-tag>
+                  <span class="plan__tag-num t-label" data-plan-tag-num></span>
+                  <span class="plan__tag-name" data-plan-tag-name></span>
+                </span>
+              </div>
+              <figcaption class="plan__hint t-label">
+                <span class="plan__hint-fine">Наведите на зал — в нём загорится свет</span>
+                <span class="plan__hint-touch">Коснитесь зала — в нём загорится свет</span>
+              </figcaption>
+            </figure>
+
+            <div class="plan__panel acrylic">
+              <div class="plan__groups" role="tablist" aria-label="Зоны клуба" data-plan-groups>
+                <button class="plan__group" type="button" role="tab" id="plan-tab-gym" aria-controls="plan-rooms-gym" aria-selected="true" data-plan-group="gym">
+                  <span class="plan__group-num t-label">01</span>
+                  <span class="plan__group-name">Тренажёрный зал</span>
+                  <span class="plan__group-count t-num" aria-hidden="true">5</span>
+                </button>
+                <button class="plan__group" type="button" role="tab" id="plan-tab-pool" aria-controls="plan-rooms-pool" aria-selected="false" tabindex="-1" data-plan-group="pool">
+                  <span class="plan__group-num t-label">02</span>
+                  <span class="plan__group-name">Бассейн и термы</span>
+                  <span class="plan__group-count t-num" aria-hidden="true">7</span>
+                </button>
+                <button class="plan__group" type="button" role="tab" id="plan-tab-group" aria-controls="plan-rooms-group" aria-selected="false" tabindex="-1" data-plan-group="group">
+                  <span class="plan__group-num t-label">03</span>
+                  <span class="plan__group-name">Групповые программы</span>
+                  <span class="plan__group-count t-num" aria-hidden="true">3</span>
+                </button>
+                <button class="plan__group" type="button" role="tab" id="plan-tab-fight" aria-controls="plan-rooms-fight" aria-selected="false" tabindex="-1" data-plan-group="fight">
+                  <span class="plan__group-num t-label">04</span>
+                  <span class="plan__group-name">Единоборства</span>
+                  <span class="plan__group-count t-num" aria-hidden="true">2</span>
+                </button>
+                <button class="plan__group" type="button" role="tab" id="plan-tab-kids" aria-controls="plan-rooms-kids" aria-selected="false" tabindex="-1" data-plan-group="kids">
+                  <span class="plan__group-num t-label">05</span>
+                  <span class="plan__group-name">Молодетский клуб</span>
+                  <span class="plan__group-count t-num" aria-hidden="true">6</span>
+                </button>
+                <button class="plan__group" type="button" role="tab" id="plan-tab-recovery" aria-controls="plan-rooms-recovery" aria-selected="false" tabindex="-1" data-plan-group="recovery">
+                  <span class="plan__group-num t-label">06</span>
+                  <span class="plan__group-name">Диагностика и восстановление</span>
+                  <span class="plan__group-count t-num" aria-hidden="true">2</span>
+                </button>
+                <button class="plan__group" type="button" role="tab" id="plan-tab-service" aria-controls="plan-rooms-service" aria-selected="false" tabindex="-1" data-plan-group="service">
+                  <span class="plan__group-num t-label">07</span>
+                  <span class="plan__group-name">Сервис</span>
+                  <span class="plan__group-count t-num" aria-hidden="true">12</span>
+                </button>
+              </div>
+
+              <div class="plan__details">
+                <div class="plan__detail" role="tabpanel" id="plan-rooms-gym" aria-labelledby="plan-tab-gym" data-plan-detail="gym">
+                  <ul class="plan__rooms">
+                    <li data-plan-room="25">Тренажёрный зал</li>
+                    <li data-plan-room="27">Зона свободных весов</li>
+                    <li data-plan-room="22">Кардио-театр</li>
+                    <li data-plan-room="24">Кросс-фит студия</li>
+                    <li data-plan-room="30">Залы для индивидуальных занятий</li>
+                  </ul>
+                  <a class="plan__more btn btn--sm btn--ghost" href="./trenazhyornyj-zal-orenburg/">
+                    Подробнее
+                    <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </a>
+                </div>
+                <div class="plan__detail" role="tabpanel" id="plan-rooms-pool" aria-labelledby="plan-tab-pool" data-plan-detail="pool" hidden>
+                  <ul class="plan__rooms">
+                    <li data-plan-room="12">Большой бассейн</li>
+                    <li data-plan-room="9">Джакузи</li>
+                    <li data-plan-room="10">Купель и хаммам</li>
+                    <li data-plan-room="8">Релакс-зона</li>
+                    <li data-plan-room="37">Общая сауна</li>
+                    <li data-plan-room="36">Женская сауна</li>
+                    <li data-plan-room="35">Мужская сауна</li>
+                  </ul>
+                  <a class="plan__more btn btn--sm btn--ghost" href="./bassejn-orenburg/">
+                    Подробнее
+                    <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </a>
+                </div>
+                <div class="plan__detail" role="tabpanel" id="plan-rooms-group" aria-labelledby="plan-tab-group" data-plan-detail="group" hidden>
+                  <ul class="plan__rooms">
+                    <li data-plan-room="21">Универсальный зал групповых программ</li>
+                    <li data-plan-room="23">Сайкл-студия</li>
+                    <li data-plan-room="19">Студия йоги и AntiGravity</li>
+                  </ul>
+                  <a class="plan__more btn btn--sm btn--ghost" href="./gruppovye-programmy/">
+                    Подробнее
+                    <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </a>
+                </div>
+                <div class="plan__detail" role="tabpanel" id="plan-rooms-fight" aria-labelledby="plan-tab-fight" data-plan-detail="fight" hidden>
+                  <ul class="plan__rooms">
+                    <li data-plan-room="20">Зал единоборств</li>
+                    <li data-plan-room="28">Боксёрский ринг</li>
+                  </ul>
+                  <a class="plan__more btn btn--sm btn--ghost" href="./edinoborstva/">
+                    Подробнее
+                    <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </a>
+                </div>
+                <div class="plan__detail" role="tabpanel" id="plan-rooms-kids" aria-labelledby="plan-tab-kids" data-plan-detail="kids" hidden>
+                  <ul class="plan__rooms">
+                    <li data-plan-room="11">Детский бассейн</li>
+                    <li data-plan-room="16">Детская игровая комната</li>
+                    <li data-plan-room="18">Игровой лабиринт</li>
+                    <li data-plan-room="15">Зал детских спортивных программ</li>
+                    <li data-plan-room="17">Зал детских танцевальных программ</li>
+                    <li data-plan-room="14">Детская раздевалка</li>
+                  </ul>
+                  <a class="plan__more btn btn--sm btn--ghost" href="./molodetskij-klub/">
+                    Подробнее
+                    <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </a>
+                </div>
+                <!-- VERIFY: the plan's legend names the massage rooms; that they belong to this direction is our grouping. -->
+                <div class="plan__detail" role="tabpanel" id="plan-rooms-recovery" aria-labelledby="plan-tab-recovery" data-plan-detail="recovery" hidden>
+                  <ul class="plan__rooms">
+                    <li data-plan-room="31">Кабинет диагностики</li>
+                    <li data-plan-room="32">Кабинеты массажа</li>
+                  </ul>
+                  <a class="plan__more btn btn--sm btn--ghost" href="./tsentr-diagnostiki-i-vosstanovleniya/">
+                    Подробнее
+                    <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </a>
+                </div>
+                <div class="plan__detail" role="tabpanel" id="plan-rooms-service" aria-labelledby="plan-tab-service" data-plan-detail="service" hidden>
+                  <ul class="plan__rooms plan__rooms--long">
+                    <li data-plan-room="1">Рецепция</li>
+                    <li data-plan-room="2">Гардероб</li>
+                    <li data-plan-room="7">Выдача полотенец</li>
+                    <li data-plan-room="3">Фитнес-кафе</li>
+                    <li data-plan-room="5">Женская раздевалка</li>
+                    <li data-plan-room="4">Мужская раздевалка</li>
+                    <li data-plan-room="34">Женские душевые</li>
+                    <li data-plan-room="33">Мужские душевые</li>
+                    <li data-plan-room="29">Солярии</li>
+                    <li data-plan-room="26">Салон красоты</li>
+                    <li data-plan-room="13">Переговорная</li>
+                    <li data-plan-room="6">Отдел продаж</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Today in the club ────────────────────────────────────────────── -->
+      <!-- The way in to the schedule. A line of the day, 00–24: the hours with
+           classes are marked on it and a lime line stands at the present
+           minute, Orenburg time. Under it the next class — a photograph of
+           its hall, a glass plaque, black acrylic — and the ones after it.
+
+           The classes are read from `data-schedule-src` (schedule.ts): the
+           group schedule of «1С:Фитнес клуб», the one the widget on
+           /raspisanie-zanyatij/ shows. Until they arrive, and whenever they
+           cannot be read, the section is what is written here: the way in.
+           `data-today-rooms` names the halls as the schedule names them and
+           gives each its photograph. -->
+      <section class="today" id="schedule" aria-labelledby="today-title" data-schedule data-schedule-src="/api/schedule.json">
+        <div class="wrap">
+          <div class="today__head">
+            <div>
+              <p class="eyebrow t-label" data-today-label>Расписание</p>
+              <h2 class="today__title t-h2" id="today-title">
+                <span class="line-mask"><span class="line" data-today-line>Сегодня в клубе</span></span>
+              </h2>
+            </div>
+            <p class="today__date t-label" data-today-live><span data-today-date></span> · время Оренбурга</p>
+          </div>
+
+          <!-- the day: 00–24 -->
+          <div class="today__day" aria-hidden="true" data-today-day>
+            <div class="today__track">
+              <div class="today__spans" data-today-spans></div>
+              <div class="today__spans today__spans--ahead" data-today-spans></div>
+              <i class="today__held" data-today-held></i>
+              <i class="today__mark" data-today-mark><span class="today__mark-time t-num" data-today-clock></span></i>
+            </div>
+            <ol class="today__hours t-label">
+              <li>00</li>
+              <li>06</li>
+              <li>12</li>
+              <li>18</li>
+              <li>24</li>
+            </ol>
+          </div>
+
+          <div class="today__layout">
+            <!-- the next class -->
+            <article class="today__next" data-specular-zone data-today-next>
+              <div class="today__photo">
+                <picture data-today-scene="club">
+                  <source type="image/avif" srcset="img/space/corridor-640.avif 640w, img/space/corridor-1100.avif 1100w, img/space/corridor-1600.avif 1600w" sizes="(min-width: 900px) 50vw, 92vw" />
+                  <source type="image/webp" srcset="img/space/corridor-640.webp 640w, img/space/corridor-1100.webp 1100w, img/space/corridor-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 92vw" />
+                  <img src="img/space/corridor-1100.jpg" width="1920" height="1280" loading="lazy" decoding="async" alt="" />
+                </picture>
+                <picture data-today-scene="pool" hidden>
+                  <source type="image/avif" srcset="img/cards/pool-480.avif 480w, img/cards/pool-900.avif 900w, img/cards/pool-1280.avif 1280w" sizes="(min-width: 900px) 50vw, 92vw" />
+                  <source type="image/webp" srcset="img/cards/pool-480.webp 480w, img/cards/pool-900.webp 900w, img/cards/pool-1280.webp 1280w" sizes="(min-width: 900px) 50vw, 92vw" />
+                  <img src="img/cards/pool-900.jpg" width="1920" height="1280" loading="lazy" decoding="async" alt="" />
+                </picture>
+                <picture data-today-scene="group" hidden>
+                  <source type="image/avif" srcset="img/cards/group-480.avif 480w, img/cards/group-900.avif 900w, img/cards/group-1280.avif 1280w" sizes="(min-width: 900px) 50vw, 92vw" />
+                  <source type="image/webp" srcset="img/cards/group-480.webp 480w, img/cards/group-900.webp 900w, img/cards/group-1280.webp 1280w" sizes="(min-width: 900px) 50vw, 92vw" />
+                  <img src="img/cards/group-900.jpg" width="1920" height="1280" loading="lazy" decoding="async" alt="" />
+                </picture>
+                <picture data-today-scene="gym" hidden>
+                  <source type="image/avif" srcset="img/cards/gym-480.avif 480w, img/cards/gym-900.avif 900w, img/cards/gym-1280.avif 1280w" sizes="(min-width: 900px) 50vw, 92vw" />
+                  <source type="image/webp" srcset="img/cards/gym-480.webp 480w, img/cards/gym-900.webp 900w, img/cards/gym-1280.webp 1280w" sizes="(min-width: 900px) 50vw, 92vw" />
+                  <img src="img/cards/gym-900.jpg" width="1920" height="1280" loading="lazy" decoding="async" alt="" />
+                </picture>
+                <picture data-today-scene="fight" hidden>
+                  <source type="image/avif" srcset="img/cards/fight-480.avif 480w, img/cards/fight-900.avif 900w, img/cards/fight-1280.avif 1280w" sizes="(min-width: 900px) 50vw, 92vw" />
+                  <source type="image/webp" srcset="img/cards/fight-480.webp 480w, img/cards/fight-900.webp 900w, img/cards/fight-1280.webp 1280w" sizes="(min-width: 900px) 50vw, 92vw" />
+                  <img src="img/cards/fight-900.jpg" width="1920" height="1280" loading="lazy" decoding="async" alt="" />
+                </picture>
+                <picture data-today-scene="kids" hidden>
+                  <source type="image/avif" srcset="img/cards/kids-480.avif 480w, img/cards/kids-900.avif 900w, img/cards/kids-1280.avif 1280w" sizes="(min-width: 900px) 50vw, 92vw" />
+                  <source type="image/webp" srcset="img/cards/kids-480.webp 480w, img/cards/kids-900.webp 900w, img/cards/kids-1280.webp 1280w" sizes="(min-width: 900px) 50vw, 92vw" />
+                  <img src="img/cards/kids-900.jpg" width="1920" height="1280" loading="lazy" decoding="async" alt="" />
+                </picture>
+                <span class="today__chip glass t-num" data-today-live><span class="t-label">Ближайшее</span><span data-today-in></span></span>
+              </div>
+              <span class="today__seam" aria-hidden="true"></span>
+              <div class="today__body acrylic" data-specular>
+                <span class="today__spot" aria-hidden="true" data-specular-spot></span>
+                <div class="today__copy" data-today-copy>
+                  <h3 class="today__name" data-today-name>Групповые программы</h3>
+                  <p class="today__meta" data-today-idle>Время, зал, тренер и свободные места — на странице расписания.</p>
+                  <p class="today__meta t-num" data-today-live><span data-today-time></span><span class="today__sep" aria-hidden="true">·</span><span class="today__room" data-today-room></span></p>
+                  <p class="today__coach" data-today-live data-today-coach></p>
+                  <p class="today__free t-num" data-today-live data-today-free></p>
+                </div>
+              </div>
+            </article>
+
+            <!-- the ones after it, and the way in -->
+            <div class="today__panel acrylic" data-specular>
+              <span class="today__spot" aria-hidden="true" data-specular-spot></span>
+              <p class="today__panel-label t-label" data-today-live>Дальше по расписанию</p>
+              <ol class="today__list" data-today-live data-today-list></ol>
+              <template data-today-row>
+                <li class="today__row">
+                  <span class="today__row-time t-num"><span class="today__row-day t-label" data-row="day"></span><span data-row="time"></span></span>
+                  <span class="today__row-what"><span class="today__row-title" data-row="title"></span><span class="today__row-room" data-row="room"></span></span>
+                  <span class="today__row-free t-num" data-row="free"></span>
+                </li>
+              </template>
+              <p class="today__idle" data-today-idle>Расписание групповых занятий на две недели: время, зал, тренер и свободные места. Запись — там же.</p>
+              <a class="today__all btn btn--acrylic" href="./raspisanie-zanyatij/">
+                Всё расписание и запись
+                <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- The halls, as the schedule names them: the photograph of each and its name as the site
+               spells it. «Улица» and a hall not listed here get the club's corridor. VERIFY: «Попугай»
+               and «Зебра» are taken for rooms of the children's club by the classes held in them. -->
+          <ul hidden data-today-rooms>
+            <li data-room="Бассейн взрослый" data-scene="pool">Бассейн взрослый</li>
+            <li data-room="Бассейн детский" data-scene="pool">Бассейн детский</li>
+            <li data-room="Желтый зал" data-scene="group">Жёлтый зал</li>
+            <li data-room="Зеленый зал" data-scene="group">Зелёный зал</li>
+            <li data-room="Антигравити" data-scene="group">Антигравити</li>
+            <li data-room="Сайкл" data-scene="group">Сайкл</li>
+            <li data-room="Тренажерный зал" data-scene="gym">Тренажёрный зал</li>
+            <li data-room="Ринг" data-scene="fight">Ринг</li>
+            <li data-room="Попугай" data-scene="kids">Попугай</li>
+            <li data-room="Игровая комната" data-scene="kids">Игровая комната</li>
+            <li data-room="Зебра" data-scene="kids">Зебра</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ── Club cards ───────────────────────────────────────────────────── -->
+      <!-- The club's own cards, as the club drew them (both sides are cut
+           from its artwork by `npm run clubcards`). One card stands in the
+           middle as an object — WebGL, clubcards.ts and gl/club-card.ts: it
+           leans after the pointer, can be turned by hand and turned over, and
+           spins once to become the card chosen in the row of small cards
+           under it. The acrylic panel reads the held card's terms.
+
+           Without WebGL, with reduced motion and without scripting the stage
+           is not shown and the same row is the section: the cards lie in it
+           like a hand of cards, in graphite, and the held one is drawn up and
+           shown in its colours.
+
+           Terms are those of fitlime.ru/klubnye-karty/ (adult cards). There
+           are no prices on the site: the action is a request, not a payment.
+           VERIFY: «Утренняя» is in the club's artwork but not on the site —
+           not shown; the «Содоступ» cards of the site are not shown either. -->
+      <section class="clubcards" id="cards" aria-labelledby="clubcards-title" data-clubcards data-held style="--held: 2">
+        <div class="wrap">
+          <div class="clubcards__top">
+            <div>
+              <p class="eyebrow t-label" data-clubcards-label>Клубные карты</p>
+              <h2 class="clubcards__title t-h2" id="clubcards-title">
+                <span class="line-mask"><span class="line" data-clubcards-line>Выберите свою карту</span></span>
+              </h2>
+            </div>
+            <p class="clubcards__note t-label">Любая карта — клуб 24 часа в сутки</p>
+          </div>
+
+          <div class="clubcards__layout">
+            <div class="clubcards__stage" data-clubcards-stage>
+              <canvas class="clubcards__canvas" aria-hidden="true" data-clubcards-canvas></canvas>
+              <div class="clubcards__tools">
+                <button class="clubcards__flip btn btn--sm btn--acrylic" type="button" aria-pressed="false" data-clubcards-flip>
+                  <svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true">
+                    <path d="M2.5 8a5.5 5.5 0 0 1 9.6-3.7M13.5 8a5.5 5.5 0 0 1-9.6 3.7M12.3 1.7v2.8H9.5M3.7 14.3v-2.8h2.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  Оборот карты
+                </button>
+                <p class="clubcards__hint t-label">Карту можно вертеть</p>
+              </div>
+            </div>
+
+            <div class="clubcards__hand" data-clubcards-hand>
+              <div class="clubcards__row" role="tablist" aria-label="Клубные карты">
+                <button class="clubcard" type="button" role="tab" id="clubcard-tab-opening" aria-controls="clubcard-sheet-opening" aria-selected="false" tabindex="-1" style="--i: 0" data-clubcard="opening" data-face="img/clubcards/opening-day-1040.webp" data-back="img/clubcards/opening-back-1040.webp">
+                  <span class="clubcard__face">
+                    <picture>
+                      <source type="image/avif" srcset="img/clubcards/opening-night-520.avif 520w, img/clubcards/opening-night-1040.avif 1040w" sizes="(min-width: 1024px) 8vw, 18vw" />
+                      <img src="img/clubcards/opening-night-520.webp" srcset="img/clubcards/opening-night-520.webp 520w, img/clubcards/opening-night-1040.webp 1040w" sizes="(min-width: 1024px) 8vw, 18vw" width="1040" height="653" loading="lazy" decoding="async" alt="" />
+                    </picture>
+                    <picture class="clubcard__day">
+                      <source type="image/avif" srcset="img/clubcards/opening-day-520.avif 520w, img/clubcards/opening-day-1040.avif 1040w" sizes="(min-width: 1024px) 8vw, 18vw" />
+                      <img src="img/clubcards/opening-day-520.webp" srcset="img/clubcards/opening-day-520.webp 520w, img/clubcards/opening-day-1040.webp 1040w" sizes="(min-width: 1024px) 8vw, 18vw" width="1040" height="653" loading="lazy" decoding="async" alt="" />
+                    </picture>
+                  </span>
+                  <span class="clubcard__name">Открытие</span>
+                </button>
+                <button class="clubcard" type="button" role="tab" id="clubcard-tab-silver" aria-controls="clubcard-sheet-silver" aria-selected="false" tabindex="-1" style="--i: 1" data-clubcard="silver" data-face="img/clubcards/silver-day-1040.webp" data-back="img/clubcards/silver-back-1040.webp">
+                  <span class="clubcard__face">
+                    <picture>
+                      <source type="image/avif" srcset="img/clubcards/silver-night-520.avif 520w, img/clubcards/silver-night-1040.avif 1040w" sizes="(min-width: 1024px) 8vw, 18vw" />
+                      <img src="img/clubcards/silver-night-520.webp" srcset="img/clubcards/silver-night-520.webp 520w, img/clubcards/silver-night-1040.webp 1040w" sizes="(min-width: 1024px) 8vw, 18vw" width="1040" height="653" loading="lazy" decoding="async" alt="" />
+                    </picture>
+                    <picture class="clubcard__day">
+                      <source type="image/avif" srcset="img/clubcards/silver-day-520.avif 520w, img/clubcards/silver-day-1040.avif 1040w" sizes="(min-width: 1024px) 8vw, 18vw" />
+                      <img src="img/clubcards/silver-day-520.webp" srcset="img/clubcards/silver-day-520.webp 520w, img/clubcards/silver-day-1040.webp 1040w" sizes="(min-width: 1024px) 8vw, 18vw" width="1040" height="653" loading="lazy" decoding="async" alt="" />
+                    </picture>
+                  </span>
+                  <span class="clubcard__name">Серебряная</span>
+                </button>
+                <button class="clubcard" type="button" role="tab" id="clubcard-tab-gold" aria-controls="clubcard-sheet-gold" aria-selected="true" style="--i: 2" data-clubcard="gold" data-face="img/clubcards/gold-day-1040.webp" data-back="img/clubcards/gold-back-1040.webp" data-held>
+                  <span class="clubcard__face">
+                    <picture>
+                      <source type="image/avif" srcset="img/clubcards/gold-night-520.avif 520w, img/clubcards/gold-night-1040.avif 1040w" sizes="(min-width: 1024px) 8vw, 18vw" />
+                      <img src="img/clubcards/gold-night-520.webp" srcset="img/clubcards/gold-night-520.webp 520w, img/clubcards/gold-night-1040.webp 1040w" sizes="(min-width: 1024px) 8vw, 18vw" width="1040" height="653" loading="lazy" decoding="async" alt="" />
+                    </picture>
+                    <picture class="clubcard__day">
+                      <source type="image/avif" srcset="img/clubcards/gold-day-520.avif 520w, img/clubcards/gold-day-1040.avif 1040w" sizes="(min-width: 1024px) 8vw, 18vw" />
+                      <img src="img/clubcards/gold-day-520.webp" srcset="img/clubcards/gold-day-520.webp 520w, img/clubcards/gold-day-1040.webp 1040w" sizes="(min-width: 1024px) 8vw, 18vw" width="1040" height="653" loading="lazy" decoding="async" alt="" />
+                    </picture>
+                  </span>
+                  <span class="clubcard__name">Золотая</span>
+                </button>
+                <button class="clubcard" type="button" role="tab" id="clubcard-tab-black" aria-controls="clubcard-sheet-black" aria-selected="false" tabindex="-1" style="--i: 3" data-clubcard="black" data-face="img/clubcards/black-day-1040.webp" data-back="img/clubcards/black-back-1040.webp">
+                  <span class="clubcard__face">
+                    <picture>
+                      <source type="image/avif" srcset="img/clubcards/black-night-520.avif 520w, img/clubcards/black-night-1040.avif 1040w" sizes="(min-width: 1024px) 8vw, 18vw" />
+                      <img src="img/clubcards/black-night-520.webp" srcset="img/clubcards/black-night-520.webp 520w, img/clubcards/black-night-1040.webp 1040w" sizes="(min-width: 1024px) 8vw, 18vw" width="1040" height="653" loading="lazy" decoding="async" alt="" />
+                    </picture>
+                    <picture class="clubcard__day">
+                      <source type="image/avif" srcset="img/clubcards/black-day-520.avif 520w, img/clubcards/black-day-1040.avif 1040w" sizes="(min-width: 1024px) 8vw, 18vw" />
+                      <img src="img/clubcards/black-day-520.webp" srcset="img/clubcards/black-day-520.webp 520w, img/clubcards/black-day-1040.webp 1040w" sizes="(min-width: 1024px) 8vw, 18vw" width="1040" height="653" loading="lazy" decoding="async" alt="" />
+                    </picture>
+                  </span>
+                  <span class="clubcard__name">Чёрная</span>
+                </button>
+                <button class="clubcard" type="button" role="tab" id="clubcard-tab-white" aria-controls="clubcard-sheet-white" aria-selected="false" tabindex="-1" style="--i: 4" data-clubcard="white" data-face="img/clubcards/white-day-1040.webp" data-back="img/clubcards/white-back-1040.webp">
+                  <span class="clubcard__face">
+                    <picture>
+                      <source type="image/avif" srcset="img/clubcards/white-night-520.avif 520w, img/clubcards/white-night-1040.avif 1040w" sizes="(min-width: 1024px) 8vw, 18vw" />
+                      <img src="img/clubcards/white-night-520.webp" srcset="img/clubcards/white-night-520.webp 520w, img/clubcards/white-night-1040.webp 1040w" sizes="(min-width: 1024px) 8vw, 18vw" width="1040" height="653" loading="lazy" decoding="async" alt="" />
+                    </picture>
+                    <picture class="clubcard__day">
+                      <source type="image/avif" srcset="img/clubcards/white-day-520.avif 520w, img/clubcards/white-day-1040.avif 1040w" sizes="(min-width: 1024px) 8vw, 18vw" />
+                      <img src="img/clubcards/white-day-520.webp" srcset="img/clubcards/white-day-520.webp 520w, img/clubcards/white-day-1040.webp 1040w" sizes="(min-width: 1024px) 8vw, 18vw" width="1040" height="653" loading="lazy" decoding="async" alt="" />
+                    </picture>
+                  </span>
+                  <span class="clubcard__name">Белая</span>
+                </button>
+                <span class="clubcards__rail" aria-hidden="true"><i class="clubcards__mark"></i></span>
+              </div>
+            </div>
+
+            <div class="clubcards__panel acrylic" data-specular data-clubcards-panel>
+              <span class="clubcards__spot" aria-hidden="true" data-specular-spot></span>
+              <div class="clubcards__sheets">
+                <div class="clubsheet" role="tabpanel" id="clubcard-sheet-opening" aria-labelledby="clubcard-tab-opening" data-clubcard-sheet="opening">
+                  <div class="clubsheet__head">
+                    <h3 class="clubsheet__name">Открытие</h3>
+                    <p class="clubsheet__kind">клубная карта · 24 часа в сутки</p>
+                  </div>
+                  <dl class="clubsheet__facts">
+                    <div class="clubsheet__fact">
+                      <dt class="t-label">Срок действия</dt>
+                      <dd><b class="t-num">1</b> год</dd>
+                    </div>
+                    <div class="clubsheet__fact">
+                      <dt class="t-label">Заморозка</dt>
+                      <dd><b class="t-num">7–90</b> дней</dd>
+                    </div>
+                    <div class="clubsheet__fact">
+                      <dt class="t-label">Скидка на доп. услуги</dt>
+                      <dd><b>Нет</b></dd>
+                    </div>
+                  </dl>
+                </div>
+                <div class="clubsheet" role="tabpanel" id="clubcard-sheet-silver" aria-labelledby="clubcard-tab-silver" data-clubcard-sheet="silver">
+                  <div class="clubsheet__head">
+                    <h3 class="clubsheet__name">Серебряная</h3>
+                    <p class="clubsheet__kind">клубная карта · 24 часа в сутки</p>
+                  </div>
+                  <dl class="clubsheet__facts">
+                    <div class="clubsheet__fact">
+                      <dt class="t-label">Срок действия</dt>
+                      <dd><b class="t-num">1</b> год</dd>
+                    </div>
+                    <div class="clubsheet__fact">
+                      <dt class="t-label">Заморозка</dt>
+                      <dd><b class="t-num">90</b> дней</dd>
+                    </div>
+                    <div class="clubsheet__fact">
+                      <dt class="t-label">Скидка на доп. услуги</dt>
+                      <dd><b class="t-num">10</b> %</dd>
+                    </div>
+                  </dl>
+                </div>
+                <div class="clubsheet" role="tabpanel" id="clubcard-sheet-gold" aria-labelledby="clubcard-tab-gold" data-clubcard-sheet="gold" data-on>
+                  <div class="clubsheet__head">
+                    <h3 class="clubsheet__name">Золотая</h3>
+                    <p class="clubsheet__kind">клубная карта · 24 часа в сутки</p>
+                  </div>
+                  <dl class="clubsheet__facts">
+                    <div class="clubsheet__fact">
+                      <dt class="t-label">Срок действия</dt>
+                      <dd><b class="t-num">1</b> год <i>+</i> <b class="t-num">1</b> месяц</dd>
+                    </div>
+                    <div class="clubsheet__fact">
+                      <dt class="t-label">Заморозка</dt>
+                      <dd><b class="t-num">90</b> дней</dd>
+                    </div>
+                    <div class="clubsheet__fact">
+                      <dt class="t-label">Скидка на доп. услуги</dt>
+                      <dd><b class="t-num">15</b> %</dd>
+                    </div>
+                  </dl>
+                </div>
+                <div class="clubsheet" role="tabpanel" id="clubcard-sheet-black" aria-labelledby="clubcard-tab-black" data-clubcard-sheet="black">
+                  <div class="clubsheet__head">
+                    <h3 class="clubsheet__name">Чёрная</h3>
+                    <p class="clubsheet__kind">клубная карта · 24 часа в сутки</p>
+                  </div>
+                  <dl class="clubsheet__facts">
+                    <div class="clubsheet__fact">
+                      <dt class="t-label">Срок действия</dt>
+                      <dd><b class="t-num">2</b> года</dd>
+                    </div>
+                    <div class="clubsheet__fact">
+                      <dt class="t-label">Заморозка</dt>
+                      <dd><b class="t-num">180</b> дней <small>или по 90 дней на двоих</small></dd>
+                    </div>
+                    <div class="clubsheet__fact">
+                      <dt class="t-label">Скидка на доп. услуги</dt>
+                      <dd><b class="t-num">20</b> %</dd>
+                    </div>
+                  </dl>
+                </div>
+                <div class="clubsheet" role="tabpanel" id="clubcard-sheet-white" aria-labelledby="clubcard-tab-white" data-clubcard-sheet="white">
+                  <div class="clubsheet__head">
+                    <h3 class="clubsheet__name">Белая</h3>
+                    <p class="clubsheet__kind">клубная карта · 24 часа в сутки</p>
+                  </div>
+                  <dl class="clubsheet__facts">
+                    <div class="clubsheet__fact">
+                      <dt class="t-label">Срок действия</dt>
+                      <dd><b>Бессрочно</b></dd>
+                    </div>
+                    <div class="clubsheet__fact">
+                      <dt class="t-label">Заморозка</dt>
+                      <dd><b>Не нужна</b></dd>
+                    </div>
+                    <div class="clubsheet__fact">
+                      <dt class="t-label">Скидка на доп. услуги</dt>
+                      <dd><b class="t-num">20</b> %</dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+              <a class="clubcards__cta btn btn--lime" href="./klubnye-karty/?card=gold#order" data-main-cta data-clubcards-cta>
+                Выбрать карту
+                <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+              </a>
+              <a class="clubcards__pick" href="./klubnye-karty/#pick">Или соберите свою — <b>скидка до <span class="t-num">40</span> %</b></a>
+            </div>
+          </div>
+
+          <!-- Under the cards: the card for companies — the club's own artwork, in its colours — and
+               two ways on. The club asked for both (2026-10-12): «нет карты Бизнес», and the
+               constructor needs what brings people to it — «скидка до 40%».
+               VERIFY: the corporate card is known from the club's offer to companies (a year, from
+               10 people); its other terms are not on the site.
+               VERIFY: «до 40 %» is the club's word in its message; the old constructor itself ends
+               with «Ваша скидка до 50%!». The same figure stands in scripts/pages.mjs (OFF). -->
+          <div class="clubcards__also" data-clubcards-more>
+            <a class="cardbiz cardbiz--lit acrylic" href="./klubnye-karty/?card=business" data-specular>
+              <span class="clubcards__spot" aria-hidden="true" data-specular-spot></span>
+              <span class="cardbiz__face">
+                <picture>
+                  <source type="image/avif" srcset="img/clubcards/business-day-520.avif 520w, img/clubcards/business-day-1040.avif 1040w" sizes="(min-width: 600px) 14rem, 40vw" />
+                  <img src="img/clubcards/business-day-520.webp" srcset="img/clubcards/business-day-520.webp 520w, img/clubcards/business-day-1040.webp 1040w" sizes="(min-width: 600px) 14rem, 40vw" width="1040" height="653" loading="lazy" decoding="async" alt="" />
+                </picture>
+              </span>
+              <span class="cardbiz__copy">
+                <span class="cardbiz__name">Карта «Бизнес»</span>
+                <span class="cardbiz__text">Корпоративная карта на год — для компаний от 10 человек.</span>
+                <span class="cardbiz__go">Смотреть карту <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                </svg></span>
+              </span>
+            </a>
+            <ul class="clubcards__more">
+              <li>
+                <a href="./klubnye-karty/#pick">
+                  <span><b>Конструктор карт</b> — пять вопросов, и <b class="clubcards__off">скидка до <span class="t-num">40</span> %</b></span>
+                  <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                </a>
+              </li>
+              <li>
+                <a href="./zayavka-na-zamorozku-karty/">
+                  <span><b>Уже есть карта?</b> — заявка на заморозку</span>
+                  <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                </a>
+              </li>
+              <li>
+                <a href="./klubnye-karty/?card=baby">
+                  <span><b>Детские карты</b> — Беби, Кидс, Юниор, Тинейджер</span>
+                  <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Promotions ───────────────────────────────────────────────────── -->
+      <!-- The club's posters in lightboxes on a dark wall: frames of black
+           acrylic, the poster in graphite while the lamp is off. The held box
+           (pointer, focus, tap; on touch, the middle of the row) has its lamp
+           on — the poster in colour, its light on the floor — and the panel
+           carries what it offers. In the theme: a list of promotions, one
+           lightbox each.
+
+           Posters, names and links are those of fitlime.ru's front page
+           (#action__section); the requests are the site's own pop-up forms.
+           There are no dates on the site.
+           VERIFY: «Разыгрываем велобайк» says «Весь сентябрь» and is still on
+           the site in October — ask the club whether it runs. -->
+      <section class="promo" id="promo" aria-labelledby="promo-title" data-promo>
+        <div class="wrap">
+          <div class="promo__top">
+            <div>
+              <p class="eyebrow t-label" data-promo-label>Акции</p>
+              <h2 class="promo__title t-h2" id="promo-title">
+                <span class="line-mask"><span class="line" data-promo-line>Акции клуба</span></span>
+              </h2>
+            </div>
+            <p class="promo__legal t-label">Реклама. Не является публичной офертой.</p>
+          </div>
+
+          <div class="promo__layout">
+            <div class="promo__wall">
+              <div class="promo__row" role="tablist" aria-label="Акции клуба" data-promo-row>
+                <button class="lightbox" type="button" role="tab" id="promo-tab-airpods" aria-controls="promo-sheet-airpods" aria-selected="true" style="--ar: 500 / 500" data-lightbox="airpods" data-ask="/?lepopup=airpods1010&amp;ac=n4tB53kstwEP57TG#lepopup-airpods1010" data-held>
+                  <span class="lightbox__num t-label">01</span>
+                  <span class="lightbox__frame acrylic">
+                    <span class="lightbox__poster">
+                      <picture>
+                        <source type="image/avif" srcset="img/promo/airpods-night-420.avif 420w, img/promo/airpods-night-500.avif 500w" sizes="(min-width: 1280px) calc(min(24rem, max(17rem, 5rem + 17vw)) * 1.0), calc(min(24rem, max(18rem, 6rem + 19vw)) * 1.0)" />
+                        <img src="img/promo/airpods-night-420.webp" srcset="img/promo/airpods-night-420.webp 420w, img/promo/airpods-night-500.webp 500w" sizes="(min-width: 1280px) calc(min(24rem, max(17rem, 5rem + 17vw)) * 1.0), calc(min(24rem, max(18rem, 6rem + 19vw)) * 1.0)" width="500" height="500" loading="lazy" decoding="async" alt="Афиша: «Не хандри! Подарки забирай!» — AirPods и тур выходного дня в Бузулукский бор" />
+                      </picture>
+                      <picture class="lightbox__day" aria-hidden="true">
+                        <source type="image/avif" srcset="img/promo/airpods-day-420.avif 420w, img/promo/airpods-day-500.avif 500w" sizes="(min-width: 1280px) calc(min(24rem, max(17rem, 5rem + 17vw)) * 1.0), calc(min(24rem, max(18rem, 6rem + 19vw)) * 1.0)" />
+                        <img src="img/promo/airpods-day-420.webp" srcset="img/promo/airpods-day-420.webp 420w, img/promo/airpods-day-500.webp 500w" sizes="(min-width: 1280px) calc(min(24rem, max(17rem, 5rem + 17vw)) * 1.0), calc(min(24rem, max(18rem, 6rem + 19vw)) * 1.0)" width="500" height="500" loading="lazy" decoding="async" alt="" />
+                      </picture>
+                    </span>
+                  </span>
+                  <span class="lightbox__cast" aria-hidden="true"><img src="img/promo/airpods-cast.png" width="72" height="32" loading="lazy" decoding="async" alt="" /></span>
+                </button>
+                <button class="lightbox" type="button" role="tab" id="promo-tab-bike" aria-controls="promo-sheet-bike" aria-selected="false" tabindex="-1" style="--ar: 450 / 806" data-lightbox="bike" data-ask="/?lepopup=velobiketvs&amp;ac=OsppTOAhN3PSHZhk#lepopup-velobiketvs">
+                  <span class="lightbox__num t-label">02</span>
+                  <span class="lightbox__frame acrylic">
+                    <span class="lightbox__poster">
+                      <picture>
+                        <source type="image/avif" srcset="img/promo/bike-night-234.avif 234w, img/promo/bike-night-450.avif 450w" sizes="(min-width: 1280px) calc(min(24rem, max(17rem, 5rem + 17vw)) * 0.5583), calc(min(24rem, max(18rem, 6rem + 19vw)) * 0.5583)" />
+                        <img src="img/promo/bike-night-234.webp" srcset="img/promo/bike-night-234.webp 234w, img/promo/bike-night-450.webp 450w" sizes="(min-width: 1280px) calc(min(24rem, max(17rem, 5rem + 17vw)) * 0.5583), calc(min(24rem, max(18rem, 6rem + 19vw)) * 0.5583)" width="450" height="806" loading="lazy" decoding="async" alt="Афиша: «Супер подарки в сентябре» — велобайк и кешбэк 100%, партнёр акции — «ТВС Моторс»" />
+                      </picture>
+                      <picture class="lightbox__day" aria-hidden="true">
+                        <source type="image/avif" srcset="img/promo/bike-day-234.avif 234w, img/promo/bike-day-450.avif 450w" sizes="(min-width: 1280px) calc(min(24rem, max(17rem, 5rem + 17vw)) * 0.5583), calc(min(24rem, max(18rem, 6rem + 19vw)) * 0.5583)" />
+                        <img src="img/promo/bike-day-234.webp" srcset="img/promo/bike-day-234.webp 234w, img/promo/bike-day-450.webp 450w" sizes="(min-width: 1280px) calc(min(24rem, max(17rem, 5rem + 17vw)) * 0.5583), calc(min(24rem, max(18rem, 6rem + 19vw)) * 0.5583)" width="450" height="806" loading="lazy" decoding="async" alt="" />
+                      </picture>
+                    </span>
+                  </span>
+                  <span class="lightbox__cast" aria-hidden="true"><img src="img/promo/bike-cast.png" width="72" height="32" loading="lazy" decoding="async" alt="" /></span>
+                </button>
+                <button class="lightbox" type="button" role="tab" id="promo-tab-coaccess" aria-controls="promo-sheet-coaccess" aria-selected="false" tabindex="-1" style="--ar: 1080 / 1920" data-lightbox="coaccess" data-ask="/?lepopup=sodostup&amp;ac=GsUVbHM89W3IA3EO#lepopup-sodostup">
+                  <span class="lightbox__num t-label">03</span>
+                  <span class="lightbox__frame acrylic">
+                    <span class="lightbox__poster">
+                      <picture>
+                        <source type="image/avif" srcset="img/promo/coaccess-night-236.avif 236w, img/promo/coaccess-night-473.avif 473w" sizes="(min-width: 1280px) calc(min(24rem, max(17rem, 5rem + 17vw)) * 0.5625), calc(min(24rem, max(18rem, 6rem + 19vw)) * 0.5625)" />
+                        <img src="img/promo/coaccess-night-236.webp" srcset="img/promo/coaccess-night-236.webp 236w, img/promo/coaccess-night-473.webp 473w" sizes="(min-width: 1280px) calc(min(24rem, max(17rem, 5rem + 17vw)) * 0.5625), calc(min(24rem, max(18rem, 6rem + 19vw)) * 0.5625)" width="1080" height="1920" loading="lazy" decoding="async" alt="Афиша: «Карта со-доступ» — два клуба, 9000 м² фитнеса: Citrus Fitness и Lime Fitness" />
+                      </picture>
+                      <picture class="lightbox__day" aria-hidden="true">
+                        <source type="image/avif" srcset="img/promo/coaccess-day-236.avif 236w, img/promo/coaccess-day-473.avif 473w" sizes="(min-width: 1280px) calc(min(24rem, max(17rem, 5rem + 17vw)) * 0.5625), calc(min(24rem, max(18rem, 6rem + 19vw)) * 0.5625)" />
+                        <img src="img/promo/coaccess-day-236.webp" srcset="img/promo/coaccess-day-236.webp 236w, img/promo/coaccess-day-473.webp 473w" sizes="(min-width: 1280px) calc(min(24rem, max(17rem, 5rem + 17vw)) * 0.5625), calc(min(24rem, max(18rem, 6rem + 19vw)) * 0.5625)" width="1080" height="1920" loading="lazy" decoding="async" alt="" />
+                      </picture>
+                    </span>
+                  </span>
+                  <span class="lightbox__cast" aria-hidden="true"><img src="img/promo/coaccess-cast.png" width="72" height="32" loading="lazy" decoding="async" alt="" /></span>
+                </button>
+                <button class="lightbox" type="button" role="tab" id="promo-tab-business" aria-controls="promo-sheet-business" aria-selected="false" tabindex="-1" style="--ar: 282 / 500" data-lightbox="business" data-ask="/?lepopup=bsnslime&amp;ac=EKYqzRvaL4TEAKkm#lepopup-bsnslime">
+                  <span class="lightbox__num t-label">04</span>
+                  <span class="lightbox__frame acrylic">
+                    <span class="lightbox__poster">
+                      <picture>
+                        <source type="image/avif" srcset="img/promo/business-night-237.avif 237w, img/promo/business-night-282.avif 282w" sizes="(min-width: 1280px) calc(min(24rem, max(17rem, 5rem + 17vw)) * 0.564), calc(min(24rem, max(18rem, 6rem + 19vw)) * 0.564)" />
+                        <img src="img/promo/business-night-237.webp" srcset="img/promo/business-night-237.webp 237w, img/promo/business-night-282.webp 282w" sizes="(min-width: 1280px) calc(min(24rem, max(17rem, 5rem + 17vw)) * 0.564), calc(min(24rem, max(18rem, 6rem + 19vw)) * 0.564)" width="282" height="500" loading="lazy" decoding="async" alt="Афиша: «Новая карта. Без компромиссов» — карта Lime Fitness «Бизнес»" />
+                      </picture>
+                      <picture class="lightbox__day" aria-hidden="true">
+                        <source type="image/avif" srcset="img/promo/business-day-237.avif 237w, img/promo/business-day-282.avif 282w" sizes="(min-width: 1280px) calc(min(24rem, max(17rem, 5rem + 17vw)) * 0.564), calc(min(24rem, max(18rem, 6rem + 19vw)) * 0.564)" />
+                        <img src="img/promo/business-day-237.webp" srcset="img/promo/business-day-237.webp 237w, img/promo/business-day-282.webp 282w" sizes="(min-width: 1280px) calc(min(24rem, max(17rem, 5rem + 17vw)) * 0.564), calc(min(24rem, max(18rem, 6rem + 19vw)) * 0.564)" width="282" height="500" loading="lazy" decoding="async" alt="" />
+                      </picture>
+                    </span>
+                  </span>
+                  <span class="lightbox__cast" aria-hidden="true"><img src="img/promo/business-cast.png" width="72" height="32" loading="lazy" decoding="async" alt="" /></span>
+                </button>
+              </div>
+              <span class="promo__floor" aria-hidden="true"></span>
+            </div>
+
+            <div class="promo__panel acrylic" data-specular data-promo-panel>
+              <span class="promo__spot" aria-hidden="true" data-specular-spot></span>
+              <div class="promo__sheets">
+                <div class="promosheet" role="tabpanel" id="promo-sheet-airpods" aria-labelledby="promo-tab-airpods" data-promo-sheet="airpods" data-on>
+                  <p class="promosheet__count t-label">01 / 04</p>
+                  <h3 class="promosheet__name">Не хандри! Подарки забирай!</h3>
+                  <p class="promosheet__text">AirPods и тур выходного дня в Бузулукский бор.</p>
+                  <a class="promosheet__rules" href="./pravila-aktsii-rozygrysh-naushnikov-apple-airpods-i-tur-vyhodnogo-dnya-v-buzulukskij-bor/">Правила акции</a>
+                  <a class="promosheet__ask" href="./?lepopup=airpods1010&amp;ac=n4tB53kstwEP57TG#lepopup-airpods1010">Оставить заявку</a>
+                </div>
+                <div class="promosheet" role="tabpanel" id="promo-sheet-bike" aria-labelledby="promo-tab-bike" data-promo-sheet="bike">
+                  <p class="promosheet__count t-label">02 / 04</p>
+                  <h3 class="promosheet__name">Разыгрываем велобайк</h3>
+                  <p class="promosheet__text">Весь сентябрь.</p>
+                  <a class="promosheet__ask" href="./?lepopup=velobiketvs&amp;ac=OsppTOAhN3PSHZhk#lepopup-velobiketvs">Оставить заявку</a>
+                </div>
+                <div class="promosheet" role="tabpanel" id="promo-sheet-coaccess" aria-labelledby="promo-tab-coaccess" data-promo-sheet="coaccess">
+                  <p class="promosheet__count t-label">03 / 04</p>
+                  <h3 class="promosheet__name">Карта со-доступ</h3>
+                  <p class="promosheet__text">2 клуба = 9000 м² фитнеса.</p>
+                  <a class="promosheet__ask" href="./?lepopup=sodostup&amp;ac=GsUVbHM89W3IA3EO#lepopup-sodostup">Оставить заявку</a>
+                </div>
+                <div class="promosheet" role="tabpanel" id="promo-sheet-business" aria-labelledby="promo-tab-business" data-promo-sheet="business">
+                  <p class="promosheet__count t-label">04 / 04</p>
+                  <h3 class="promosheet__name">Новая карта</h3>
+                  <p class="promosheet__text">Без компромиссов.</p>
+                  <a class="promosheet__ask" href="./?lepopup=bsnslime&amp;ac=EKYqzRvaL4TEAKkm#lepopup-bsnslime">Оставить заявку</a>
+                </div>
+              </div>
+              <a class="promo__cta btn btn--lime" href="./?lepopup=airpods1010&amp;ac=n4tB53kstwEP57TG#lepopup-airpods1010" data-main-cta data-promo-cta>
+                  Оставить заявку
+                  <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Contacts ─────────────────────────────────────────────────────── -->
+      <!-- Where the club is, when its desks are open (with the state at this
+           minute in Orenburg), and the request — written on the club's own
+           guest certificate: its reverse, one to one, lying in graphite until
+           it is held; what is typed below is printed in its blank fields.
+
+           Address, hours, firm and links are those of
+           fitlime.ru/kontakty-fitness-club/; the form is that page's Contact
+           Form 7 (id 24718: name-111, tel-113, acceptance-210). The terms under
+           the certificate are the ones printed on it.
+           `data-demo`: in the prototype nothing is sent. In the theme the form
+           posts to the theme's route (`data-endpoint`, theme/inc/requests.php),
+           which keeps the request and mails it to the club.
+           The guest visit is paid (the club's word, 2026-10-15: there are no
+           free visits); its price is not on the site — the site has no prices.
+           VERIFY: the Yandex route link is built from the coordinates of the
+           site's Google link. -->
+      <section class="contacts" id="contacts" aria-labelledby="contacts-title" data-contacts>
+        <div class="wrap">
+          <div class="contacts__top">
+            <div>
+              <p class="eyebrow t-label" data-contacts-label>Контакты</p>
+              <h2 class="contacts__title t-h2" id="contacts-title">
+                <span class="line-mask"><span class="line" data-contacts-line>Приходите</span></span>
+              </h2>
+            </div>
+            <p class="contacts__now t-label">Сейчас в Оренбурге <span class="t-num" data-contacts-clock></span></p>
+          </div>
+
+          <div class="contacts__layout">
+            <div class="contacts__info">
+              <address class="contacts__address" data-contacts-item>
+                <span class="t-label">Оренбург</span>
+                <span class="contacts__street">ул. Лесозащитная, 13</span>
+                <span class="contacts__reach">
+                  <a class="t-num" href="tel:+73532900999">+7 (3532) 900-999</a>
+                  <a href="mailto:info@fitlime.ru">info@fitlime.ru</a>
+                </span>
+              </address>
+
+              <dl class="contacts__hours" data-contacts-item>
+                <div class="hours" data-hours="00:00-24:00">
+                  <dt class="t-label">Клуб</dt>
+                  <dd class="hours__time">круглосуточно</dd>
+                  <dd class="hours__state t-label" data-hours-state></dd>
+                </div>
+                <div class="hours" data-hours="10:00-22:00">
+                  <dt class="t-label">Отдел продаж</dt>
+                  <dd class="hours__time t-num">10:00 — 22:00</dd>
+                  <dd class="hours__state t-label" data-hours-state></dd>
+                </div>
+                <div class="hours" data-hours="09:00-20:00">
+                  <dt class="t-label">Сервис</dt>
+                  <dd class="hours__time t-num">9:00 — 20:00</dd>
+                  <dd class="hours__state t-label" data-hours-state></dd>
+                </div>
+              </dl>
+
+              <!-- the ways to the club: rows of the same table as the hours -->
+              <dl class="contacts__ways" data-contacts-item>
+                <div class="ways">
+                  <dt class="t-label">Звонок</dt>
+                  <dd><a href="./zakazat-zvonok-info/">Заказать звонок <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></a></dd>
+                </div>
+                <div class="ways">
+                  <dt class="t-label">Маршрут</dt>
+                  <dd><a href="https://yandex.ru/maps/?rtext=~51.7907362,55.1591819&amp;rtt=auto" target="_blank" rel="noopener">Яндекс Карты <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></a></dd>
+                  <dd><a href="https://www.google.com/maps/dir//LIME+FITNESS,+%D0%9B%D0%B5%D1%81%D0%BE%D0%B7%D0%B0%D1%89%D0%B8%D1%82%D0%BD%D0%B0%D1%8F+%D1%83%D0%BB.,+13,+%D0%9E%D1%80%D0%B5%D0%BD%D0%B1%D1%83%D1%80%D0%B3/@51.7907362,55.1591819,17z?hl=ru-RU" target="_blank" rel="noopener">Google Maps <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></a></dd>
+                </div>
+                <div class="ways">
+                  <dt class="t-label">Соцсети</dt>
+                  <dd><a href="https://t.me/limefitnessoren" target="_blank" rel="noopener">Telegram <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></a></dd>
+                  <dd><a href="https://vk.com/limeoren" target="_blank" rel="noopener">ВКонтакте <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></a></dd>
+                </div>
+                <div class="ways">
+                  <dt class="t-label">Приложение</dt>
+                  <dd><a href="https://apps.apple.com/ru/app/lime-fitness/id1388379605" target="_blank" rel="noopener">App Store <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></a></dd>
+                  <dd><a href="https://play.google.com/store/apps/details?id=com.itrack.limefitness611586" target="_blank" rel="noopener">Google Play <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></a></dd>
+                  <dd><a href="https://www.rustore.ru/catalog/app/com.itrack.limefitness611586" target="_blank" rel="noopener">RuStore <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></a></dd>
+                </div>
+                <div class="ways">
+                  <dt class="t-label">Клуб</dt>
+                  <dd><a href="./pravila-kluba/">Правила клуба <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></a></dd>
+                  <dd><a href="./vakansii-fitness-orenburg/">Вакансии <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></a></dd>
+                </div>
+              </dl>
+
+              <p class="contacts__firm" data-contacts-item>ООО «СИТИСПОРТ» · ИНН <span class="t-num">5612166509</span> · <a href="./wp-content/uploads/2026/07/Rekvizity-SITISPORT.pdf">Реквизиты</a></p>
+            </div>
+
+            <form class="guest" action="./kontakty-fitness-club/" method="post" novalidate data-guest data-demo data-accepted="Заявка принята. Консультант клуба свяжется с вами и согласует время визита.">
+              <div class="guest__stage" data-guest-stage>
+                <span class="guest__cast" aria-hidden="true"></span>
+                <div class="guest__sheet" aria-hidden="true" data-guest-sheet>
+                  <picture>
+                    <source type="image/avif" srcset="img/certificate/guest-night-760.avif 760w, img/certificate/guest-night-1520.avif 1520w" sizes="(min-width: 1100px) 52vw, 88vw" />
+                    <img src="img/certificate/guest-night-760.webp" srcset="img/certificate/guest-night-760.webp 760w, img/certificate/guest-night-1520.webp 1520w" sizes="(min-width: 1100px) 52vw, 88vw" width="1520" height="760" loading="lazy" decoding="async" alt="" />
+                  </picture>
+                  <picture class="guest__day">
+                    <source type="image/avif" srcset="img/certificate/guest-day-760.avif 760w, img/certificate/guest-day-1520.avif 1520w" sizes="(min-width: 1100px) 52vw, 88vw" />
+                    <img src="img/certificate/guest-day-760.webp" srcset="img/certificate/guest-day-760.webp 760w, img/certificate/guest-day-1520.webp 1520w" sizes="(min-width: 1100px) 52vw, 88vw" width="1520" height="760" loading="lazy" decoding="async" alt="" />
+                  </picture>
+                  <span class="guest__line guest__line--name" data-guest-print="name"></span>
+                  <span class="guest__line guest__line--tel" data-guest-print="tel"></span>
+                  <span class="guest__stamp">Заявка принята</span>
+                  <span class="guest__glare"></span>
+                </div>
+              </div>
+
+              <div class="guest__panel acrylic" data-specular data-guest-panel>
+                <span class="guest__spot" aria-hidden="true" data-specular-spot></span>
+                <p class="guest__terms t-label">Гостевой визит · одно посещение · с 10:00 до 22:00 · при себе паспорт</p>
+                <div class="guest__fields">
+                  <label class="field">
+                    <span class="field__label t-label">Имя</span>
+                    <input class="field__input" type="text" name="name-111" autocomplete="name" required data-guest-field="name" />
+                  </label>
+                  <label class="field">
+                    <span class="field__label t-label">Телефон</span>
+                    <input class="field__input t-num" type="tel" name="tel-113" autocomplete="tel" inputmode="tel" placeholder="+7" required data-guest-field="tel" />
+                  </label>
+                  <button class="guest__send btn btn--acrylic" type="submit" data-guest-send>Отправить заявку</button>
+                </div>
+                <label class="guest__agree">
+                  <input type="checkbox" name="acceptance-210" value="1" required data-guest-agree />
+                  <span>Я согласен на обработку своих персональных данных согласно <a href="./wp-content/uploads/2025/10/poryadok-obrabotki-2025-10.pdf">«Политике конфиденциальности»</a>.</span>
+                </label>
+                <p class="guest__status" role="status" aria-live="polite" data-guest-status></p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ── Footer ─────────────────────────────────────────────────────────── -->
+    <!-- «Вывеска»: the club's own contour logo (page 2 of its logo sheet, the
+         version for a dark ground) as the sign over its door — unlit until the
+         visitor reaches the foot of the page, then its light comes on. Beside
+         it the telephone and the pages of the site in three rows, below them
+         the firm and its documents. Links and documents are those of
+         fitlime.ru's menu and footer; the pages removed by the client's
+         decision (articles, partners, photo and video) are not here.
+         Pictures: `npm run sign`.
+         VERIFY: «История» is undecided and «Команда» waits for the club —
+         neither is linked yet. -->
+    <footer class="foot">
+      <div class="wrap">
+        <div class="foot__main">
+          <div class="foot__lit">
+            <div class="foot__sign" data-sign>
+              <img class="foot__sign-cast" src="img/brand/sign-cast.png" width="96" height="48" loading="lazy" decoding="async" alt="" />
+              <img class="foot__sign-off" src="img/brand/sign-off.webp" width="560" height="181" loading="lazy" decoding="async" alt="" />
+              <img
+                class="foot__sign-on"
+                src="img/brand/sign-560.webp"
+                srcset="img/brand/sign-560.webp 560w, img/brand/sign-1120.webp 1120w"
+                sizes="(min-width: 1024px) 35rem, 82vw"
+                width="1120"
+                height="361"
+                loading="lazy"
+                decoding="async"
+                alt="Lime Fitness, фитнес-центр"
+              />
+            </div>
+            <!-- VERIFY: «24 / 7» without exceptions — a question to the club. -->
+            <p class="foot__open t-label">Открыт сейчас<span data-foot-time hidden> · <span class="t-num"></span> в Оренбурге</span><span class="foot__always"> · 24 / 7</span></p>
+          </div>
+
+          <div class="foot__side">
+            <a class="foot__tel t-num" href="tel:+73532900999">+7 (3532) 900-999</a>
+            <ul class="foot__reach">
+              <li><a href="#contacts">Оренбург, ул. Лесозащитная, 13</a></li>
+              <li><a href="mailto:info@fitlime.ru">info@fitlime.ru</a></li>
+              <li><a href="https://t.me/limefitnessoren" target="_blank" rel="noopener">Telegram</a></li>
+              <li><a href="https://vk.com/limeoren" target="_blank" rel="noopener">ВКонтакте</a></li>
+            </ul>
+
+            <nav class="foot__nav" aria-label="Разделы сайта">
+              <ul class="foot__row foot__row--main">
+                <li><a href="./raspisanie-zanyatij/">Расписание</a></li>
+                <li><a href="./klubnye-karty/">Клубные карты</a></li>
+                <li><a href="./account/">Личный кабинет</a></li>
+                <li><a href="./zakazat-zvonok-info/">Заказать звонок</a></li>
+              </ul>
+              <ul class="foot__row">
+                <li><a href="./pravila-kluba/">Правила клуба</a></li>
+                <li><a href="./vakansii-fitness-orenburg/">Вакансии</a></li>
+                <li><a href="./zayavka-na-zamorozku-karty/">Заморозка карты</a></li>
+                <li><a href="#contacts">Гостевой визит</a></li>
+                <li><a href="#promo">Акции</a></li>
+              </ul>
+              <ul class="foot__row" aria-label="Направления">
+                <li><a href="./trenazhyornyj-zal-orenburg/">Тренажёрный зал</a></li>
+                <li><a href="./bassejn-orenburg/">Бассейн</a></li>
+                <li><a href="./gruppovye-programmy/">Групповые программы</a></li>
+                <li><a href="./edinoborstva/">Единоборства</a></li>
+                <li><a href="./molodetskij-klub/">Молодетский клуб</a></li>
+                <li><a href="./tsentr-diagnostiki-i-vosstanovleniya/">Диагностика и восстановление</a></li>
+                <li><a href="./medass-orenburg/">МЕДАСС</a></li>
+                <li><a href="./kinezio-fitnes/">Кинезио фитнес</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        <div class="foot__base">
+          <p>© <span class="t-num">2026</span> Lime Fitness · ООО «СИТИСПОРТ» · ИНН <span class="t-num">5612166509</span></p>
+          <ul class="foot__docs">
+            <li><a href="./wp-content/uploads/2025/10/oferta-2025-10.pdf">Публичная оферта</a></li>
+            <li><a href="./wp-content/uploads/2025/10/poryadok-obrabotki-2025-10.pdf" title="Порядок обработки персональных данных">Персональные данные</a></li>
+            <li><a href="./wp-content/uploads/2025/10/pravila-politika-kluba-2025-10.pdf" title="Правила и политика клуба, техника безопасности">Правила и политика клуба</a></li>
+            <li><a href="./pravila_ofou_2024.pdf" title="Правила оказания физкультурно-оздоровительных услуг">Правила оказания услуг</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- The sign's light comes on when it is on screen; the time is Orenburg's. Without this the
+           sign is lit from the start and the line reads «Открыт сейчас · 24 / 7». -->
+      <script>
+        (function (d) {
+          var sign = d.querySelector('[data-sign]');
+          if (sign && 'IntersectionObserver' in window) {
+            sign.setAttribute('data-sign', 'off');
+            new IntersectionObserver(
+              function (seen, watch) {
+                if (!seen[0].isIntersecting) return;
+                sign.setAttribute('data-sign', 'on');
+                watch.disconnect();
+              },
+              { threshold: 0.7 }
+            ).observe(sign);
+          }
+          var time = d.querySelector('[data-foot-time]');
+          if (!time) return;
+          var clock = new Intl.DateTimeFormat('ru-RU', { timeZone: 'Asia/Yekaterinburg', hour: '2-digit', minute: '2-digit' });
+          var tell = function () {
+            time.querySelector('span').textContent = clock.format(new Date());
+          };
+          tell();
+          time.hidden = false;
+          setInterval(tell, 20000);
+        })(document);
+      </script>
+    </footer>
+
+    <!-- ── Mobile action bar ──────────────────────────────────────────────── -->
+    <div class="cta-bar acrylic" data-cta-bar>
+      <a class="btn btn--lime cta-bar__main" href="#cards">Выбрать карту</a>
+      <a class="btn btn--acrylic" href="./raspisanie-zanyatij/">Расписание</a>
+      <a class="btn btn--acrylic cta-bar__tel" href="tel:+73532900999" aria-label="Позвонить: +7 (3532) 900-999">
+        <svg viewBox="0 0 20 20" width="18" height="18" fill="none" aria-hidden="true">
+          <path d="M6.6 3.2 4.9 3.5c-.8.2-1.4.9-1.3 1.8.6 5.6 5.5 10.5 11.1 11.1.9.1 1.6-.5 1.8-1.3l.3-1.7c.1-.6-.2-1.1-.7-1.3l-2.4-1c-.5-.2-1-.1-1.4.3l-.9.9c-1.500-.800-2.700-2-3.500-3.500l.9-.9c.4-.4.5-.9.3-1.400l-1-2.400c-.2-.500-.7-.800-1.300-.700Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+        </svg>
+      </a>
+    </div>
+  </body>
+</html>
